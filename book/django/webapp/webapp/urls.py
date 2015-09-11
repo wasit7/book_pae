@@ -20,10 +20,10 @@ from django.contrib import admin
 #    url(r'^admin/', include(admin.site.urls)),
 #]
 
-from login.views import myfunction
+from login.views import login_user
 
 urlpatterns = [
 	url(r'^admin/', include(admin.site.urls)),
-    url(r'login/$',myfunction, name='login'),
+    url(r'^login/$', login_user),
 ]
 
