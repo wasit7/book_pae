@@ -32,38 +32,39 @@ for sub in df[headers[4]]:
         countSub = countSub+1
         for keyCol in subjects['courseId']:
             key_sub[countSub] = keyCol         
-print subjects["courseId"]
+#print subjects["courseId"]
 #print "number of subjects are ",countSub
-#print "-----------------------------------------------"
+print "-----------------------------------------------"
 print key_sub
+print "-----------------------------------------------"
 
 #Create dictionary of list students
 for std in df[headers[0]]:
     if std not in students['studentId']:
         students['studentId'].append(std)
         countStd = countStd+1
-        for keyRow in students['studentId']:
-            for y in years:    
-                students['studentId'].append(y)
+#        for keyRow in students['studentId']:
+#            for y in years:    
+#                students['studentId'].append(y)
         
-print students['studentId']       
-#print "-----------------------------------------------"        
-#print "number of students are ",countStd
+#print students['studentId']
+#print "number of students are ",countStd      
+print "-----------------------------------------------"
+
+
 
 #create table row are stdId+years+semester, column is key of subjects
-#column = key_sub
+column = key_sub
+t = Table(column , names=(subjects['courseId']))
 
-#t = Table(column , names=(column))#
-#t = Table(column , names=(subjects['courseId']))
-
-
-
+firstCol = students
+t = Table(firstCol, names=(firstCol))
+print t
         
     
 """table_No2_No4_out = pd.DataFrame(subjects) 
 writer = pd.ExcelWriter("table_No2_No4_fomat.xlsx")
 table_No2_No4_out.to_excel(writer,"grade")
 writer.save()"""
-
 
 
