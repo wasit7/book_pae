@@ -24,9 +24,6 @@ var jsonCurriculum = [
   { "node":"CS429" , "x_axis":175 , "y_axis":230 , "color":"gray"},
   { "node":"CS341" , "x_axis":225 , "y_axis":230 , "color":"gray"}
 
-  //{ "x_axis": 30, "y_axis": 30,  "width":30, "height":30,  "color" : "green" },
-  //{ "x_axis": 70, "y_axis": 70,  "width":30, "height":30, "color" : "purple"},
-  //{ "x_axis": 110, "y_axis": 100, "width":30, "height":30, "color" : "red"}
 ];
 
 var svgContainer = d3.select("body").append("svg")
@@ -39,6 +36,9 @@ var rectangle = svgContainer.selectAll("rect")
                           .append("rect")
                           .attr("width", 20)
                           .attr("height", 20);
+                         // .append("polyline")
+                          //.attr("")
+
 
 var rectangleAttributes = rectangle
                        .attr("x", function (d) { return d.x_axis; })
@@ -56,5 +56,21 @@ var textLabels = text
                  .text( function (d) { return d.node; })
                  .attr("font-family", "cordia new")
                  .attr("font-size", "16px")
-                 .attr("fill", "black");                       
+                 .attr("fill", "black");          
+
+/*var lineData = [ 
+            { "x": 210,   "y": 20},  { "x": 210,  "y": 45},
+            { "x": 160,   "y": 45},  { "x": 160,  "y": 70}
+];
+
+var lineFunction = d3.svg.line()
+                         .x(function(d) { return d.x; })
+                         .y(function(d) { return d.y; })
+                         .interpolate("linear");
+
+var lineGraph = svgContainer.append("path")
+                              .attr("d", lineFunction(lineData))
+                              .attr("stroke", "blue")
+                              .attr("stroke-width", 2)
+                              .attr("fill", "none");   */          
 </script>
