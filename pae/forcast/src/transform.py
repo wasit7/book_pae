@@ -142,7 +142,8 @@ df_a = pd.DataFrame(df)
 #Add all before grade
 start_record = 0
 mark = 0 
-for i in range(0,72):
+change = 0
+for i in range(0,31343):
     count = 0
     if key_std[i+1] == key_std[i+2]:
         if key_year[i+1] == key_year[i+2]:
@@ -156,10 +157,12 @@ for i in range(0,72):
                             print "--"
                             count = count + 1
                     print count
+                change = 1
+                
             elif key_term[i+1] == key_term[i+2]:
                 print "condition term"
                 if key_term[i+1] != key_term[start_record+1] or key_year[i+1] != key_year[start_record+1]:
-                    for j in range(0,mark+1):
+                    for j in range(change,mark+1):
                         for find in range(1,204):
                             if key_sub[i+1-j] == key_sub_sort[find]:
                                 print "yeah"
@@ -168,8 +171,9 @@ for i in range(0,72):
                                 print "--"
                                 count = count + 1
                         print count
+                    change = change+1
         else:
-            for j in range(0,mark):
+            for j in range(0,mark+1):
                 for find in range(1,204):
                     if key_sub[i+1-j] == key_sub_sort[find]:
                         print "yeah"
@@ -178,13 +182,16 @@ for i in range(0,72):
                         print "--"
                         count = count + 1
                 print count
+            change = 1
            
     else:
         print "condition student"
         start_record = i+1
         mark = -1
+        change = 0
         
     mark = mark+1
+print "change is",change
 print "mark is",mark
 print "i is",i
 print "start is ",start_record         
