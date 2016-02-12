@@ -1,0 +1,97 @@
+<!Doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>change demo</title>
+  <script src="https://code.jquery.com/jquery-1.12.0.js"></script>
+  <script src="d3.v3.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+<form id="myForm" method='POST'>
+	<div id="subjectForm">
+		<select id="dropdown">
+			{% for i in subjectData %}
+			<option>{{ i.sub_id }} {{ i.sub_name }}</option>
+			{% endfor %}
+		</select>
+	</div>
+  	<button id="btnSave" type="button">บันทึก</button>
+  	<button id="btnAdd" type="button">เพิ่ม</button>
+  	<button id="btnLoad" type="button">โหลด</button>
+</form>
+ 
+<script>
+
+d3.json("test.json",function(error,json){
+	console.log(json);
+	$( "#btnAdd" ).click(function() {
+		var sel = $('<select>').appendTo('#subjectForm');
+		$(json).each(function() {
+		   sel.append($('<option>').text(this.text));
+		});
+	});
+
+	$( "#btnSave" ).click(function() {
+
+		json.push({'text': this.text});
+	  
+	});
+
+});
+
+
+	//var registedSub=[];
+	/*var arr = [
+	  {val : 1, text: 'One'},
+	  {val : 2, text: 'Two'},
+	  {val : 3, text: 'Three'}
+	];*/
+	/*var arr;
+	var urljson;
+	$(document).ready(function(){
+		$("#btnLoad").click(function(){
+			$.getJSON(urljson),function(result){
+			//arr = result;
+			//console.log(result)
+			alert(result);
+		}
+		});
+		//alert("kkjlajfkasdfkm");
+		
+	});
+
+	/*$.getJSON("http://localhost:8000/mywebpage/getjson.json",function(data){
+		var items = [];
+		$.each()
+	});*/
+
+	
+	
+	/*$( "#btnAdd" ).click(function() {
+	 
+		var sel = $('<select>').appendTo('#subjectForm');
+		$(arr).each(function() {
+		   sel.append($('<option>').text(this.text));
+		  });
+		});
+
+	$( "#btnSave" ).click(function() {
+		//alert("hello");
+		/*$.getJSON('http://localhost:8000/mywebpage/getjson.json'),
+		function(result){
+			//arr = result;
+			
+			arr.push({'text': this.text});
+			alert("hello");
+		}*/
+		//result.push({'text': this.text});
+	  
+	//});
+
+	//$( "#dropdown" ).attr()
+
+</script>
+ 
+</body>
+</html>

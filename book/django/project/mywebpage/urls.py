@@ -3,6 +3,8 @@ from . import views
 
 urlpatterns = [
 	url(r'^profile/$', views.profile, name='profile'),
-	#url(r'^logout/$', views.logout, name='logout'),
-	
+	url(r'^addprofile/$', views.addprofile, name='addprofile'),
+	url(r'^editprofile/$', views.editprofile, name='editprofile'),
+	url(r'^test/$', views.test, name='test'),
+	url(r'^getjson.json$', views.getjson, name='getjson'),
 ]
