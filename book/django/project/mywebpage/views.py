@@ -32,6 +32,17 @@ def test(request):
 	return render(request,'test.html',{'subjectData':subjectData, 'enrollmentData':enrollmentData, 'grade':grade,
 		})
 
+def tt(request):
+	subjectData = Subject.objects.all()
+	enrollmentData = Enrollment.objects.all()
+	#subjects = Subject.objects.all()
+	#data = serializers.serialize('json',subjectData,fields=('sub_name'))
+	#js_subjects = simplejson.dumps(subjectData)
+	
+	grade = ['A', 'B', 'B+','C', 'C+', 'D', 'D+', 'F', 'W', 'S', 'S#','U','U#']
+	return render(request,'tt.html',{'subjectData':subjectData, 'enrollmentData':enrollmentData, 'grade':grade,
+		})
+
 def getjson(request):
 	subjectData = Subject.objects.all()
 	js_subjects = []

@@ -7,4 +7,6 @@ urlpatterns = [
 	url(r'^editprofile/$', views.editprofile, name='editprofile'),
 	url(r'^test/$', views.test, name='test'),
 	url(r'^getjson.json$', views.getjson, name='getjson'),
+
+	url(r'^tt/$', views.tt, name='tt'),
 ]
