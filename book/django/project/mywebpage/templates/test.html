@@ -22,20 +22,20 @@
 </form>
  
 <script>
-
-d3.json("test.json",function(error,json){
-	console.log(json);
+var Registered=[];
+var subjectList;
+d3.json("test.json",function(error,A){
+	console.log("A");
+	console.log(A);
+	subjectList=A;
 	$( "#btnAdd" ).click(function() {
 		var sel = $('<select>').appendTo('#subjectForm');
-		$(json).each(function() {
+		$(subjectList.js_subjects).each(function() {
 		   sel.append($('<option>').text(this.text));
 		});
 	});
-
 	$( "#btnSave" ).click(function() {
-
-		json.push({'text': this.text});
-	  
+		Registered.push({'text': subjectList.text});
 	});
 
 });
