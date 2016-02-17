@@ -1,0 +1,28 @@
+
+
+<!--ต้องเป็น แค่ display เฉยๆ-->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ประวัติผลการเรียน</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">                                          
+  <div class="dropdown">
+	  	<select>
+	  		{% for i in  subjectData %}
+				<option>{{ i.sub_id }} {{ i.sub_name }}</option> 
+			{% endfor %}
+	  	</select>
+	    <select>
+	  		{% for i in grade %}
+				<option>{{ i }}</option> 
+			{% endfor %}
+	  	</select>
+  </div>
+</div>
+
+</body>
+</html>

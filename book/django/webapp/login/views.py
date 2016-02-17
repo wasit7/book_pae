@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.core.context_processors import csrf
 from django.template import RequestContext
 
+
 def login_user(request):
     state = "Please log in below..."
     username = password = ''                                                                #set username&password is empty string
