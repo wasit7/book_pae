@@ -19,6 +19,7 @@
   	<button id="btnSave" type="button">บันทึก</button>
   	<button id="btnAdd" type="button">เพิ่ม</button>
   	<button id="btnLoad" type="button">โหลด</button>
+  	<p id="regisdisplay"></p>
 </form>
  
 <script>
@@ -43,7 +44,7 @@
 	});*/
 
 
-
+//$.getJSON('http://localhost:8000/mywebpage/getjson.json'),
 
 d3.json("../getjson.json",function(error,jsonfile){
 	console.log(jsonfile);
@@ -56,13 +57,27 @@ d3.json("../getjson.json",function(error,jsonfile){
 		});
 	});
 
+
 	/*$( "#btnSave" ).click(function() {
 		json.push({'text': json.text});
 	});*/
 
 });
 
+d3.json("../registedSubject.json",function(error,jsonfile){
+	//console.log(jsonfile);
 
+	$( "#btnLoad" ).click(function() {
+		//$("#regisdisplay").
+		console.log(jsonfile)
+	});
+
+	
+	/*$( "#btnSave" ).click(function() {
+		json.push({'text': json.text});
+	});*/
+
+});
 	//var registedSub=[];
 	/*var arr = [
 	  {val : 1, text: 'One'},

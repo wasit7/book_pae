@@ -2,25 +2,264 @@
 <html>
 <head>
 	<title>ประวัติผลการเรียน</title>
-  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-1.12.0.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
+<style>
+ body{
+	margin: 0;
+	padding: 0;
+	background-color: white;
+}
+
+/* framework */
+#framework{
+	width: 1000px;
+	height: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+	background-color: white;
+}
+
+/* login */
+ul#input {
+	margin-top:10px;
+}
+		
+ul#regist {
+	margin-left: 40%;
+		}
+
+/* register */
+#container{
+			width: 600px;
+			margin: 10px auto 0 auto;
+			padding: 20px;
+		}
+	
+		#left {
+			float: left;
+			width: auto;	
+		}
+		
+		#topic{
+			float:left;
+			text-align: right;
+		}
+		
+		#box{
+			float:left;
+			padding-left: 10px;
+		}
+		
+		#right{
+			float: left;
+			margin-left: 10px;
+			width: auto;
+		}
+		
+/* banner */
+#banner-home{
+	text-align: center;
+}
+
+/* menu */
+#menu-bar{
+	float: right;
+	margin-top: 20px;
+	margin-right: 20px;
+	clear: both;
+}
+
+ul#menu {
+	padding: 0;
+}
+
+ul#menu li {
+	display: inline;
+}
+
+ul#menu li a {
+	background-color: #DF0101;
+	color: white;
+	font-size: 120%;
+	padding: 25px 10px;
+	text-decoration: none;
+	/* border-radius: 10px 10px 10px 10px ; */
+}
+
+ul#menu li a:hover {
+	background-color: #FFFFFF;
+	color: #DF0101;
+	border-style: solid;
+	/* border-radius: 4px 4px 0 0; */
+    border-color: #DF0101
+	}
+		
+ul#menu li a#home-click{
+	background-color: #FFFFFF;
+	color: #DF0101;
+	border-style: solid;
+	/* border-radius: 4px 4px 0 0; */
+    border-color: #DF0101
+}
+
+ul#menu li a#history-click{
+	background-color: #FFFFFF;
+	color: #DF0101;
+	border-style: solid;
+	/* border-radius: 4px 4px 0 0; */
+    border-color: #DF0101
+}
+
+ul#menu li a#predict-click{
+	background-color: #FFFFFF;
+	color: #DF0101;
+	border-style: solid;
+	/* border-radius: 4px 4px 0 0; */
+    border-color: #DF0101
+}
+
+#topic-home{
+	margin-top: 100px;
+}
+
+#topic-login{
+	margin-top: 20px;
+}
+
+/* <!-- ---------table------------ --> */
+
+table, th, td {
+		margin: auto;
+		margin-top: 85px;
+		border: 1px solid black;
+		border-collapse: collapse;
+		}
+		
+		th, td {
+		padding: 3px;
+		}
+		
+		tr#head-table{
+		background-color: #BDBDBD;
+		}
+
+
+
+#trash{
+		float: left;
+		width: auto;
+		margin-left: 40px;
+		margin-top:135px;
+	   
+		
+		}
+		
+		#table{
+		clear: left;
+		float:left;
+		width: auto;
+		}
+		
+		
+#button{
+	clear: left;
+	text-align: center;
+}
+ </style>
 </head>
 <body>
+<div id="framework">
+	<!-- ---------menu------------ -->
+	<div id="menu-bar">
+		<ul id="menu">
+		  <li ><a href="../homep/" id="home">หน้าแรก</a></li>
+		  <li><a href="../addprofile/" id="history-click">ประวัติผลการเรียน</a></li>
+		  <li><a href="../predict/" id="predict">ทำนายผลการเรียน</a></li>
+		</ul>
+	</div>
 
-<div class="container">                                          
-  <div class="dropdown">
+	<form id="myForm" method='POST'>
+		<div id="subjectForm">
+			<caption>ตารางแสดงผลการเรียน</caption>
+			<table id="subjectTable">
+				<tr>
+					<th id="term">term</th>
+					<th id="Subject">Subject</th>
+					<th id="Grade">Grade</th>
+				</tr>
+				<!--<tr>
+						<th>
+							<select>
+								{% for i in grade %}
+								<option>{{ i}}</option>
+								{% endfor %}
+							</select>
+						</th>
+						<th>
+							<select id="dropdownsub_name">
+								{% for i in subjectData %}
+								<option>{{ i.sub_id }}{{ i.sub_name }}</option>
+								{% endfor %}
+							</select>
+						</th>
+						<th>
+							<select>
+								{% for i in grade %}
+								<option>{{ i}}</option>
+								{% endfor %}
+							</select>
+						</th>
+				</tr>-->
+			<table>
+		</div>
+	  	<button id="btnSave" type="button">บันทึก</button>
+	  	<button id="btnAdd" type="button">เพิ่ม</button>
+	  	<button id="btnEdit" type="button">แก้ไข</button>
 
-	  	<select>
-	  		{% for i in  subjectData %}
-				<option>{{ i.sub_id }} {{ i.sub_name }}</option> 
-			{% endfor %}
-	  	</select>
-	    <select>
-	  		{% for i in grade %}
-				<option>{{ i }}</option> 
-			{% endfor %}
-	  	</select>
-  </div>
+	</form>
+
+<script> 
+	d3.json("../jsonEnrollment.json",function(error,jsonEnrollment){
+			console.log(jsonEnrollment);
+			var js = $(jsonEnrollment.js_enrollments);
+		//js=4
+			$(js).each(function(index, value){
+				//loop -> create 4 row
+				$('#subjectTable')
+					.append($('<tr>').attr("id",index).append($('<td>').text(value.term+"/"+value.year))
+						.append($('<td>').text(value.stdsub_name))
+						.append($('<td>').text(value.grade))
+					);	
+
+					//row.attr("id"+ index);
+			});	
+
+	});
+
+	//add subject to dropdown 
+	d3.json("../jsonSubject.json",function(error,jsonfile){
+		
+
+		$( "#btnAdd" ).click(function() {
+			//alert(jsonfile);
+			var selsub = $('<select>').appendTo('#subjectForm');
+			$(jsonfile.js_subjects).each(function() {
+			   	selsub.append($('<option>').text(this.sub_id+this.sub_name));
+			});
+			var selgrade = $('<select>').appendTo('#subjectForm');
+			var grades  = ["A", "B", "B+","C", "C+", "D", "D+", "F", "W", "S", "S#","U","U#"];
+			$.each(grades, function(index, value){
+				selgrade_val = selgrade.append($('<option>').text(value));
+			});
+
+		});
+
+	});
+	
+</script>
 </div>
-
 </body>
 </html>

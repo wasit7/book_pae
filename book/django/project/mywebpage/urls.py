@@ -2,11 +2,14 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-	url(r'^profile/$', views.profile, name='profile'),
+	url(r'^showprofile/$', views.showprofile, name='showprofile'),
+	url(r'^homep/$', views.homep, name='home'),
 	url(r'^addprofile/$', views.addprofile, name='addprofile'),
 	url(r'^editprofile/$', views.editprofile, name='editprofile'),
-	url(r'^test/$', views.test, name='test'),
-	url(r'^getjson.json$', views.getjson, name='getjson'),
-
-	url(r'^tt/$', views.tt, name='tt'),
+	url(r'^predict/$', views.predict, name='predict'),
+	#url(r'^test/$', views.test, name='test'),
+	url(r'^jsonSubject.json$', views.jsonSubject, name='jsonSubject'),  #get data
+	#url(r'^tt/$', views.tt, name='tt'),
+	url(r'^jsonEnrollment.json$', views.jsonEnrollment, name='jsonEnrollment'),
+	url(r'^coordinate.json$', views.coordinate, name='coordinate'),
 ]

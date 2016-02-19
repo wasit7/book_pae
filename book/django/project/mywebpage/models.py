@@ -1,7 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Student(models.Model):
+	username = models.ForeignKey(User)
 	std_id = models.IntegerField(primary_key=True)
 	std_name = models.CharField(max_length=20)
 	#birthdate = models.DateField()
@@ -22,11 +24,6 @@ class Subject(models.Model):
 class Enrollment(models.Model):
 	std_id = models.ForeignKey(Student)
 	sub_id = models.ForeignKey(Subject)
-	grade = models.FloatField()
+	grade = models.CharField(max_length=1)
 	term = models.IntegerField()
 	year = models.IntegerField()
-
-
-
-
-		
