@@ -4,92 +4,186 @@
   <meta charset="utf-8">
   <title>change demo</title>
   <script src="https://code.jquery.com/jquery-1.12.0.js"></script>
-  <script src="d3.v3.min.js" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 </head>
 
 <body>
+<!--    <div id="subjectForm">
+        <select id="dropdown">
+            {% for i in subjectData %}
+            <option>{{ i.sub_id }} {{ i.sub_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <table rules="all" style="background:#fff;"> 
+        <tr> 
+            <td style="font-size:14px;" >Name</td> 
+            <td style="font-size:14px;">Email</td> 
+            <td style="font-size:14px;">Mobile</td> 
+            <td><span style="font:normal 12px agency, arial; color:blue; text-decoration:underline; cursor:pointer;" onclick="addMoreRows(this.form);"> Add More </span> </td> 
+        </tr> 
+        <tr id="rowId"> 
+            <td><input name="" type="text" value="" size="17%"/></td> 
+            <td><input name="" type="text" value="" /></td> 
+            <td><input name="" type="text" value="" /></td> 
+        </tr>
+    </table> 
+        <div id="addedRows"></div>
+    <button id="btnSave" type="button">บันทึก</button>
+    <button id="btnAdd" type="button">เพิ่ม</button>
+    <button id="btnLoad" type="button">โหลด</button>
+</form>-->
 <form id="myForm" method='POST'>
-	<div id="subjectForm">
-		<select id="dropdown">
-			{% for i in subjectData %}
-			<option>{{ i.sub_id }} {{ i.sub_name }}</option>
-			{% endfor %}
-		</select>
-	</div>
-  	<button id="btnSave" type="button">บันทึก</button>
-  	<button id="btnAdd" type="button">เพิ่ม</button>
-  	<button id="btnLoad" type="button">โหลด</button>
-</form>
+        <div id="subjectForm">
+            <caption>ตารางแสดงผลการเรียน</caption>
+            <table id="colTable" rules="all" style="background:#fff;">
+                        <tr>
+                            <th id="term" >Term/Year</th>
+                            <th id="Subject">Subject</th>
+                            <th id="Grade">Grade</th>
+                        </tr>
+            </table>
+            <div id="enrollTable">
+            </div>
+        </div>
+        <button id="btnSave" type="button">บันทึก</button>
+        <button id="btnAdd" type="button">เพิ่ม</button>
+
+    </form>
  
 <script>
-var Registered=[];
+
+        d3.json("../jsonEnrollment.json",function(error,jsonEnrollment){
+            //console.log(jsonEnrollment);
+            var js = $(jsonEnrollment.js_enrollments);
+        //js=4
+            $(js).each(function(index, value){
+                //loop -> create 4 row
+                index_id = index+1;
+                $('#enrollTable')
+                    .append($('<p>').attr("id","p"+index_id)
+                        .append($('<tr>'))
+                        .append($('<td>').append($('<input size="6px">').attr("value",value.term+"/"+value.year).attr("readonly","readonly")))
+                        .append($('<td>').append($('<input size="40%">').attr("value",value.stdsub_name).attr("readonly","readonly")))
+                        .append($('<td>').append($('<input size="3px">').attr("value",value.grade).attr("readonly","readonly")))
+                        //.append($('<button>แก้ไข</button>').attr("class","edit")).append($('<button>ลบ</button>').attr("class","delete"))
+
+                        .append($('<button>แก้ไข</button>').attr("id","edit"+index_id)).append($('<button>ลบ</button>').attr("id","del"+index_id))
+
+                    );  
+
+                //var btnid = index_id;
+                $('#del'+index_id).click(function() {
+                    //console.log()
+                    //alert($('#'+index_id));
+                    $('#p'+index_id).remove();
+                    //console.log($('#'+index_id));
+                });
+            });
+
+
+        });
+
+        d3.json("../jsonSubject.json",function(error,jsonfile){
+
+
+            /*$( "#btnAdd" ).click(function() {
+                //alert(jsonfile);
+                var selty = $('<select>').appendTo('#subjectForm');
+                var year = ["1/2555","2/2555", "1/2556","2/2556", "1/2557","2/2557", "1/2558", "2/2558"];
+                $.each(year, function(index,value){
+                    selty.append($('<option>').text(value));
+                });
+
+                var selsub = $('<select>').appendTo('#subjectForm');
+                $(jsonfile.js_subjects).each(function() {
+                    selsub.append($('<option>').text(this.sub_id+this.sub_name));
+                });
+                var selgrade = $('<select>').appendTo('#subjectForm');
+                var grades  = ["A", "B", "B+","C", "C+", "D", "D+", "F", "W", "S", "S#","U","U#"];
+                $.each(grades, function(index, value){
+                    selgrade_val = selgrade.append($('<option>').text(value)));
+                });
+
+            });*/
+
+        });
+    /*var rowCount = 1; 
+    function addMoreRows(frm) { 
+    rowCount ++; 
+    var recRow = '<p id="rowCount'+rowCount+'"><tr><td><input name="" type="text" size="17%" maxlength="120" /></td><td><input name="" type="text" maxlength="120" style="margin: 4px 5px 0 5px;"/></td><td><input name="" type="text" maxlength="120" style="margin: 4px 10px 0 0px;"/></td></tr><a href="javascript:void(0);" onclick="removeRow('+rowCount+');">Delete</a></p>'; 
+    jQuery('#addedRows').append(recRow); } 
+    function removeRow(removeNum) { jQuery('#rowCount'+removeNum).remove(); }*/
+
+/*var Registered=[];
 var subjectList;
 d3.json("test.json",function(error,A){
-	console.log("A");
-	console.log(A);
-	subjectList=A;
-	$( "#btnAdd" ).click(function() {
-		var sel = $('<select>').appendTo('#subjectForm');
-		$(subjectList.js_subjects).each(function() {
-		   sel.append($('<option>').text(this.text));
-		});
-	});
-	$( "#btnSave" ).click(function() {
-		Registered.push({'text': subjectList.text});
-	});
+    console.log("A");
+    console.log(A);
+    subjectList=A;
+    $( "#btnAdd" ).click(function() {
+        var sel = $('<select>').appendTo('#subjectForm');
+        $(subjectList.js_subjects).each(function() {
+           sel.append($('<option>').text(this.text));
+        });
+    });
+    $( "#btnSave" ).click(function() {
+        Registered.push({'text': subjectList.text});
+    });
 
 });
 
 
-	//var registedSub=[];
-	/*var arr = [
-	  {val : 1, text: 'One'},
-	  {val : 2, text: 'Two'},
-	  {val : 3, text: 'Three'}
-	];*/
-	/*var arr;
-	var urljson;
-	$(document).ready(function(){
-		$("#btnLoad").click(function(){
-			$.getJSON(urljson),function(result){
-			//arr = result;
-			//console.log(result)
-			alert(result);
-		}
-		});
-		//alert("kkjlajfkasdfkm");
-		
-	});
+    //var registedSub=[];
+    /*var arr = [
+      {val : 1, text: 'One'},
+      {val : 2, text: 'Two'},
+      {val : 3, text: 'Three'}
+    ];*/
+    /*var arr;
+    var urljson;
+    $(document).ready(function(){
+        $("#btnLoad").click(function(){
+            $.getJSON(urljson),function(result){
+            //arr = result;
+            //console.log(result)
+            alert(result);
+        }
+        });
+        //alert("kkjlajfkasdfkm");
+        
+    });
 
-	/*$.getJSON("http://localhost:8000/mywebpage/getjson.json",function(data){
-		var items = [];
-		$.each()
-	});*/
+    /*$.getJSON("http://localhost:8000/mywebpage/getjson.json",function(data){
+        var items = [];
+        $.each()
+    });*/
 
-	
-	
-	/*$( "#btnAdd" ).click(function() {
-	 
-		var sel = $('<select>').appendTo('#subjectForm');
-		$(arr).each(function() {
-		   sel.append($('<option>').text(this.text));
-		  });
-		});
+    
+    
+    /*$( "#btnAdd" ).click(function() {
+     
+        var sel = $('<select>').appendTo('#subjectForm');
+        $(arr).each(function() {
+           sel.append($('<option>').text(this.text));
+          });
+        });
 
-	$( "#btnSave" ).click(function() {
-		//alert("hello");
-		/*$.getJSON('http://localhost:8000/mywebpage/getjson.json'),
-		function(result){
-			//arr = result;
-			
-			arr.push({'text': this.text});
-			alert("hello");
-		}*/
-		//result.push({'text': this.text});
-	  
-	//});
+    $( "#btnSave" ).click(function() {
+        //alert("hello");
+        /*$.getJSON('http://localhost:8000/mywebpage/getjson.json'),
+        function(result){
+            //arr = result;
+            
+            arr.push({'text': this.text});
+            alert("hello");
+        }*/
+        //result.push({'text': this.text});
+      
+    //});
 
-	//$( "#dropdown" ).attr()
+    //$( "#dropdown" ).attr()*/
 
 </script>
  

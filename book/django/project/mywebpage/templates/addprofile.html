@@ -131,7 +131,7 @@ ul#menu li a#predict-click{
 
 /* <!-- ---------table------------ --> */
 
-table, th, td {
+/*table, th, td {
 		margin: auto;
 		margin-top: 85px;
 		border: 1px solid black;
@@ -147,7 +147,7 @@ table, th, td {
 		}
 
 
-
+*/
 #trash{
 		float: left;
 		width: auto;
@@ -168,10 +168,33 @@ table, th, td {
 	clear: left;
 	text-align: center;
 }
+#subjectForm{
+	margin-top: 100px;
+	clear: both;
+	text-align: center;;
+}
+#enrollTable{
+	clear: both;
+	text-align: center;
+}
+#colTable{
+
+	clear: both;
+	text-align: center;
+}
+
+p{
+	
+	text-align: center;
+}
  </style>
 </head>
 <body>
 <div id="framework">
+	<!-- ---------banner------------ -->
+	<div id="banner-home">
+		<img src="https://7eb75a96-a-94ce6be8-s-sites.googlegroups.com/a/sci.tu.ac.th/piyapornj/banner.jpg?attachauth=ANoY7cqBQ7zAA6g9mTiRXu62rnsborMOa8h9P5iqgZdmqqRObWmSk91EclYAR0CP64n4fyW0nFEYpWR9B5V6_1iFGMmMZ4fQZUC3smHBQIrgw2ii1VDEe0BXObq1LS61JIALZHl45KoNfgKzo4eQye8FoEH3anH6U40IzfBu6GDuflLDa7fBgSsMFsgyCs9ndcKe7RLl04zrdV0qjflBmfpc3kKdZaQKOw%3D%3D&attredirects=0"> 
+	</div>
 	<!-- ---------menu------------ -->
 	<div id="menu-bar">
 		<ul id="menu">
@@ -184,12 +207,16 @@ table, th, td {
 	<form id="myForm" method='POST'>
 		<div id="subjectForm">
 			<caption>ตารางแสดงผลการเรียน</caption>
-			<table id="subjectTable">
+			<table id="colTable" rules="all" style="background:#fff;">
 				<tr>
-					<th id="term">term</th>
+					<th id="term" >Term/Year</th>
 					<th id="Subject">Subject</th>
 					<th id="Grade">Grade</th>
 				</tr>
+			</table>
+			<div id="enrollTable">
+			</div>
+
 				<!--<tr>
 						<th>
 							<select>
@@ -213,35 +240,60 @@ table, th, td {
 							</select>
 						</th>
 				</tr>-->
-			<table>
+			
+		</div>
+		<div id="tableAdd">
 		</div>
 	  	<button id="btnSave" type="button">บันทึก</button>
 	  	<button id="btnAdd" type="button">เพิ่ม</button>
-	  	<button id="btnEdit" type="button">แก้ไข</button>
 
 	</form>
 
 <script> 
 	d3.json("../jsonEnrollment.json",function(error,jsonEnrollment){
-			console.log(jsonEnrollment);
+			//console.log(jsonEnrollment);
 			var js = $(jsonEnrollment.js_enrollments);
 		//js=4
 			$(js).each(function(index, value){
 				//loop -> create 4 row
-				$('#subjectTable')
-					.append($('<tr>').attr("id",index).append($('<td>').text(value.term+"/"+value.year))
-						.append($('<td>').text(value.stdsub_name))
-						.append($('<td>').text(value.grade))
-					);	
+				//index = 1;
+				$('#enrollTable')
+					.append($('<p>').attr("id",index+1)
+						.append($('<tr>')
+							.append($('<td>').append($('<input size="6px">').attr("value",value.term+"/"+value.year).attr("readonly","readonly")))
+							.append($('<td>').append($('<input size="35px">').attr("value",value.stdsub_name).attr("readonly","readonly")))
+							.append($('<td>').append($('<input size="3px">').attr("value",value.grade).attr("readonly","readonly")))
+							.append($('<button>แก้ไข</button>').attr("id",index+1)).append($('<button>ลบ</button>').attr("id",index+1)))
 
-					//row.attr("id"+ index);
+						//.text(value.term+"/"+value.year))
+						//.append($('<td>').text(value.stdsub_name))
+						//.append($('<td>').text(value.grade))
+					/*/.append($('<tr>').attr("id",index+1)
+						.append($('<td>').text(value.term+"/"+value.year))
+						.append($('<td>').text(value.stdsub_name))
+						.append($('<td>').text(value.grade))*/
+					);	
 			});	
+
+			
+
+
+
+			/*$('#btnEdit').click(function(){
+				$.ajax({
+					url:'jsonEnrollment.json',
+					type:'GET',
+					async:false,
+					success: function(d)
+				});
+
+			});*/
 
 	});
 
 	//add subject to dropdown 
 	d3.json("../jsonSubject.json",function(error,jsonfile){
-		
+
 
 		$( "#btnAdd" ).click(function() {
 			//alert(jsonfile);

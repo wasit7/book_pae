@@ -167,11 +167,19 @@
 		clear: left;
 		text-align: center;
 	}
+
+	#dbtnEdit{
+		margin-top: 20px;
+		text-align: center;
+	}
 </style>
 </head>
 <body>
 <div id="framework">
-<!-- ---------banner------------ -->
+	<!-- ---------banner------------ -->
+	<div id="banner-home">
+		<img src="https://7eb75a96-a-94ce6be8-s-sites.googlegroups.com/a/sci.tu.ac.th/piyapornj/banner.jpg?attachauth=ANoY7cqBQ7zAA6g9mTiRXu62rnsborMOa8h9P5iqgZdmqqRObWmSk91EclYAR0CP64n4fyW0nFEYpWR9B5V6_1iFGMmMZ4fQZUC3smHBQIrgw2ii1VDEe0BXObq1LS61JIALZHl45KoNfgKzo4eQye8FoEH3anH6U40IzfBu6GDuflLDa7fBgSsMFsgyCs9ndcKe7RLl04zrdV0qjflBmfpc3kKdZaQKOw%3D%3D&attredirects=0"> 
+	</div>
 
 
 <!-- ---------menu------------ -->
@@ -194,7 +202,9 @@
 				</tr>
 			<table>
 		</div>
+		<div id="dbtnEdit">
 	  	<button id="btnEdit" type="button">แก้ไขข้อมูล</button>
+	  </div>
 	</form>
 
 
@@ -202,7 +212,6 @@
 	d3.json("../jsonEnrollment.json",function(error,jsonEnrollment){
 		var js = $(jsonEnrollment.js_enrollments);
 
-		var coldata;
 		//js=4
 			$(js).each(function(index, value){
 				console.log(value);

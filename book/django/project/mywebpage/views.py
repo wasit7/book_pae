@@ -48,8 +48,7 @@ def jsonEnrollment(request):
 	return JsonResponse({'js_enrollments':js_enrollments})
 
 def coordinate(request):
-	myfile = [
-	{
+	myfile = {
     "edges": [
         [
             {
@@ -2129,17 +2128,15 @@ def coordinate(request):
             "Y": "4.25"
         }
     ]
-}]
+}
 	return JsonResponse({'myfile':myfile})
 
-""""def test(request):''
-	subjectData = Subject.objects.all()
-	enrollmentData = Enrollment.objects.all()
-	grade = ['A', 'B', 'B+','C', 'C+', 'D', 'D+', 'F', 'W', 'S', 'S#','U','U#']
-	return render(request,'test.html',{'subjectData':subjectData, 'enrollmentData':enrollmentData, 'grade':grade,
-		})
+def test(request):
 
-def tt(request):
+    return render(request,'test.html')
+
+
+"""def tt(request):
 	subjectData = Subject.objects.all()
 	enrollmentData = Enrollment.objects.all()
 	grade = ['A', 'B', 'B+','C', 'C+', 'D', 'D+', 'F', 'W', 'S', 'S#','U','U#']
