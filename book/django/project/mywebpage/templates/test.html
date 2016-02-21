@@ -6,6 +6,7 @@
   <script src="https://code.jquery.com/jquery-1.12.0.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 </head>
 
 <body>
@@ -34,7 +35,7 @@
     <button id="btnAdd" type="button">เพิ่ม</button>
     <button id="btnLoad" type="button">โหลด</button>
 </form>-->
-<form id="myForm" method='POST'>
+<form id="myForm">
         <div id="subjectForm">
             <caption>ตารางแสดงผลการเรียน</caption>
             <table id="colTable" rules="all" style="background:#fff;">
@@ -58,6 +59,9 @@
             //console.log(jsonEnrollment);
             var js = $(jsonEnrollment.js_enrollments);
         //js=4
+        function delRow(id, row){
+            document.getElementById(id).delRow();
+        }
             $(js).each(function(index, value){
                 //loop -> create 4 row
                 index_id = index+1;
@@ -70,17 +74,12 @@
                         //.append($('<button>แก้ไข</button>').attr("class","edit")).append($('<button>ลบ</button>').attr("class","delete"))
 
                         .append($('<button>แก้ไข</button>').attr("id","edit"+index_id)).append($('<button>ลบ</button>').attr("id","del"+index_id))
-
                     );  
-
-                //var btnid = index_id;
-                $('#del'+index_id).click(function() {
-                    //console.log()
-                    //alert($('#'+index_id));
-                    $('#p'+index_id).remove();
-                    //console.log($('#'+index_id));
-                });
             });
+
+            /*$('#del'+index_id).click(function() {
+                    $('#p'+index_id).remove();
+            });*/
 
 
         });
