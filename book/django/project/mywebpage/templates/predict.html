@@ -68,7 +68,7 @@
 	#menu-bar{
 		float: right;
 		margin-top: 20px;
-		margin-right: 200px;
+		margin-right: 75px;
 		clear: both;
 	}
 
@@ -122,7 +122,7 @@
 	}
 
 	#topic-home{
-		
+		margin-top: 100px;
 		text-align: center;
 	}
 
@@ -166,7 +166,8 @@
 	}
 
 	#curriculumD3{
-		margin-top: 100px;
+		margin-top: 10px;
+		text-align: center;
 	}
 </style>
 </head>
@@ -174,7 +175,7 @@
 <div id="framework">
 	<!-- ---------banner------------ -->
 	<div id="banner-home">
-		<img src="https://7eb75a96-a-94ce6be8-s-sites.googlegroups.com/a/sci.tu.ac.th/piyapornj/banner.jpg?attachauth=ANoY7cqBQ7zAA6g9mTiRXu62rnsborMOa8h9P5iqgZdmqqRObWmSk91EclYAR0CP64n4fyW0nFEYpWR9B5V6_1iFGMmMZ4fQZUC3smHBQIrgw2ii1VDEe0BXObq1LS61JIALZHl45KoNfgKzo4eQye8FoEH3anH6U40IzfBu6GDuflLDa7fBgSsMFsgyCs9ndcKe7RLl04zrdV0qjflBmfpc3kKdZaQKOw%3D%3D&attredirects=0"> 
+		<img src="https://7eb75a96-a-94ce6be8-s-sites.googlegroups.com/a/sci.tu.ac.th/piyapornj/banner_1200.jpg?attachauth=ANoY7cp6nS-aqVDkXi8uA2w492GPXzm_HxHNbXTKA998qP1lp4eLaQiJ4l56W7G5aI7SSgW1ubZYx4zju6HLpxrOXMKjXS90L-jk1rQtcJ_G-Hx274i3Ib-PIPzy9ay2EaatdINILv1BQVHXTWiIpBd0jVeDScmxnUUFDbtPIaCs25_l_fbEP9nfwTEWjBRbZIvoTBNEbr7zz1CHD7gAnos9Cb7UU1c-Jw%3D%3D&attredirects=0"> 
 	</div>
 	<!-- ---------menu------------ -->
 	<div id="menu-bar" width= "1000px">
@@ -205,10 +206,11 @@
 		          .enter()
 		          .append("g");
 		//console.log(nodeG);
-		var text = nodeG
-		          .append("text");
 		var rectangle = nodeG
 		          .append("rect");
+		var text = nodeG
+		          .append("text");
+		
 
 
 		var rectangleAttributes = rectangle
@@ -224,7 +226,9 @@
 		                          .attr("id",function (d) {return d.COURSE_ID;});
 
 		
-		//var fillenroll = d3.select("#CS101").attr("fill","yellow");
+		var fillenroll = d3.select("#CS101").attr("fill","yellow");
+		var fillenroll = d3.select("#CS102").attr("fill","yellow");
+		var fillenroll = d3.select("#CS111").attr("fill","yellow");
 
 		var textAttributes = text
 		                      .attr("font-family", "cordia new")
