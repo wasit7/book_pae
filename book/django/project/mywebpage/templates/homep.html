@@ -1,196 +1,32 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>ประวัติผลการเรียน</title>
-  <script src="https://code.jquery.com/jquery-1.12.0.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
-  	 <style>
-	 body{
-		margin: 0;
-		padding: 0;
-		background-color: white;
-	}
+<html ng-app="home">
+	<head>
+		<title>ประวัติผลการเรียน</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
+	</head>
 
-	/* framework */
-	#framework{
-		width: auto;
-		height: 1200px;
-		margin-left: auto;
-		margin-right: auto;
-		overflow: hidden;
-		background-color: white;
-	}
+	<body ng-controller="homeCtrl">
+		<!-- ####banner#### -->
+		<div id="banner-home">
+			<img src="{% static "banner/banner.jpg" %}"> 
+		</div>
 
-	/* login */
-	ul#input {
-		margin-top:10px;
-	}
+		<!-- ####menu#### -->
+		<div id="menu-bar">
+			<ul id="menu">
+				<li><a href="../homep/" id="history-click">หน้าแรก</a></li>
+				<li><a href="../showprofile/" >ประวัติผลการเรียน</a></li>
+				<li><a href="../predict/" id="predict">ทำนายผลการเรียน</a></li>
+			</ul>
+		</div>
+
+		<div id="topic-home">
+			<img src="{% static "banner/topic-home.jpg" %}">
+		</div>
+
+		<div id="curriculum">
 			
-	ul#regist {
-		margin-left: 40%;
-			}
-
-	/* register */
-	#container{
-				width: 600px;
-				margin: 10px auto 0 auto;
-				padding: 20px;
-			}
-		
-			#left {
-				float: left;
-				width: auto;	
-			}
-			
-			#topic{
-				float:left;
-				text-align: right;
-			}
-			
-			#box{
-				float:left;
-				padding-left: 10px;
-			}
-			
-			#right{
-				float: left;
-				margin-left: 10px;
-				width: auto;
-			}
-			
-	/* banner */
-	#banner-home{
-		text-align: center;
-	}
-
-	/* menu */
-	#menu-bar{
-		float: right;
-		margin-top: 20px;
-		margin-right: 75px;
-		clear: both;
-	}
-
-	ul#menu {
-		padding: 0;
-	}
-
-	ul#menu li {
-		display: inline;
-	}
-
-	ul#menu li a {
-		background-color: #DF0101;
-		color: white;
-		font-size: 120%;
-		padding: 25px 10px;
-		text-decoration: none;
-		/* border-radius: 10px 10px 10px 10px ; */
-	}
-
-	ul#menu li a:hover {
-		background-color: #FFFFFF;
-		color: #DF0101;
-		border-style: solid;
-		/* border-radius: 4px 4px 0 0; */
-	    border-color: #DF0101
-		}
-			
-	ul#menu li a#home-click{
-		background-color: #FFFFFF;
-		color: #DF0101;
-		border-style: solid;
-		/* border-radius: 4px 4px 0 0; */
-	    border-color: #DF0101
-	}
-
-	ul#menu li a#history-click{
-		background-color: #FFFFFF;
-		color: #DF0101;
-		border-style: solid;
-		/* border-radius: 4px 4px 0 0; */
-	    border-color: #DF0101
-	}
-
-	ul#menu li a#predict-click{
-		background-color: #FFFFFF;
-		color: #DF0101;
-		border-style: solid;
-		/* border-radius: 4px 4px 0 0; */
-	    border-color: #DF0101
-	}
-
-	#topic-home{
-		margin-top: 100px;
-		text-align: center;
-	}
-
-	#topic-login{
-		margin-top: 20px;
-	}
-
-	/* <!-- ---------table------------ --> */
-
-	table, th, td {
-			margin: auto;
-			margin-top: 85px;
-			border: 1px solid black;
-			border-collapse: collapse;
-			}
-			
-			th, td {
-			padding: 3px;
-			}
-			
-			tr#head-table{
-			background-color: #BDBDBD;
-			}
-
-	#trash{
-			float: left;
-			width: auto;
-			margin-left: 40px;
-			margin-top:135px;		   		
-			}
-			
-	#table{
-			clear: left;
-			float:left;
-			width: auto;
-			}
-			
-	#button{
-		clear: left;
-		text-align: center;
-	}
-
-	#imggraph{
-		margin-top: 10px;
-		text-align: center;
-	}
-</style>
-</head>
-<body>
-<div id="framework">
-	<!-- ---------banner------------ -->
-	<div id="banner-home">
-		<img src="https://7eb75a96-a-94ce6be8-s-sites.googlegroups.com/a/sci.tu.ac.th/piyapornj/banner_1200.jpg?attachauth=ANoY7cqn5YXlmJLrVldEKJiZJKnZXfAPd5Q2QmHd29a_KLFtI95S3ZwDOoDnYt1Q577PSrlkExfdqgEO4HSf9gMYi0jX8j1xIbcQ-D_sSF-YzIU4Yqz6piafQZ0iHIlGmgtvtzTWVibHqKtOfJtvZOpLThY0GCTTNrn7O17Cpi1S3jb7onkCr1xRW8BMINXHOvIaq5y-u_b_V4SykbJrFKfWPHLC0_UlcQ%3D%3D&attredirects=0"> 
-	</div>
-	
-	<!-- ---------menu------------ -->
-	<div id="menu-bar">
-		<ul id="menu">
-		  <li ><a href="../homep/" id="history-click">หน้าแรก</a></li>
-		  <li><a href="../showprofile/" >ประวัติผลการเรียน</a></li>
-		  <li><a href="../predict/" id="predict">ทำนายผลการเรียน</a></li>
-		</ul>
-	</div>
-	<div id="topic-home"><img src="https://7eb75a96-a-94ce6be8-s-sites.googlegroups.com/a/sci.tu.ac.th/piyapornj/topic-home.jpg?attachauth=ANoY7cobDwzG_atEv4gJlJfjqDEOiYx_MqUCwTK8tNH_7fwtxWn92NxQtnO0a-ZHPut6tzr1UWfaSMr32P__k1Ymkfy9DRNjujFx-mmW-eXT2z-1gtQCriYqztjdnVVgYHv6JXoVOMeOC0FmMCSDbLgXzdl0uMAJt65vLvZokFemtA3toZ5i91XHTYXulJKSVblThI3IC3kYb3Gc0WjYMqjoeU0Y6L7utg%3D%3D&attredirects=0"></div>
-	<div id="curriculumD3">
-	</div>
-
-	<div id="imggraph"><img width="1100px" height="250" src="https://7eb75a96-a-94ce6be8-s-sites.googlegroups.com/a/sci.tu.ac.th/piyapornj/graph1.png?attachauth=ANoY7cpNqbLSd9DjNDAXdE_rtXDOScit0BUmMPQPcraBjYyj-IywcTADB9ZY68r7d7MEVjun19Jd9CXpmXWyKLKg08DDYy2odCCCkBJ2EGSTdM8fTTeCGDeSDb6g2DGM3yj4FvtMiznDelrGQgAE0f-xxbmKuOwkrbwj_Tl2OEVEqyOv5Z7-qKUC_GrPN_dDZ6c-7XpHymf5sBUUWLc6OUi7sVL58oYaBg%3D%3D&attredirects=0"></div>
-	</form>
-</div>	
-</body>
+		</div>
+	</body>
 </html>

@@ -1,57 +1,19 @@
 body{
-	font-family: "Bangna New";
 	margin: 0;
 	padding: 0;
 	background-color: white;
+	font-family: tahoma;
 }
 
-/* framework */
 #framework{
-	width: 1000px;
-	height: 1200px;
+	width: auto;
+	height: 1280px;
+	background-color: white;
 	margin-left: auto;
 	margin-right: auto;
 	overflow: hidden;
-	background-color: white;
 }
 
-/* login */
-ul#input {
-	margin-top:10px;
-}
-		
-ul#regist {
-	margin-left: 40%;
-		}
-
-/* register */
-#container{
-			width: 600px;
-			margin: 10px auto 0 auto;
-			padding: 20px;
-		}
-	
-		#left {
-			float: left;
-			width: auto;	
-		}
-		
-		#topic{
-			float:left;
-			text-align: right;
-		}
-		
-		#box{
-			float:left;
-			padding-left: 10px;
-		}
-		
-		#right{
-			float: left;
-			margin-left: 10px;
-			width: auto;
-		}
-		
 /* banner */
 #banner-home{
 	text-align: center;
@@ -61,7 +23,7 @@ ul#regist {
 #menu-bar{
 	float: right;
 	margin-top: 20px;
-	margin-right: 20px;
+	margin-right: 75px;
 	clear: both;
 }
 
@@ -116,48 +78,11 @@ ul#menu li a#predict-click{
 
 #topic-home{
 	margin-top: 100px;
-}
-
-#topic-login{
-	margin-top: 20px;
-}
-
-/* <!-- ---------table------------ --> */
-
-table, th, td {
-		margin: auto;
-		margin-top: 85px;
-		border: 1px solid black;
-		border-collapse: collapse;
-		}
-		
-		th, td {
-		padding: 3px;
-		}
-		
-		tr#head-table{
-		background-color: #BDBDBD;
-		}
-
-
-
-#trash{
-		float: left;
-		width: auto;
-		margin-left: 40px;
-		margin-top:135px;
-	   
-		
-		}
-		
-		#table{
-		clear: left;
-		float:left;
-		width: auto;
-		}
-		
-		
-#button{
-	clear: left;
 	text-align: center;
 }
+
+#curriculumD3{
+		margin-top: 10px;
+		text-align: center;
+}
+
