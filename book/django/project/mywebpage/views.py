@@ -2142,4 +2142,3 @@ def test(request):
 	grade = ['A', 'B', 'B+','C', 'C+', 'D', 'D+', 'F', 'W', 'S', 'S#','U','U#']
 	return render(request,'tt.html',{'subjectData':subjectData, 'enrollmentData':enrollmentData, 'grade':grade,
 		})"""
-

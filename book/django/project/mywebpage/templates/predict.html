@@ -4,179 +4,21 @@
 	<title>ทำนายผลการเรียน</title>
   <script src="https://code.jquery.com/jquery-1.12.0.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
+  {% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
 
-  	 <style>
-	 body{
-		margin: 0;
-		padding: 0;
-		background-color: white;
-	}
+  	 
 
-	/* framework */
-	#framework{
-		
-		height: 1200px;
-		margin-left: auto;
-		margin-right: auto;
-		overflow: hidden;
-		background-color: white;
-	}
-
-	/* login */
-	ul#input {
-		margin-top:10px;
-	}
-			
-	ul#regist {
-		margin-left: 40%;
-			}
-
-	/* register */
-	#container{
-				width: 600px;
-				margin: 10px auto 0 auto;
-				padding: 20px;
-			}
-		
-			#left {
-				float: left;
-				width: auto;	
-			}
-			
-			#topic{
-				float:left;
-				text-align: right;
-			}
-			
-			#box{
-				float:left;
-				padding-left: 10px;
-			}
-			
-			#right{
-				float: left;
-				margin-left: 10px;
-				width: auto;
-			}
-			
-	/* banner */
-	#banner-home{
-		text-align: center;
-	}
-
-	/* menu */
-	#menu-bar{
-		float: right;
-		margin-top: 20px;
-		margin-right: 75px;
-		clear: both;
-	}
-
-	ul#menu {
-		padding: 0;
-	}
-
-	ul#menu li {
-		display: inline;
-	}
-
-	ul#menu li a {
-		background-color: #DF0101;
-		color: white;
-		font-size: 120%;
-		padding: 25px 10px;
-		text-decoration: none;
-		/* border-radius: 10px 10px 10px 10px ; */
-	}
-
-	ul#menu li a:hover {
-		background-color: #FFFFFF;
-		color: #DF0101;
-		border-style: solid;
-		/* border-radius: 4px 4px 0 0; */
-	    border-color: #DF0101
-		}
-			
-	ul#menu li a#home-click{
-		background-color: #FFFFFF;
-		color: #DF0101;
-		border-style: solid;
-		/* border-radius: 4px 4px 0 0; */
-	    border-color: #DF0101
-	}
-
-	ul#menu li a#history-click{
-		background-color: #FFFFFF;
-		color: #DF0101;
-		border-style: solid;
-		/* border-radius: 4px 4px 0 0; */
-	    border-color: #DF0101
-	}
-
-	ul#menu li a#predict-click{
-		background-color: #FFFFFF;
-		color: #DF0101;
-		border-style: solid;
-		/* border-radius: 4px 4px 0 0; */
-	    border-color: #DF0101
-	}
-
-	#topic-home{
-		margin-top: 100px;
-		text-align: center;
-	}
-
-	#topic-login{
-		margin-top: 20px;
-	}
-
-	/* <!-- ---------table------------ --> */
-
-	table, th, td {
-			margin: auto;
-			margin-top: 85px;
-			border: 1px solid black;
-			border-collapse: collapse;
-			}
-			
-			th, td {
-			padding: 3px;
-			}
-			
-			tr#head-table{
-			background-color: #BDBDBD;
-			}
-
-	#trash{
-			float: left;
-			width: auto;
-			margin-left: 40px;
-			margin-top:135px;		   		
-			}
-			
-	#table{
-			clear: left;
-			float:left;
-			width: auto;
-			}
-			
-	#button{
-		clear: left;
-		text-align: center;
-	}
-
-	#curriculumD3{
-		margin-top: 10px;
-		text-align: center;
-	}
+	
 </style>
 </head>
 <body>
 <div id="framework">
-	<!-- ---------banner------------ -->
+	<!-- --------banner---------- -->
 	<div id="banner-home">
-		<img src="https://7eb75a96-a-94ce6be8-s-sites.googlegroups.com/a/sci.tu.ac.th/piyapornj/banner_1200.jpg?attachauth=ANoY7cp6nS-aqVDkXi8uA2w492GPXzm_HxHNbXTKA998qP1lp4eLaQiJ4l56W7G5aI7SSgW1ubZYx4zju6HLpxrOXMKjXS90L-jk1rQtcJ_G-Hx274i3Ib-PIPzy9ay2EaatdINILv1BQVHXTWiIpBd0jVeDScmxnUUFDbtPIaCs25_l_fbEP9nfwTEWjBRbZIvoTBNEbr7zz1CHD7gAnos9Cb7UU1c-Jw%3D%3D&attredirects=0"> 
+		<img src="{% static "banner/banner.jpg" %}"> 
 	</div>
+
 	<!-- ---------menu------------ -->
 	<div id="menu-bar" width= "1000px">
 		<ul id="menu">
@@ -185,9 +27,15 @@
 		  <li><a href="../predict/" id="history-click">ทำนายผลการเรียน</a></li>
 		</ul>
 	</div>
-	<div id="topic-home"><img src="https://7eb75a96-a-94ce6be8-s-sites.googlegroups.com/a/sci.tu.ac.th/piyapornj/topic-predict.jpg?attachauth=ANoY7cojG7fj1PzWEk19g92HCOVPSPpFYdQmV-N19kMRF6HWynAPm6iVRXRdamVaBxEre-1zb5u1xrNWP14Ty_FASNLvQ9h7GaIw2XIsqFfXJhAu80F_htH2513kVxu3ax4t-ZRH6_CVK1Q-UJImLbPwUkadN7XfTdCIMxxNWEYNZD6PIcSbQEFjpPE-HegpCcwJlDuqjwmyTF43RIhrnzBEzQiGXMupuA%3D%3D&attredirects=0"></div>
+
+	<div id="topic-home">
+		<img src="{% static "banner/topic-predict.jpg" %}">
+	</div>
+
+
 	<div id="curriculumD3">
 	</div>
+
 
 	<script>
 
@@ -226,8 +74,8 @@
 		                          .attr("id",function (d) {return d.COURSE_ID;});
 
 		
-		var fillenroll = d3.select("#CS101").attr("fill","yellow");
-		var fillenroll = d3.select("#CS102").attr("fill","yellow");
+		var fillenroll = d3.select("#CS101").attr("fill","#76ed00");
+		var fillenroll = d3.select("#CS102").attr("fill","#76ed00");
 		var fillenroll = d3.select("#CS111").attr("fill","yellow");
 
 		var textAttributes = text
@@ -238,6 +86,7 @@
 		                      .attr("y", function(d) { return d.Y*30; })
 		                      .text( function (d) { return d.COURSE_ID; })
 		                      .attr("transform","translate(9,13)");
+
 
 		var node = nodeG
 		          .attr("id", function (d) {return d.COURSE_ID;})

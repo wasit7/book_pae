@@ -1,0 +1,88 @@
+body{
+	margin: 0;
+	padding: 0;
+	background-color: white;
+	font-family: tahoma;
+}
+
+#framework{
+	width: auto;
+	height: 1280px;
+	background-color: white;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+}
+
+/* banner */
+#banner-home{
+	text-align: center;
+}
+
+/* menu */
+#menu-bar{
+	float: right;
+	margin-top: 20px;
+	margin-right: 75px;
+	clear: both;
+}
+
+ul#menu {
+	padding: 0;
+}
+
+ul#menu li {
+	display: inline;
+}
+
+ul#menu li a {
+	background-color: #DF0101;
+	color: white;
+	font-size: 120%;
+	padding: 25px 10px;
+	text-decoration: none;
+	/* border-radius: 10px 10px 10px 10px ; */
+}
+
+ul#menu li a:hover {
+	background-color: #FFFFFF;
+	color: #DF0101;
+	border-style: solid;
+	/* border-radius: 4px 4px 0 0; */
+    border-color: #DF0101
+	}
+		
+ul#menu li a#home-click{
+	background-color: #FFFFFF;
+	color: #DF0101;
+	border-style: solid;
+	/* border-radius: 4px 4px 0 0; */
+    border-color: #DF0101
+}
+
+ul#menu li a#history-click{
+	background-color: #FFFFFF;
+	color: #DF0101;
+	border-style: solid;
+	/* border-radius: 4px 4px 0 0; */
+    border-color: #DF0101
+}
+
+ul#menu li a#predict-click{
+	background-color: #FFFFFF;
+	color: #DF0101;
+	border-style: solid;
+	/* border-radius: 4px 4px 0 0; */
+    border-color: #DF0101
+}
+
+#topic-home{
+	margin-top: 100px;
+	text-align: center;
+}
+
+#curriculumD3{
+		margin-top: 10px;
+		text-align: center;
+}
+
