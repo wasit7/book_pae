@@ -9,55 +9,37 @@
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
 </head>
 <body>
-<div id="framework">
 
-    <!-- --------banner---------- -->
-    <div id="banner-home">
-        <img src="{% static "banner/banner.jpg" %}"> 
-    </div>
 
-    <!-- ---------menu------------ -->
-    <div id="menu-bar">
-        <ul id="menu">
-          <li ><a href="../homep/" id="home">หน้าแรก</a></li>
-          <li><a href="../addprofile/" id="history-click">ประวัติผลการเรียน</a></li>
-          <li><a href="../predict/" id="predict">ทำนายผลการเรียน</a></li>
-        </ul>
-    </div>
-
-    <form id="myForm">
-        <div id="subjectForm">
-            <caption>ตารางแสดงผลการเรียน</caption>
-            <table id="colTable" rules="all" style="background:#fff;">
-                <tr>
-                    <th id="term" >Term/Year</th>
-                    <th id="Subject">Subject</th>
-                    <th id="Grade">Grade</th>
-                </tr>
-            </table>
-
-            <div id="enrollTable">
-            </div>
-
+{% verbatim %}
+<div ng-app="myApp" ng-controller="myCtrl">
+    <h3>all subjects</h3>
+    <div class="containerAllSubjects" ng-repeat="subObj in subjects">
+        
+        <div ng-model="subObj.sub_name">{{subObj.sub_name}}
+            <button ng-click="addToEnroll()"> --> </button>
         </div>
-        <div id="tableAdd">
-        </div>
-        <button id="btnSave" type="button">บันทึก</button>
-        <button id="btnAdd" type="button">เพิ่ม</button>
 
-    </form>
+    </div>
+    <h3>list of subjects: subject table</h3><p>{{subjects}}</p>
+</div>
+{% endverbatim %}
 
 <script> 
-    d3.json("../jsonEnrollment.json",function(error,jsonEnrollment){
-
-
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+    $http.get("{% url 'jsonSubject' %}")
+    //{"subjectID": [{"sub_id": "CS101", "checkedlist": false, "sub_name": "Discrete Structures"}]}
+    .then(function(response) {
+        $scope.subjects = response.data.subjectID;
     });
 
-    //add subject to dropdown 
-    d3.json("../jsonSubject.json",function(error,jsonfile){
-
-
-    });
+    $scope.addToEnroll = function(){
+        console.log("OK")
+        
+    }
+    
+});
     
 </script>
 </div>

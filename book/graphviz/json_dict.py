@@ -15,7 +15,7 @@ for n in content[1:]:
     
     if line[0] == "node":
         #print line[1:4]
-        node.append({"COURSE_ID":line[1],"X":line[2],"Y":line[3]})
+        node.append({"COURSE_ID":line[1],"Y":line[2],"X":line[3]})
     elif line[0] == "edge":
        linepath = []
        for i in xrange(int(line[3])):

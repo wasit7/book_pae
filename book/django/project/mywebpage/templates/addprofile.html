@@ -11,10 +11,13 @@
 <body>
 <div id="framework">
 
-	<!-- --------banner---------- -->
-	<div id="banner-home">
-		<img src="{% static "banner/banner.jpg" %}"> 
-	</div>
+    <div id="status">
+        <p>{{request.session.username}}<button>ออกจากระบบ</button></p>  
+    </div>
+	<!-- ####banner#### -->
+    <div id="banner-home">
+        <img src="{% static "banner/new-banner-middle.jpg" %}"> 
+    </div>
 
 	<!-- ---------menu------------ -->
 	<div id="menu-bar">
@@ -25,114 +28,126 @@
 		</ul>
 	</div>
 
-	<form id="myForm">
-		<div id="subjectForm">
-			<caption>ตารางแสดงผลการเรียน</caption>
-			<table id="colTable" rules="all" style="background:#fff;">
-				<tr>
-					<th id="term" >Term/Year</th>
-					<th id="Subject">Subject</th>
-					<th id="Grade">Grade</th>
-				</tr>
-			</table>
-			<div id="enrollTable">
-			</div>
+{% verbatim %}
+<div ng-app="addprofile" ng-controller="myCtrl">
+    <h3>list of subjects: subject table</h3><p>{{subjects}}</p>
+    <h3>list of enrollment: (enrollment table)</h3><p>{{enrollment}}</p>
+    <h2>----------------------------------------------------</h2>
+    <h3>all subject</h3>
+    <div class="containerAllSubjects" ng-repeat="subObj in subjects">
+        <!--ng-repeat="subObj in subjects"-->
+        <input type="checkbox" ng-model="subObj.selected" ng-change="changeSelected()"><label>{{subObj.sub_id}} {{subObj.sub_name}}<label/>
+    </div>
 
-				<!--<tr>
-						<th>
-							<select>
-								{% for i in grade %}
-								<option>{{ i}}</option>
-								{% endfor %}
-							</select>
-						</th>
-						<th>
-							<select id="dropdownsub_name">
-								{% for i in subjectData %}
-								<option>{{ i.sub_id }}{{ i.sub_name }}</option>
-								{% endfor %}
-							</select>
-						</th>
-						<th>
-							<select>
-								{% for i in grade %}
-								<option>{{ i}}</option>
-								{% endfor %}
-							</select>
-						</th>
-				</tr>-->
-			
-		</div>
-		<div id="tableAdd">
-		</div>
-	  	<button id="btnSave" type="button">บันทึก</button>
-	  	<button id="btnAdd" type="button">เพิ่ม</button>
-
-	</form>
+    <h3>all enroll</h3>
+    <!--<div class="AllEnrollment" ng-repeat="enrollObj in enrollment">
+    <label>{{enrollObj.sub_id}}</label>
+    </div>-->
+</div>
+{% endverbatim %}
 
 <script> 
-	d3.json("../jsonEnrollment.json",function(error,jsonEnrollment){
-			//console.log(jsonEnrollment);
-			var js = $(jsonEnrollment.js_enrollments);
-		//js=4
-			$(js).each(function(index, value){
-				//loop -> create 4 row
-				//index = 1;
-				$('#enrollTable')
-					.append($('<p>').attr("id",index+1)
-						.append($('<tr>')
-							.append($('<td>').append($('<input size="6px">').attr("value",value.term+"/"+value.year).attr("readonly","readonly")))
-							.append($('<td>').append($('<input size="35px">').attr("value",value.stdsub_name).attr("readonly","readonly")))
-							.append($('<td>').append($('<input size="3px">').attr("value",value.grade).attr("readonly","readonly")))
-							.append($('<button>แก้ไข</button>').attr("id",index+1)).append($('<button>ลบ</button>').attr("id",index+1)))
+var app = angular.module('addprofile', []);
+app.controller('myCtrl', function($scope, $http, $q) {
+    var AllSubject = $http.get("{% url 'jsonSubject' %}"),
+        AllEnrollment = $http.get("{% url 'jsonEnrollment' %}");
+    $q.all([AllSubject, AllEnrollment]).then(function(response){
+        $scope.subjects = response[0].data.subjectID;
+        $scope.enrollment = response[1].data.js_enrollments;
+        angular.forEach($scope.subjects, function(subObj, subkey){
+            subObj.selected = false;
+        })
 
-						//.text(value.term+"/"+value.year))
-						//.append($('<td>').text(value.stdsub_name))
-						//.append($('<td>').text(value.grade))
-					/*/.append($('<tr>').attr("id",index+1)
-						.append($('<td>').text(value.term+"/"+value.year))
-						.append($('<td>').text(value.stdsub_name))
-						.append($('<td>').text(value.grade))*/
-					);	
-			});	
+        
+        angular.forEach($scope.enrollment, function(enrollObj, enrollkey){
+            angular.forEach($scope.subjects, function(subObj, subkey){
+                if(subObj.sub_id == enrollObj.sub_id){
+                    subObj.selected = true;
+                }
+            })
+        })
+    })
+    $scope.changeSelected = function() {
+        
+        angular.forEach($scope.enrollment, function(enrollObj){
+            angular.forEach($scope.subjects, function(subObj){
 
-			
-
-
-
-			/*$('#btnEdit').click(function(){
-				$.ajax({
-					url:'jsonEnrollment.json',
-					type:'GET',
-					async:false,
-					success: function(d)
-				});
-
-			});*/
-
-	});
-
-	//add subject to dropdown 
-	d3.json("../jsonSubject.json",function(error,jsonfile){
-
-
-		$( "#btnAdd" ).click(function() {
-			//alert(jsonfile);
-			var selsub = $('<select>').appendTo('#subjectForm');
-			$(jsonfile.js_subjects).each(function() {
-			   	selsub.append($('<option>').text(this.sub_id+this.sub_name));
-			});
-			var selgrade = $('<select>').appendTo('#subjectForm');
-			var grades  = ["A", "B", "B+","C", "C+", "D", "D+", "F", "W", "S", "S#","U","U#"];
-			$.each(grades, function(index, value){
-				selgrade_val = selgrade.append($('<option>').text(value));
-			});
-
-		});
-
-	});
-	
+            })
+            console.log(subObj)
+        })
+    }
+});
 </script>
-</div>
 </body>
 </html>
+
+<!--<!DOCTYPE html>
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body>
+{% verbatim %}
+<div ng-app="myApp" ng-controller="myCtrl">
+    <div class="containerCheck" ng-repeat="subObj in subjects">
+        <div><input type="checkbox" ng-model="subObj.checkedlist"><label>{{subObj.sub_name}}</label></div>
+        <p ng-show="subObj.checkedlist">
+
+            <input type="text" ng-readonly="true" value="{{subObj.sub_id}}" read-only="true"/>
+            <select
+                class="selGrade"
+                ng-change="changeGrade()"
+                ng-model="selGrade"
+                ng-options="i.grade for i in dataGrade"></select>
+            
+        </p>
+    </div>
+    <h3>list of subjects: subject table</h3><p>{{subjects}}</p>
+    <h3>list of checksubject:</h3><p>{{checkedSubject()}}</p>
+    <p>{{show}}</p>
+{% endverbatim %}
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+    $http.get("{% url 'jsonSubject' %}")
+    //{"subjectID": [{"sub_id": "CS101", "checkedlist": false, "sub_name": "Discrete Structures"}]}
+    .then(function(response) {
+        $scope.term = ['1','2','3'];
+        $scope.year = ['2554','2555','2556','2557','2558','2559'];
+        $scope.subjects = response.data.subjectID;
+        //$scope.grade = ['A', 'B', 'B+','C', 'C+', 'D', 'D+', 'F', 'W', 'S', 'S#','U','U#'];
+        $scope.dataGrade = [{'grade':'A'},{'grade':'B'},{'grade':'B+'}];
+    });
+    
+   $scope.checkedSubject = function() {
+        var checkedSubject = [];
+        angular.forEach($scope.subjects, function(subObj, subkey){
+            angular.forEach(subObj, function(value , key){
+                if(key.substring(0,11) == 'checkedlist' && value){
+                        checkedSubject.push(subObj.sub_id+':'+value)
+
+                }
+            })
+        })
+        return checkedSubject
+    }   
+
+    /*$scope.changeTerm = function(){
+        //console.log("OK")
+        $scope.show ='Term:' + $scope.term;
+
+    }
+    /*$scope.changeYear = function(){
+        //console.log("OK")
+        $scope.show =' "Year" :' + $scope.selYear;
+    }*/
+
+    $scope.changeGrade = function(){
+        //console.log("OK")
+        //$scope.show ='Grade:' + $scope.selGrade.grade;
+    }
+});
+
+</script>
+</body>
+</html>-->

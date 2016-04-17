@@ -4,77 +4,73 @@
 	<title>ประวัติผลการเรียน</title>
   <script src="https://code.jquery.com/jquery-1.12.0.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   {% load staticfiles %}
 	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
- 
-</style>
 </head>
 <body>
 <div id="framework">
-	<!-- --------banner---------- -->
+
+    <div id="status">
+        <p>{{request.session.username}}<button>ออกจากระบบ</button></p>  
+    </div>
+<!-- ####banner#### -->
+	<div id="banner-top">
+			<span id="logout"><a href="login.html">ออกจากระบบ</a></span>
+			<span id="user">paebook:)</span>
+	</div>
 	<div id="banner-home">
-		<img src="{% static "banner/banner.jpg" %}"> 
+		<img src="{% static "banner/new-banner-middle.jpg" %}"> 
 	</div>
 
-
-<!-- ---------menu------------ -->
+	<!-- ---------menu------------ -->
 	<div id="menu-bar">
 		<ul id="menu">
 		  <li ><a href="../homep/" id="home">หน้าแรก</a></li>
-		  <li><a href="../showprofile/" id="history-click">ประวัติผลการเรียน</a></li>
+		  <li><a href="../addprofile/" id="history-click">ประวัติผลการเรียน</a></li>
 		  <li><a href="../predict/" id="predict">ทำนายผลการเรียน</a></li>
 		</ul>
 	</div>
 
-	<form id="myForm">
-		<div id="subjectForm">
-			<caption>ตารางแสดงผลการเรียน</caption>
-			<table id="subjectTable">
-				<tr>
-					<th id="term">term</th>
-					<th id="Subject">Subject</th>
-					<th id="Grade">Grade</th>
-				</tr>
-			<table>
-		</div>
-		<div id="dbtnEdit">
-	  	<button id="btnEdit" type="button">แก้ไขข้อมูล</button>
-	  </div>
-	</form>
+{% verbatim %}
+<div ng-app="showprofile" ng-controller="myCtrl">
+	<h3>list of enrollment: (enrollment table)</h3><p>{{enrollment}}</p>
+	<h2>----------------------------------------------------</h2>
+	
+	<div class="containerAllEnrollment">
+		<table>
+		<tr>
+			<th>Term/Year</th>
+			<th>Subject</th>
+			<th>Grade</th>
+		</tr>
+		<tr ng-repeat="enrollObj in enrollment">
+			<td>{{enrollObj.term}}/{{enrollObj.year}}</td>
+			<td>{{enrollObj.stdsub_id}} {{enrollObj.stdsub_name}}</td>
+			<td>{{enrollObj.grade}}</td>
+		</tr>
+	</table>
+    </div>
+    
+    <button ng-click="toAddprofile()">แก้ไขข้อมูล</button>
+</div>
+{% endverbatim %}
 
+<script> 
+var app = angular.module('showprofile', []);
+app.controller('myCtrl', function($scope, $http) {
+	$http.get("{% url 'jsonEnrollment' %}")
+	.then(function(response) {
+		$scope.enrollment = response.data.js_enrollments;
+    });
 
-<script type="text/javascript" language="javascript">
-	d3.json("../jsonEnrollment.json",function(error,jsonEnrollment){
-		var js = $(jsonEnrollment.js_enrollments);
-
-		//js=4
-			$(js).each(function(index, value){
-				console.log(value);
-				//loop -> create 4 row
-				$('#subjectTable')
-					.append($('<tr>')
-						.append($('<td>')
-							.text(value.term+"/"+value.year)
-
-						)
-						.append($('<td>')
-							.text(value.stdsub_id +":"+ value.stdsub_name)
-
-						)
-						.append($('<td>')
-							.text(value.grade)
-						)
-					);	
-				
-			});		
-			
-
-		$("#btnEdit").click(function(){
-			//ajax
-			var url = "http://localhost:8000/mywebpage/addprofile/"
-			$(location).attr('href',url);
-		});
-	});
+    $scope.toAddprofile = function(){
+    	//console.log("OK")
+    	//$location.path('/addprofile');
+    	$window.location.href = '/addprofile';
+    }
+});
+	
 </script>
 </div>
 </body>

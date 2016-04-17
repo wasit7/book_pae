@@ -2,50 +2,47 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
 from .models import Subject, Enrollment, Student
-from django.core import serializers
-from django.core.files import File
 import json
 # Create your views here.
 
 def homep(request):
-	#rotate_token(request)
 	return render(request,'homep.html')
 
 def showprofile(request):
-	#show = "Hello profile"
 	return render(request,'showprofile.html')
 
 def addprofile(request):
 	subjectData = Subject.objects.all()
 	enrollmentData = Enrollment.objects.all()
 	grade = ['A', 'B', 'B+','C', 'C+', 'D', 'D+', 'F', 'W', 'S', 'S#','U','U#']
-	"""if request.is_ajax():
-		data = serializers.serialize('json',enrollmentData)
-		return HttpResponse(data,'json')
-	else:"""
 	return render(request,'addprofile.html',{'subjectData':subjectData, 'enrollmentData':enrollmentData, 'grade':grade})
 
 def editprofile(request):
-
 	return render(request,'editprofile.html')
 
 def predict(request):
-
 	return render(request, 'predict.html')
-#get jsonfile from all Subject
+
 def jsonSubject(request):
-	subjectData = Subject.objects.all()
-	js_subjects = []
-	for i in subjectData:
-		js_subjects.append({'sub_id':i.sub_id,'sub_name':i.sub_name})	
-	return JsonResponse({'js_subjects':js_subjects})
+    subjectID = Subject.objects.values('sub_id','sub_name','credit')
+    subjectIDdata = { 'subjectID': [i for i in subjectID ]} 
+    return JsonResponse(subjectIDdata)
+
+"""def jsonEnrollment(request):
+    subjectIDdata = Enrollment.objects.all()
+    #subjectIDdata = { 'subjectID': [i for i in subjectID ]} 
+    return JsonResponse({'subjectIDdata':subjectIDdata})"""
 
 def jsonEnrollment(request):
-	enrollmentData = Enrollment.objects.filter()
-	js_enrollments = []
-	for i in enrollmentData:
-		js_enrollments.append({'std_id':i.std_id.std_id,'stdsub_id':i.sub_id.sub_id,'stdsub_name':i.sub_id.sub_name,'grade':i.grade,'term':i.term,'year':i.year})	
-	return JsonResponse({'js_enrollments':js_enrollments})
+    enrollmentData = Enrollment.objects.filter(std_id='5509611538')
+    js_enrollments = []
+    for i in enrollmentData:
+        js_enrollments.append({'std_id':i.std_id.std_id,'sub_id':i.sub_id.sub_id,'sub_name':i.sub_id.sub_name,'grade':i.grade,'term':i.term,'year':i.year})   
+    return JsonResponse({'js_enrollments':js_enrollments})
+
+def test(request):
+    return render(request,'test.html')
+
 
 def coordinate(request):
 	myfile = {
@@ -2130,15 +2127,3 @@ def coordinate(request):
     ]
 }
 	return JsonResponse({'myfile':myfile})
-
-def test(request):
-
-    return render(request,'test.html')
-
-
-"""def tt(request):
-	subjectData = Subject.objects.all()
-	enrollmentData = Enrollment.objects.all()
-	grade = ['A', 'B', 'B+','C', 'C+', 'D', 'D+', 'F', 'W', 'S', 'S#','U','U#']
-	return render(request,'tt.html',{'subjectData':subjectData, 'enrollmentData':enrollmentData, 'grade':grade,
-		})"""

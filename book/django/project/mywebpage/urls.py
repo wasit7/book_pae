@@ -9,7 +9,6 @@ urlpatterns = [
 	url(r'^predict/$', views.predict, name='predict'),
 	url(r'^test/$', views.test, name='test'),
 	url(r'^jsonSubject.json$', views.jsonSubject, name='jsonSubject'),  #get data
-	#url(r'^tt/$', views.tt, name='tt'),
 	url(r'^jsonEnrollment.json$', views.jsonEnrollment, name='jsonEnrollment'),
 	url(r'^coordinate.json$', views.coordinate, name='coordinate'),
 ]

@@ -27,3 +27,5 @@ class Enrollment(models.Model):
 	grade = models.CharField(max_length=1)
 	term = models.IntegerField()
 	year = models.IntegerField()
+	def __unicode__(self):
+		return str(self.std_id)

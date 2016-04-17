@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<html ng-app="home">
+<html>
 	<head>
 		<title>ประวัติผลการเรียน</title>
 		{% load staticfiles %}
 		<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 	</head>
+<body ng-app="home" ng-controller="homeCtrl">
 
-	<body ng-controller="homeCtrl">
+		<div id="status">
+        	<p>{{request.session.username}}<button>ออกจากระบบ</button></p>  
+    	</div>
+
 		<!-- ####banner#### -->
 		<div id="banner-home">
-			<img src="{% static "banner/banner.jpg" %}"> 
+			<img src="{% static "banner/new-banner-middle.jpg" %}"> 
 		</div>
 
 		<!-- ####menu#### -->
@@ -25,8 +30,17 @@
 			<img src="{% static "banner/topic-home.jpg" %}">
 		</div>
 
+		
 		<div id="curriculum">
-			
 		</div>
-	</body>
+{% verbatim %}
+{% endverbatim %}
+<script>
+var app = angular.module('home', []);
+app.controller('homeCtrl', function($scope) {
+    
+       
+});
+</script>
+</body>
 </html>

@@ -13,8 +13,8 @@ class SubjectAdmin(admin.ModelAdmin):
 class EnrollmentAdmin(admin.ModelAdmin):
 	list_display = ('std_id','sub_id','grade','term','year')
 
-	def std_id(self,obj):
-		return obj.std_id
+	#def std_id(self,obj):
+		#return obj.std_id
 		
 		
 
