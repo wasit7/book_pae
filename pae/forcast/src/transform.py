@@ -77,67 +77,7 @@ for eachSubSort in subjects["courseId"]:
     countEachSubSort = countEachSubSort+1
     key_sub_sort[countEachSubSort] = eachSubSort
     
-#Test loc 
 df_a = pd.DataFrame(df)
-#df_a.loc[0,'AN201'] = 0
-#df_a.loc[1,'AN201'] = 'A'
-#df_a.loc[1,key_sub_sort[2]] = 'B'
-#df_a.loc[1,key_sub_sort[3]] = df_a.loc[1,'4RESULT']
-
-#Test loop for access grade before
-#count = 0
-#for find in range(1,204):
-#    if key_sub[2] == key_sub_sort[find]:
-#        print "yeah"
-#        df_a.loc[2,key_sub_sort[find]] = df_a.loc[1,'4RESULT']
-#        break
-#    else:
-#        print "--"
-#        count = count + 1
-#print count
-
-#Test Loop for add grade to subject column
-#for i in range(0,46):
-#    count = 0
-#    for find in range(1,204):
-#        if key_sub[i+1] == key_sub_sort[find]:
-#            print "yeah"
-#            df_a.loc[i+1,key_sub_sort[find]] = df_a.loc[i,'4RESULT']
-#            break
-#        else:
-#            print "--"
-#            count = count + 1
-#    print count
-    
-#Test condition
-#countmark = 0
-#for i in range(0,15):
-#    count = 0
-#    if key_std[i+1] == key_std[i+2]:
-#        if key_year[i+1] == key_year[i+2]:
-#            if key_term[i+1] < key_term[i+2]:
-#                for find in range(1,204):
-#                    if key_sub[i+1] == key_sub_sort[find]:
-#                        print "yeah"
-#                        df_a.loc[i+1,key_sub_sort[find]] = df_a.loc[i,'4RESULT']
-#                    else:
-#                        print "--"
-#                        count = count + 1
-#                print count
-#            else:
-#                print "condition term"
-#        else:
-#            for find in range(1,204):
-#                if key_sub[i+1] == key_sub_sort[find]:
-#                    print "yeah"
-#                    df_a.loc[i+1,key_sub_sort[find]] = df_a.loc[i,'4RESULT']
-#                else:
-#                    print "--"
-#                    count = count + 1
-#            print count
-#           
-#    else:
-#        print "condition student"
 
 #Add all before grade
 start_record = 0

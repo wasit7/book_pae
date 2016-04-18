@@ -21,7 +21,7 @@ A = df_file.as_matrix()
 temp = A[A[:,3]=='CS213']
 L = temp[:,4]
 L = L.astype(np.int64, copy=False)
-I = temp[:,5:]#L.shape
+I = temp[:,5:]#L.shape #I(X) is grade of all subject , L(Y) is grade of cs213
 I = I.astype(np.int64, copy=False)
 
 #S = df_file.as_matrix(columns=['4RESULT'])
