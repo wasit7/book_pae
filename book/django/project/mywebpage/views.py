@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
 from .models import Subject, Enrollment, Student
+from django.contrib.auth.models import User
 import json
 # Create your views here.
 
@@ -24,8 +25,9 @@ def predict(request):
 	return render(request, 'predict.html')
 
 def jsonSubject(request):
-    subjectID = Subject.objects.values('sub_id','sub_name','credit')
-    subjectIDdata = { 'subjectID': [i for i in subjectID ]} 
+    subjectID = Subject.objects.all()
+
+    subjectIDdata = { i.sub_id : {'sub_name' : i.sub_name} for i in subjectID } 
     return JsonResponse(subjectIDdata)
 
 """def jsonEnrollment(request):
@@ -34,11 +36,15 @@ def jsonSubject(request):
     return JsonResponse({'subjectIDdata':subjectIDdata})"""
 
 def jsonEnrollment(request):
-    enrollmentData = Enrollment.objects.filter(std_id='5509611538')
-    js_enrollments = []
-    for i in enrollmentData:
-        js_enrollments.append({'std_id':i.std_id.std_id,'sub_id':i.sub_id.sub_id,'sub_name':i.sub_id.sub_name,'grade':i.grade,'term':i.term,'year':i.year})   
-    return JsonResponse({'js_enrollments':js_enrollments})
+    #enrollmentObj = Enrollment.objects.all()
+    enrollmentID = Enrollment.objects.filter(std_id='5509611538')
+    #enrollmentID = Enrollment.objects.filter(std_id__username__username=request.session['username'])
+    #js_enrollments = []
+    #for i in enrollmentData:
+    #    js_enrollments.append({'std_id':i.std_id.std_id,'sub_id':i.sub_id.sub_id,'sub_name':i.sub_id.sub_name,'grade':i.grade,'term':str(i.term),'year':str(i.year)})   
+    #return JsonResponse({'js_enrollments':js_enrollments})
+    enrollmentData = { i.sub_id.sub_id : { 'sub_id': i.sub_id.sub_id ,'term': str(i.term), 'year': str(i.year) , 'grade': i.grade} for i in enrollmentID  }
+    return JsonResponse(enrollmentData)
 
 def test(request):
     return render(request,'test.html')

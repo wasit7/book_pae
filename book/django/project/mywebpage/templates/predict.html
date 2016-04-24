@@ -15,6 +15,11 @@
 <body>
 <div id="framework">
 <!-- ####banner#### -->
+	<div id="banner-top">
+		<span id="logout"><button>ออกจากระบบ</button></span>
+		<span id="user">{{request.session.username}}</span>
+	</div>
+
 	<div id="banner-home">
 		<img src="{% static "banner/new-banner-middle.jpg" %}"> 
 	</div>

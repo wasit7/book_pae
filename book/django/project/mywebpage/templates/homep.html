@@ -1,46 +1,41 @@
-<!DOCTYPE html>
 <html>
-	<head>
-		<title>ประวัติผลการเรียน</title>
-		{% load staticfiles %}
-		<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
-		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-	</head>
-<body ng-app="home" ng-controller="homeCtrl">
+<head>
+	<title>ทำนายผลการเรียน</title>
+  <script src="https://code.jquery.com/jquery-1.12.0.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
+  {% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
 
-		<div id="status">
-        	<p>{{request.session.username}}<button>ออกจากระบบ</button></p>  
-    	</div>
+  	 
 
-		<!-- ####banner#### -->
-		<div id="banner-home">
-			<img src="{% static "banner/new-banner-middle.jpg" %}"> 
-		</div>
+	
+</style>
+</head>
+<body>
+<div id="framework">
+<!-- ####banner#### -->
+	<div id="banner-top">
+		<span id="logout"><button>ออกจากระบบ</button></span>
+		<span id="user">{{request.session.username}}</span>
+	</div>
 
-		<!-- ####menu#### -->
-		<div id="menu-bar">
-			<ul id="menu">
-				<li><a href="../homep/" id="history-click">หน้าแรก</a></li>
-				<li><a href="../showprofile/" >ประวัติผลการเรียน</a></li>
-				<li><a href="../predict/" id="predict">ทำนายผลการเรียน</a></li>
-			</ul>
-		</div>
+	<div id="banner-home">
+		<img src="{% static "banner/new-banner-middle.jpg" %}"> 
+	</div>
 
-		<div id="topic-home">
-			<img src="{% static "banner/topic-home.jpg" %}">
-		</div>
+	<!-- ---------menu------------ -->
+	<div id="menu-bar" width= "1000px">
+		<ul id="menu">
+		  <li ><a href="../homep/" id="history-click">หน้าแรก</a></li>
+		  <li><a href="../showprofile/" >ประวัติผลการเรียน</a></li>
+		  <li><a href="../predict/" >ทำนายผลการเรียน</a></li>
+		</ul>
+	</div>
 
-		
-		<div id="curriculum">
-		</div>
-{% verbatim %}
-{% endverbatim %}
-<script>
-var app = angular.module('home', []);
-app.controller('homeCtrl', function($scope) {
-    
-       
-});
-</script>
+	<div id="topic-home">
+		<img src="{% static "banner/topic-home.jpg" %}">
+	</div>
+
+</div>	
 </body>
 </html>
