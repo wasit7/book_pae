@@ -42,10 +42,10 @@
 			<th>Subject</th>
 			<th>Grade</th>
 		</tr>
-		<tr ng-repeat="enrollObj in enrollment">
-			<td>{{enrollObj.term}}/{{enrollObj.year}}</td>
-			<td>{{enrollObj.sub_id}} {{enrollObj.sub_name}}</td>
-			<td>{{enrollObj.grade}}</td>
+		<tr ng-repeat="(key, value) in enrollments">
+			<td>{{value.term}}/{{value.year}}</td>
+			<td>{{key}}</td>
+			<td>{{value.grade}}</td>
 		</tr>
 	</table>
     </div>
@@ -59,7 +59,7 @@ var app = angular.module('showprofile', []);
 app.controller('myCtrl', function($scope, $http, $window) {
 	$http.get("{% url 'jsonEnrollment' %}")
 	.then(function(response) {
-		$scope.enrollment = response.data.js_enrollments;
+		$scope.enrollments = response.data;
     });
 
     $scope.toAddprofile = function(){

@@ -4,22 +4,58 @@
 	<title>ทำนายผลการเรียน</title>
   <script src="https://code.jquery.com/jquery-1.12.0.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
+
   {% load staticfiles %}
 	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
+<style>
 
-  	 
+.link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
 
-	
+#licensing {
+  fill: #1C1C1C;
+}
+
+.link.licensing {
+  stroke: #1C1C1C;
+}
+
+.link.resolved {
+  stroke-dasharray: 0,2 1;
+}
+
+.circle.comsci {
+  fill: #74DF00;
+  stroke: #333;
+  stroke-width: 1.5px;
+}
+
+.circle.general {
+  fill: #F3F781;
+  stroke: #333;
+  stroke-width: 1.5px;
+}
+
+.circle.freedom {
+  fill: #81DAF5;
+  stroke: #333;
+  stroke-width: 1.5px;
+}
+
+text {
+  font: 10px sans-serif;
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
 </style>
 </head>
+
 <body>
 <div id="framework">
 <!-- ####banner#### -->
-	<div id="banner-top">
-		<span id="logout"><button>ออกจากระบบ</button></span>
-		<span id="user">{{request.session.username}}</span>
-	</div>
-
 	<div id="banner-home">
 		<img src="{% static "banner/new-banner-middle.jpg" %}"> 
 	</div>
@@ -40,78 +76,133 @@
 
 	<div id="curriculumD3">
 	</div>
+	
+
+<script>
+  
+
+  d3.json("../coordinate.json", function(error,jsonfile){
+    console.log(jsonfile.myfile.node);
+    var js = jsonfile.myfile;
+
+    //console.log(js.courseId[0]);
+  n = [];
+  for (i in js.node.type){
+      n.push(i);
+      //console.log(n[comsci]);
+  }
+
+var nodes = js.node
+var links = js.link
+
+var graph = {nodes,links};
+
+//console.log(graph)
+
+// Compute the distinct nodes from the links.
+graph.links.forEach(function(link) {
+  link.source = graph.nodes[link.source] || (graph.nodes[link.source] = {name: link.source});
+  link.target = graph.nodes[link.target] || (graph.nodes[link.target] = {name: link.target});
+});
+
+nodes.forEach(function(node) {
+  if ((nodes.type) == 'comsci') {
+    nodes.type = "comsci";
+  } else if ((nodes.type) == 'general'){
+    nodes.type = "general";
+  } else if ((nodes.type) == 'freedom'){
+    nodes.type = "freedom";
+  } 
+});
+
+var width = 1360,
+    height = 1100;
+    color = d3.scale.category20c();
+
+var force = d3.layout.force()
+    .nodes(d3.values(graph.nodes))
+    .links(graph.links)
+    .size([width, height])
+    .linkDistance(20)
+    .charge(-150)
+    .on("tick", tick)
+    .start();
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+// Per-type markers, as they don't inherit styles.
+svg.append("defs").selectAll("marker")
+    .data(["suit", "licensing", "resolved"])
+  .enter().append("marker")
+    .attr("id", function(d) { return d; })
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 15)
+    .attr("refY", -1.5)
+    .attr("markerWidth", 6)
+    .attr("markerHeight", 6)
+    .attr("orient", "auto")
+  .append("path")
+    .attr("d", "M0,-5L10,0L0,5");
+
+// add the links and the arrows
+var path = svg.append("g").selectAll("path")
+    .data(force.links())
+    .enter().append("path")
+    .attr("class", function(d) { return "link " + d.type; })
+    .attr("marker-end", function(d) { return "url(#" + d.type + ")"; });
+
+// define the nodes
+/*var node = svg.selectAll(".node")
+    .data(force.nodes())
+    .enter().append("g")
+    .attr("class", "node")
+    .call(force.drag);*/
+ 
+// add the nodes
+/*node.append("circle")
+    .attr("r", 5)
+    .style("fill", function(d) { return d.type; });*/
+
+var circle = svg.append("g").selectAll("circle.node")
+    .data(force.nodes())
+    .enter().append("circle")
+    .attr("class", "node")
+    .attr("class", function(d) { return "circle " + d.type; })
+    .attr("r", 6)
+    .call(force.drag);
+
+var text = svg.append("g").selectAll("text")
+    .data(force.nodes())
+    .enter().append("text")
+    .attr("x", 8)
+    .attr("y", ".31em")
+    .text(function(d) { return d.name; })
+
+// Use elliptical arc path segments to doubly-encode directionality.
+function tick() {
+  path.attr("d", linkArc);
+  circle.attr("transform", transform);
+  text.attr("transform", transform);
+}
+
+function linkArc(d) {
+  var dx = d.target.x - d.source.x,
+      dy = d.target.y - d.source.y,
+      dr = Math.sqrt(dx * dx + dy * dy);
+  return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+}
+
+function transform(d) {
+  return "translate(" + d.x + "," + d.y + ")";
+} 
+
+});  
 
 
-	<script>
 
-	d3.json("../coordinate.json", function(error,jsonfile){
-		console.log(jsonfile.myfile);
-		var js = jsonfile.myfile;
-		//console.log(js);
-		var svgContainer = d3.select("#curriculumD3").append("svg")
-		                                    .attr("width", 2200)
-		                                    .attr("height", 2000);
-
-		var nodeG = svgContainer.selectAll("g")
-		          .data(js.node)
-		          .enter()
-		          .append("g");
-		//console.log(nodeG);
-		var rectangle = nodeG
-		          .append("rect");
-		var text = nodeG
-		          .append("text");
-		
-
-
-		var rectangleAttributes = rectangle
-		                          .attr("width", 40)
-		                          .attr("height", 20)
-		                          .attr("fill","none")
-		                          .attr("stroke","black")
-		                          .attr("stroke-width","1px")
-		                          .attr("rx","10")
-		                          .attr("ry","10")
-		                          .attr("x", function (d) { return d.X*30; })
-		                          .attr("y", function (d) { return d.Y*30; })
-		                          .attr("id",function (d) {return d.COURSE_ID;});
-
-		
-		var fillenroll = d3.select("#CS101").attr("fill","#76ed00");
-		var fillenroll = d3.select("#CS102").attr("fill","#76ed00");
-		var fillenroll = d3.select("#CS111").attr("fill","yellow");
-
-		var textAttributes = text
-		                      .attr("font-family", "cordia new")
-		                      .attr("font-size", "12px")
-		                      .attr("fill","black")
-		                      .attr("x", function(d) { return d.X*30; })
-		                      .attr("y", function(d) { return d.Y*30; })
-		                      .text( function (d) { return d.COURSE_ID; })
-		                      .attr("transform","translate(9,13)");
-
-
-		var node = nodeG
-		          .attr("id", function (d) {return d.COURSE_ID;})
-
-		var d3line = d3.svg.line()
-		            //.data(json.edge)
-		            //.enter()
-		            .x(function(d) {return d.x*30+25;})
-		            .y(function(d) {return d.y*30+10;})
-		            .interpolate("linear");
-		            
-		js.edges.forEach(function(d){
-		  svgContainer.append("svg:path")
-		            .attr("d",d3line(d))
-		            .style("stroke-width", 2)
-		            .style("stroke", "steelblue")
-		            .style("fill", "none");
-		});
-
-	});  
-</script>
-
-</div>	
+</script>	
+</div>
 </body>
 </html>

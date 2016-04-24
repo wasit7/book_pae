@@ -66,15 +66,18 @@
             </p>
         </div>
     </div>
-
-    
-    
-    <button>บันทึก</button>
+    <button ng-click="submit()">บันทึก</button>
+    <br>
+    msg : {{msg}}
 </div>
 {% endverbatim %}
 
 <script> 
-var app = angular.module('addprofile', []);
+var app = angular.module('addprofile', []).config(['$httpProvider', function($httpProvider) {
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+});
+
 app.controller('myCtrl', function($scope, $http, $q) {
     var AllSubject = $http.get("{% url 'jsonSubject' %}"),
         AllEnrollment = $http.get("{% url 'jsonEnrollment' %}");
@@ -96,19 +99,24 @@ app.controller('myCtrl', function($scope, $http, $q) {
     })
 
     $scope.checkedSub = function(){
-        //var object = {'sub_id','term','year','grade'}
         angular.forEach($scope.subjects, function(value, key){
             if(!(key in $scope.enrollments) && value.selected == true){
                 
-                $scope.enrollments[key] = {'sub_id': key}
+                $scope.enrollments[key] = {}
             }else if((key in $scope.enrollments) && value.selected == false){
                 delete $scope.enrollments[key]
             }
         })
     }
 
-    $scope.test = function(){
 
+    $scope.submit = function(){
+        console.log("in submit()")
+        $scope.testdata = {'test': "aaa"}
+        $http.post("{% url 'addprofile' %}", $scope.testdata)
+        .then(function(response){
+            $scope.msg = response.data;
+        });
     }
 
     
