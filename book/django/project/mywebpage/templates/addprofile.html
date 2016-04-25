@@ -73,9 +73,10 @@
 {% endverbatim %}
 
 <script> 
-var app = angular.module('addprofile', []).config(['$httpProvider', function($httpProvider) {
+var app = angular.module('addprofile', []);
+app.config(function($httpProvider){
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken'
 });
 
 app.controller('myCtrl', function($scope, $http, $q) {
@@ -99,21 +100,20 @@ app.controller('myCtrl', function($scope, $http, $q) {
     })
 
     $scope.checkedSub = function(){
+
         angular.forEach($scope.subjects, function(value, key){
+            $scope.stdID = value.std_id
             if(!(key in $scope.enrollments) && value.selected == true){
-                
-                $scope.enrollments[key] = {}
+                //console.log($scope.enrollments)
+                $scope.enrollments[key] = {'sub_id': key}
             }else if((key in $scope.enrollments) && value.selected == false){
                 delete $scope.enrollments[key]
             }
         })
     }
 
-
     $scope.submit = function(){
-        console.log("in submit()")
-        $scope.testdata = {'test': "aaa"}
-        $http.post("{% url 'addprofile' %}", $scope.testdata)
+        $http.post("{% url 'addprofile' %}", $scope.enrollments)
         .then(function(response){
             $scope.msg = response.data;
         });

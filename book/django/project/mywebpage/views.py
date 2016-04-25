@@ -5,6 +5,7 @@ from .models import Subject, Enrollment, Student
 from django.contrib.auth.models import User
 import json
 import sys
+import ast
 # Create your views here.
 
 def homep(request):
@@ -17,10 +18,14 @@ def addprofile(request):
     if request.method == 'GET':
         return render(request,'addprofile.html')
     if request.method == 'POST':
-        #print >> sys.stderr,request.body
-        return HttpResponse("OK")
+        ObjEnrolled = json.loads(request.body)  #jsEnrolled is python Object or python dictionary
+        Obj = ast.literal_eval(ObjEnrolled)
+        p = Obj.keys()
+        print >> sys.stderr, p
+        #check key, value 
+        #if key have in db , it will update value
 
-def update(request):
+
         return HttpResponse("OK")
 
 def editprofile(request):
@@ -36,16 +41,15 @@ def jsonSubject(request):
     return JsonResponse(subjectIDdata)
 
 def jsonEnrollment(request):
-    enrollmentID = Enrollment.objects.filter(std_id='5509611538')
+    std_id = str(Student.objects.get(username__username=request.session['username']).std_id)
+    enrollmentID = Enrollment.objects.filter(std_id=std_id)
     #enrollmentID = Enrollment.objects.filter(std_id__username__username=request.session['username'])
-    #js_enrollments = []
-    #for i in enrollmentData:
-    #    js_enrollments.append({'std_id':i.std_id.std_id,'sub_id':i.sub_id.sub_id,'sub_name':i.sub_id.sub_name,'grade':i.grade,'term':str(i.term),'year':str(i.year)})   
-    #return JsonResponse({'js_enrollments':js_enrollments})
-    enrollmentData = { i.sub_id.sub_id : {'term': str(i.term), 'year': str(i.year) , 'grade': i.grade} for i in enrollmentID  }
+    enrollmentData = { i.sub_id.sub_id : { 'sub_id': i.sub_id.sub_id,'term': str(i.term), 'year': str(i.year) , 'grade': i.grade} for i in enrollmentID  }
+    #enrollmentData['std_id'] = std_id
     return JsonResponse(enrollmentData)
 
 def test(request):
+
     return render(request,'test.html')
 
 
