@@ -9,12 +9,18 @@ import ast
 # Create your views here.
 
 def homep(request):
-	return render(request,'homep.html')
+    return render(request,'homep.html')
 
 def showprofile(request):
-	return render(request,'showprofile.html')
+    return render(request,'showprofile.html')
 
 def addprofile(request):
+<<<<<<< HEAD
+    subjectData = Subject.objects.all()
+    enrollmentData = Enrollment.objects.all()
+    grade = ['A', 'B', 'B+','C', 'C+', 'D', 'D+', 'F', 'W', 'S', 'S#','U','U#']
+    return render(request,'addprofile.html',{'subjectData':subjectData, 'enrollmentData':enrollmentData, 'grade':grade})
+=======
     if request.method == 'GET':
         return render(request,'addprofile.html')
     if request.method == 'POST':
@@ -46,12 +52,13 @@ def addprofile(request):
             #delete
 
         return HttpResponse("OK")
+>>>>>>> d173f0e5c4b6f58c3620d42279fd83e73a10403f
 
 def editprofile(request):
-	return render(request,'editprofile.html')
+    return render(request,'editprofile.html')
 
 def predict(request):
-	return render(request, 'predict.html')
+    return render(request, 'predict.html')
 
 def jsonSubject(request):
     subjectID = Subject.objects.all()
@@ -73,7 +80,11 @@ def test(request):
 
 
 def coordinate(request):
+<<<<<<< HEAD
+    myfile = {
+=======
 	myfile = {
+>>>>>>> d173f0e5c4b6f58c3620d42279fd83e73a10403f
     "link": [
         {
             "source": 19,
@@ -590,6 +601,7 @@ def coordinate(request):
         {
             "name": "CS213",
             "type": "comsci"
+<<<<<<< HEAD
         },
         {
             "name": "CS214",
@@ -1124,6 +1136,542 @@ def coordinate(request):
             "type": "freedom"
         },
         {
+=======
+        },
+        {
+            "name": "CS214",
+            "type": "comsci"
+        },
+        {
+            "name": "CS215",
+            "type": "comsci"
+        },
+        {
+            "name": "CS222",
+            "type": "comsci"
+        },
+        {
+            "name": "CS223",
+            "type": "comsci"
+        },
+        {
+            "name": "CS231",
+            "type": "comsci"
+        },
+        {
+            "name": "CS251",
+            "type": "comsci"
+        },
+        {
+            "name": "CS261",
+            "type": "comsci"
+        },
+        {
+            "name": "CS275",
+            "type": "comsci"
+        },
+        {
+            "name": "CS281",
+            "type": "comsci"
+        },
+        {
+            "name": "CS284",
+            "type": "comsci"
+        },
+        {
+            "name": "CS285",
+            "type": "comsci"
+        },
+        {
+            "name": "CS286",
+            "type": "comsci"
+        },
+        {
+            "name": "CS288",
+            "type": "comsci"
+        },
+        {
+            "name": "CS289",
+            "type": "comsci"
+        },
+        {
+            "name": "CS295",
+            "type": "comsci"
+        },
+        {
+            "name": "CS296",
+            "type": "comsci"
+        },
+        {
+            "name": "CS297",
+            "type": "comsci"
+        },
+        {
+            "name": "CS300",
+            "type": "comsci"
+        },
+        {
+            "name": "CS301",
+            "type": "comsci"
+        },
+        {
+            "name": "CS302",
+            "type": "comsci"
+        },
+        {
+            "name": "CS311",
+            "type": "comsci"
+        },
+        {
+            "name": "CS314",
+            "type": "comsci"
+        },
+        {
+            "name": "CS326",
+            "type": "comsci"
+        },
+        {
+            "name": "CS328",
+            "type": "comsci"
+        },
+        {
+            "name": "CS341",
+            "type": "comsci"
+        },
+        {
+            "name": "CS342",
+            "type": "comsci"
+        },
+        {
+            "name": "CS348",
+            "type": "comsci"
+        },
+        {
+            "name": "CS356",
+            "type": "comsci"
+        },
+        {
+            "name": "CS359",
+            "type": "comsci"
+        },
+        {
+            "name": "CS365",
+            "type": "comsci"
+        },
+        {
+            "name": "CS366",
+            "type": "comsci"
+        },
+        {
+            "name": "CS367",
+            "type": "comsci"
+        },
+        {
+            "name": "CS374",
+            "type": "comsci"
+        },
+        {
+            "name": "CS377",
+            "type": "comsci"
+        },
+        {
+            "name": "CS385",
+            "type": "comsci"
+        },
+        {
+            "name": "CS386",
+            "type": "comsci"
+        },
+        {
+            "name": "CS387",
+            "type": "comsci"
+        },
+        {
+            "name": "CS388",
+            "type": "comsci"
+        },
+        {
+            "name": "CS395",
+            "type": "comsci"
+        },
+        {
+            "name": "CS396",
+            "type": "comsci"
+        },
+        {
+            "name": "CS397",
+            "type": "comsci"
+        },
+        {
+            "name": "CS398",
+            "type": "comsci"
+        },
+        {
+            "name": "CS399",
+            "type": "comsci"
+        },
+        {
+            "name": "CS401",
+            "type": "comsci"
+        },
+        {
+            "name": "CS402",
+            "type": "comsci"
+        },
+        {
+            "name": "CS407",
+            "type": "comsci"
+        },
+        {
+            "name": "CS408",
+            "type": "comsci"
+        },
+        {
+            "name": "CS409",
+            "type": "comsci"
+        },
+        {
+            "name": "CS426",
+            "type": "comsci"
+        },
+        {
+            "name": "CS427",
+            "type": "comsci"
+        },
+        {
+            "name": "CS429",
+            "type": "comsci"
+        },
+        {
+            "name": "CS446",
+            "type": "comsci"
+        },
+        {
+            "name": "CS447",
+            "type": "comsci"
+        },
+        {
+            "name": "CS449",
+            "type": "comsci"
+        },
+        {
+            "name": "CS456",
+            "type": "comsci"
+        },
+        {
+            "name": "CS457",
+            "type": "comsci"
+        },
+        {
+            "name": "CS459",
+            "type": "comsci"
+        },
+        {
+            "name": "CS467",
+            "type": "comsci"
+        },
+        {
+            "name": "CS469",
+            "type": "comsci"
+        },
+        {
+            "name": "CS479",
+            "type": "comsci"
+        },
+        {
+            "name": "CS486",
+            "type": "comsci"
+        },
+        {
+            "name": "CS487",
+            "type": "comsci"
+        },
+        {
+            "name": "CS488",
+            "type": "comsci"
+        },
+        {
+            "name": "CS489",
+            "type": "comsci"
+        },
+        {
+            "name": "CS496",
+            "type": "comsci"
+        },
+        {
+            "name": "CS499",
+            "type": "comsci"
+        },
+        {
+            "name": "DM201",
+            "type": "freedom"
+        },
+        {
+            "name": "DM207",
+            "type": "freedom"
+        },
+        {
+            "name": "DM215",
+            "type": "freedom"
+        },
+        {
+            "name": "EC210",
+            "type": "general"
+        },
+        {
+            "name": "EG241",
+            "type": "freedom"
+        },
+        {
+            "name": "EL070",
+            "type": "general"
+        },
+        {
+            "name": "EL171",
+            "type": "general"
+        },
+        {
+            "name": "EL172",
+            "type": "general"
+        },
+        {
+            "name": "EL202",
+            "type": "freedom"
+        },
+        {
+            "name": "EL231",
+            "type": "freedom"
+        },
+        {
+            "name": "EL295",
+            "type": "general"
+        },
+        {
+            "name": "EL395",
+            "type": "general"
+        },
+        {
+            "name": "ES256",
+            "type": "freedom"
+        },
+        {
+            "name": "ES356",
+            "type": "freedom"
+        },
+        {
+            "name": "ES456",
+            "type": "freedom"
+        },
+        {
+            "name": "FD211",
+            "type": "freedom"
+        },
+        {
+            "name": "FN211",
+            "type": "freedom"
+        },
+        {
+            "name": "GE225",
+            "type": "freedom"
+        },
+        {
+            "name": "GE311",
+            "type": "freedom"
+        },
+        {
+            "name": "HO201",
+            "type": "general"
+        },
+        {
+            "name": "HR201",
+            "type": "freedom"
+        },
+        {
+            "name": "HS266",
+            "type": "freedom"
+        },
+        {
+            "name": "HS269",
+            "type": "freedom"
+        },
+        {
+            "name": "HS356",
+            "type": "freedom"
+        },
+        {
+            "name": "HS360",
+            "type": "freedom"
+        },
+        {
+            "name": "IS201",
+            "type": "freedom"
+        },
+        {
+            "name": "JC200",
+            "type": "freedom"
+        },
+        {
+            "name": "JC201",
+            "type": "freedom"
+        },
+        {
+            "name": "JC260",
+            "type": "freedom"
+        },
+        {
+            "name": "JC281",
+            "type": "freedom"
+        },
+        {
+            "name": "JP171",
+            "type": "freedom"
+        },
+        {
+            "name": "JP172",
+            "type": "freedom"
+        },
+        {
+            "name": "LA209",
+            "type": "freedom"
+        },
+        {
+            "name": "MA211",
+            "type": "general"
+        },
+        {
+            "name": "MA212",
+            "type": "general"
+        },
+        {
+            "name": "MA216",
+            "type": "freedom"
+        },
+        {
+            "name": "MA217",
+            "type": "freedom"
+        },
+        {
+            "name": "MA221",
+            "type": "freedom"
+        },
+        {
+            "name": "MA332",
+            "type": "freedom"
+        },
+        {
+            "name": "MU100",
+            "type": "freedom"
+        },
+        {
+            "name": "MU130",
+            "type": "freedom"
+        },
+        {
+            "name": "MU135",
+            "type": "freedom"
+        },
+        {
+            "name": "MU165",
+            "type": "freedom"
+        },
+        {
+            "name": "MU202",
+            "type": "freedom"
+        },
+        {
+            "name": "MU275",
+            "type": "freedom"
+        },
+        {
+            "name": "MU277",
+            "type": "freedom"
+        },
+        {
+            "name": "MU278",
+            "type": "freedom"
+        },
+        {
+            "name": "MW313",
+            "type": "freedom"
+        },
+        {
+            "name": "MW314",
+            "type": "freedom"
+        },
+        {
+            "name": "MW318",
+            "type": "freedom"
+        },
+        {
+            "name": "NS112",
+            "type": "freedom"
+        },
+        {
+            "name": "NS132",
+            "type": "freedom"
+        },
+        {
+            "name": "PC286",
+            "type": "freedom"
+        },
+        {
+            "name": "PE240",
+            "type": "freedom"
+        },
+        {
+            "name": "PE245",
+            "type": "freedom"
+        },
+        {
+            "name": "PM215",
+            "type": "freedom"
+        },
+        {
+            "name": "PM235",
+            "type": "freedom"
+        },
+        {
+            "name": "PM236",
+            "type": "freedom"
+        },
+        {
+            "name": "PY211",
+            "type": "freedom"
+        },
+        {
+            "name": "PY217",
+            "type": "freedom"
+        },
+        {
+            "name": "PY218",
+            "type": "freedom"
+        },
+        {
+            "name": "PY226",
+            "type": "freedom"
+        },
+        {
+            "name": "PY228",
+            "type": "general"
+        },
+        {
+            "name": "PY237",
+            "type": "freedom"
+        },
+        {
+            "name": "PY267",
+            "type": "freedom"
+        },
+        {
+            "name": "RE333",
+            "type": "freedom"
+        },
+        {
+            "name": "RT326",
+            "type": "freedom"
+        },
+        {
+>>>>>>> d173f0e5c4b6f58c3620d42279fd83e73a10403f
             "name": "SC123",
             "type": "freedom"
         },
@@ -1341,4 +1889,6 @@ def coordinate(request):
         },
     ]
 }
-	return JsonResponse({'myfile':myfile})
+    
+
+    return JsonResponse({'myfile':myfile})
