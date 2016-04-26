@@ -102,10 +102,10 @@ app.controller('myCtrl', function($scope, $http, $q) {
     $scope.checkedSub = function(){
 
         angular.forEach($scope.subjects, function(value, key){
-            $scope.stdID = value.std_id
+            //$scope.stdID = value.std_id
             if(!(key in $scope.enrollments) && value.selected == true){
                 //console.log($scope.enrollments)
-                $scope.enrollments[key] = {'sub_id': key}
+                $scope.enrollments[key] = {}
             }else if((key in $scope.enrollments) && value.selected == false){
                 delete $scope.enrollments[key]
             }

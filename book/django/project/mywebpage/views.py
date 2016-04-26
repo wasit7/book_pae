@@ -19,12 +19,31 @@ def addprofile(request):
         return render(request,'addprofile.html')
     if request.method == 'POST':
         ObjEnrolled = json.loads(request.body)  #jsEnrolled is python Object or python dictionary
-        Obj = ast.literal_eval(ObjEnrolled)
-        p = Obj.keys()
-        print >> sys.stderr, p
-        #check key, value 
-        #if key have in db , it will update value
+        
+        for key,value in ObjEnrolled.iteritems():
+            std_id = str(Student.objects.get(username__username=request.session['username']).std_id)
 
+            #update
+            if Enrollment.objects.filter(std_id__std_id = std_id ,sub_id__sub_id=key ).exists():
+                record = Enrollment.objects.get(std_id__std_id=std_id, sub_id__sub_id=key ) 
+                record.grade = value['grade']
+                record.term = value['term']
+                record.year = value['year']
+                record.save()
+                #print >> sys.stderr, type(value['year'])
+
+            #add
+            else:
+                #sub_id = Subject.objects.get(sub_id = key)
+                #std_id = Student.objects.get()
+                #print >> sys.stderr, sub_id
+                recordObj = Enrollment(std_id__std_id=std_id, sub_id__sub_id=key, grade= value['grade'], term= value['term'], year=value['year'])
+                #print >> sys.stderr, recordObj
+                #recordObj = Enrollment(std_id__std_id=std_id, sub_id__sub_id=key, grade= value['grade'], term= value['term'], year=value['year'])
+                #print >> sys.stderr, recordObj
+                record.save()
+
+            #delete
 
         return HttpResponse("OK")
 
