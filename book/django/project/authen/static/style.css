@@ -78,8 +78,14 @@ ul#regist {
 /* menu */
 #menu-bar{
 	float: right;
+<<<<<<< HEAD
 	margin-top: 20px;
 	margin-right: 0px;
+=======
+	margin-top: 10px;
+	margin-right: 0px;
+	margin-bottom: 15px;
+>>>>>>> d173f0e5c4b6f58c3620d42279fd83e73a10403f
 	clear: both;
 }
 

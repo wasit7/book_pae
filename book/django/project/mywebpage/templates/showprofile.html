@@ -11,14 +11,12 @@
 <body>
 <div id="framework">
 
-    <div id="status">
-        <p>{{request.session.username}}<button>ออกจากระบบ</button></p>  
-    </div>
 <!-- ####banner#### -->
 	<div id="banner-top">
-			<span id="logout"><a href="login.html">ออกจากระบบ</a></span>
-			<span id="user">paebook:)</span>
+		<span id="logout"><button>ออกจากระบบ</button></span>
+		<span id="user">{{request.session.username}}</span>
 	</div>
+
 	<div id="banner-home">
 		<img src="{% static "banner/new-banner-middle.jpg" %}"> 
 	</div>
@@ -34,40 +32,40 @@
 
 {% verbatim %}
 <div ng-app="showprofile" ng-controller="myCtrl">
-	<h3>list of enrollment: (enrollment table)</h3><p>{{enrollment}}</p>
-	<h2>----------------------------------------------------</h2>
-	
+{% endverbatim %}
+
 	<div class="containerAllEnrollment">
+		{% verbatim %}
 		<table>
 		<tr>
 			<th>Term/Year</th>
 			<th>Subject</th>
 			<th>Grade</th>
 		</tr>
-		<tr ng-repeat="enrollObj in enrollment">
-			<td>{{enrollObj.term}}/{{enrollObj.year}}</td>
-			<td>{{enrollObj.stdsub_id}} {{enrollObj.stdsub_name}}</td>
-			<td>{{enrollObj.grade}}</td>
+		<tr ng-repeat="(key, value) in enrollments">
+			<td>{{value.term}}/{{value.year}}</td>
+			<td>{{key}}</td>
+			<td>{{value.grade}}</td>
 		</tr>
 	</table>
     </div>
     
-    <button ng-click="toAddprofile()">แก้ไขข้อมูล</button>
+    <button id="btnEdit" ng-click="toAddprofile()">แก้ไขข้อมูล</button>
 </div>
 {% endverbatim %}
 
 <script> 
 var app = angular.module('showprofile', []);
-app.controller('myCtrl', function($scope, $http) {
+app.controller('myCtrl', function($scope, $http, $window) {
 	$http.get("{% url 'jsonEnrollment' %}")
 	.then(function(response) {
-		$scope.enrollment = response.data.js_enrollments;
+		$scope.enrollments = response.data;
     });
 
     $scope.toAddprofile = function(){
     	//console.log("OK")
     	//$location.path('/addprofile');
-    	$window.location.href = '/addprofile';
+    	$window.location.href = '../addprofile';
     }
 });
 	

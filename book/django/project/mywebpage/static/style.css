@@ -1,8 +1,13 @@
 body{
-	font-family: "Bangna New";
+	font-family: Tahoma;
 	margin: 0;
 	padding: 0;
+<<<<<<< HEAD
 	background-color: yellow;
+=======
+	background-color: white;
+	height: 100%;
+>>>>>>> d173f0e5c4b6f58c3620d42279fd83e73a10403f
 }
 
 /* framework */
@@ -21,36 +26,38 @@ ul#input {
 		
 ul#regist {
 	margin-left: 40%;
-		}
+}
 		
 /* register */
 #container{
-			width: 600px;
-			margin: 10px auto 0 auto;
-			padding: 20px;
-		}
+	width: 600px;
+	margin: 10px auto 0 auto;
+	padding: 20px;
+}
 	
-		#left {
-			float: left;
-			width: auto;	
-		}
+#left {
+	float: left;
+	width: auto;	
+}
 		
-		#topic{
-			float:left;
-			text-align: right;
-		}
+#topic{
+	float:left;
+	text-align: right;
+}
 		
-		#box{
-			float:left;
-			padding-left: 10px;
-		}
+#box{
+	float:left;
+	padding-left: 10px;
+}
 		
-		#right{
-			float: left;
-			margin-left: 10px;
-			width: auto;
-		}
+#right{
+	float: left;
+	margin-left: 10px;
+	width: auto;
+}
 		
+
+
 /* banner */
 #banner-top{
 	background-image: url("banner/new-banner-top.jpg");
@@ -75,8 +82,9 @@ ul#regist {
 /* menu */
 #menu-bar{
 	float: right;
-	margin-top: 20px;
+	margin-top: 10px;
 	margin-right: 0px;
+margin-bottom: 15px;
 	clear: both;
 }
 
@@ -129,6 +137,7 @@ ul#menu li a#predict-click{
     border-color: #C51323;
 }
 
+
 #topic-home{
 	margin-top: 100px;
 }
@@ -144,19 +153,19 @@ ul#menu li a#predict-click{
 /* <!-- ---------table------------ --> */
 
 table, th, td {
-		margin: auto;
-		margin-top: 85px;
-		border: 1px solid black;
-		border-collapse: collapse;
-		}
+	margin: auto;
+	margin-top: 85px;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
 		
-		th, td {
-		padding: 3px;
-		}
+th, td {
+	padding: 3px;
+}
 		
-		tr#head-table{
-		background-color: #BDBDBD;
-		}
+tr#head-table{
+	background-color: #BDBDBD;
+}
 
 
 
@@ -165,15 +174,13 @@ table, th, td {
 		width: auto;
 		margin-left: 40px;
 		margin-top:135px;
-	   
+}
 		
-		}
-		
-		#table{
-		clear: left;
-		float:left;
-		width: auto;
-		}
+#table{
+	clear: left;
+	float:left;
+	width: auto;
+}
 		
 		
 #button{

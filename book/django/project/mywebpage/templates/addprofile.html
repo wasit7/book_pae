@@ -1,153 +1,139 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>ประวัติผลการเรียน</title>
-  <script src="https://code.jquery.com/jquery-1.12.0.js"></script>
+    <title>ประวัติผลการเรียน</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   {% load staticfiles %}
-	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
 </head>
 <body>
 <div id="framework">
-
-    <div id="status">
-        <p>{{request.session.username}}<button>ออกจากระบบ</button></p>  
+    <!-- ####banner#### -->
+    <div id="banner-top">
+        <span id="logout"><button>ออกจากระบบ</button></span>
+        <span id="user">{{request.session.username}}</span>
     </div>
-	<!-- ####banner#### -->
+
     <div id="banner-home">
         <img src="{% static "banner/new-banner-middle.jpg" %}"> 
     </div>
 
-	<!-- ---------menu------------ -->
-	<div id="menu-bar">
-		<ul id="menu">
-		  <li ><a href="../homep/" id="home">หน้าแรก</a></li>
-		  <li><a href="../addprofile/" id="history-click">ประวัติผลการเรียน</a></li>
-		  <li><a href="../predict/" id="predict">ทำนายผลการเรียน</a></li>
-		</ul>
-	</div>
+    <!-- ---------menu------------ -->
+    <div id="menu-bar">
+        <ul id="menu">
+          <li ><a href="../homep/" id="home">หน้าแรก</a></li>
+          <li><a href="../addprofile/" id="history-click">ประวัติผลการเรียน</a></li>
+          <li><a href="../predict/" id="predict">ทำนายผลการเรียน</a></li>
+        </ul>
+    </div>
 
 {% verbatim %}
 <div ng-app="addprofile" ng-controller="myCtrl">
-    <h3>list of subjects: subject table</h3><p>{{subjects}}</p>
-    <h3>list of enrollment: (enrollment table)</h3><p>{{enrollment}}</p>
+    <!--<h3>list of subjects: subject table</h3><p>{{subjects}}</p> -->
+    <h3>list of enrollment: subject table</h3><p>{{enrollments}}</p>
     <h2>----------------------------------------------------</h2>
-    <h3>all subject</h3>
-    <div class="containerAllSubjects" ng-repeat="subObj in subjects">
-        <!--ng-repeat="subObj in subjects"-->
-        <input type="checkbox" ng-model="subObj.selected" ng-change="changeSelected()"><label>{{subObj.sub_id}} {{subObj.sub_name}}<label/>
-    </div>
+    <div id="containerAllSubjects" >
+        <h3 >Select subject:</h3>
+        <div  ng-repeat="(key,value) in subjects">
 
-    <h3>all enroll</h3>
-    <!--<div class="AllEnrollment" ng-repeat="enrollObj in enrollment">
-    <label>{{enrollObj.sub_id}}</label>
-    </div>-->
+            <input type="checkbox" ng-model="value.selected" ng-change="checkedSub()"><label>{{key}} {{value.sub_name}}<label/>
+        </div>
+    </div>
+    
+    <div id="containerAllEnrollmented">
+        <h3>Enrolled:</h3>
+        <div ng-repeat="(key,value) in enrollments" >
+            <p>
+                <select id="selTerm" ng-model="enrollments[key].term" ng-init="enrollments[key].term">
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                </select>
+                <select ng-model="enrollments[key].year" ng-init="enrollments[key].year">
+                    <option value=2552>2552</option>
+                    <option value=2553>2553</option>
+                    <option value=2554>2554</option>
+                    <option value=2555>2555</option>
+                </select>
+                {{key}}
+                <select ng-model="enrollments[key].grade" ng-init="enrollments[key].grade">
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="F">F</option>
+                </select>
+            </p>
+        </div>
+    </div>
+    <button ng-click="submit()">บันทึก</button>
+    <br>
+    msg : {{msg}}
 </div>
 {% endverbatim %}
 
 <script> 
 var app = angular.module('addprofile', []);
+app.config(function($httpProvider){
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken'
+});
+
 app.controller('myCtrl', function($scope, $http, $q) {
     var AllSubject = $http.get("{% url 'jsonSubject' %}"),
         AllEnrollment = $http.get("{% url 'jsonEnrollment' %}");
     $q.all([AllSubject, AllEnrollment]).then(function(response){
-        $scope.subjects = response[0].data.subjectID;
-        $scope.enrollment = response[1].data.js_enrollments;
-        angular.forEach($scope.subjects, function(subObj, subkey){
-            subObj.selected = false;
-        })
+        $scope.subjects = response[0].data;
+        $scope.enrollments = response[1].data;
+        //console.log($scope.enrollment);
+        for(i in $scope.subjects){
+            $scope.subjects[i].selected = false
+        }
 
-        
-        angular.forEach($scope.enrollment, function(enrollObj, enrollkey){
-            angular.forEach($scope.subjects, function(subObj, subkey){
-                if(subObj.sub_id == enrollObj.sub_id){
-                    subObj.selected = true;
+        for(j in $scope.enrollments){
+            for(i in $scope.subjects){
+                if(i == j){
+                    $scope.subjects[i].selected = true
                 }
-            })
-        })
+            }
+        }
     })
-    $scope.changeSelected = function() {
-        
-        angular.forEach($scope.enrollment, function(enrollObj){
-            angular.forEach($scope.subjects, function(subObj){
 
-            })
-            console.log(subObj)
+    $scope.checkedSub = function(){
+
+        angular.forEach($scope.subjects, function(value, key){
+            $scope.stdID = value.std_id
+            if(!(key in $scope.enrollments) && value.selected == true){
+                //console.log($scope.enrollments)
+                $scope.enrollments[key] = {'sub_id': key}
+            }else if((key in $scope.enrollments) && value.selected == false){
+                delete $scope.enrollments[key]
+            }
         })
     }
-});
+
+    $scope.submit = function(){
+        $http.post("{% url 'addprofile' %}", $scope.enrollments)
+        .then(function(response){
+            $scope.msg = response.data;
+        });
+    }
+
+    
+})
+
+
 </script>
 </body>
 </html>
 
-<!--<!DOCTYPE html>
-<html>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<body>
-{% verbatim %}
-<div ng-app="myApp" ng-controller="myCtrl">
-    <div class="containerCheck" ng-repeat="subObj in subjects">
-        <div><input type="checkbox" ng-model="subObj.checkedlist"><label>{{subObj.sub_name}}</label></div>
-        <p ng-show="subObj.checkedlist">
+<!--if(i!=j && $scope.subjects[i].selected == true){
+                //pass
+                //$scope.enrollments['a'] = i
+            }else if(i!=j && $scope.subjects[i].selected == false){
 
-            <input type="text" ng-readonly="true" value="{{subObj.sub_id}}" read-only="true"/>
-            <select
-                class="selGrade"
-                ng-change="changeGrade()"
-                ng-model="selGrade"
-                ng-options="i.grade for i in dataGrade"></select>
-            
-        </p>
-    </div>
-    <h3>list of subjects: subject table</h3><p>{{subjects}}</p>
-    <h3>list of checksubject:</h3><p>{{checkedSubject()}}</p>
-    <p>{{show}}</p>
-{% endverbatim %}
-</div>
+            }else if(i==j && $scope.subjects[i].selected == true){
 
-<script>
-var app = angular.module('myApp', []);
-app.controller('myCtrl', function($scope, $http) {
-    $http.get("{% url 'jsonSubject' %}")
-    //{"subjectID": [{"sub_id": "CS101", "checkedlist": false, "sub_name": "Discrete Structures"}]}
-    .then(function(response) {
-        $scope.term = ['1','2','3'];
-        $scope.year = ['2554','2555','2556','2557','2558','2559'];
-        $scope.subjects = response.data.subjectID;
-        //$scope.grade = ['A', 'B', 'B+','C', 'C+', 'D', 'D+', 'F', 'W', 'S', 'S#','U','U#'];
-        $scope.dataGrade = [{'grade':'A'},{'grade':'B'},{'grade':'B+'}];
-    });
-    
-   $scope.checkedSubject = function() {
-        var checkedSubject = [];
-        angular.forEach($scope.subjects, function(subObj, subkey){
-            angular.forEach(subObj, function(value , key){
-                if(key.substring(0,11) == 'checkedlist' && value){
-                        checkedSubject.push(subObj.sub_id+':'+value)
+            }else if(i==j && $scope.subjects[i].selected == false){
 
-                }
-            })
-        })
-        return checkedSubject
-    }   
-
-    /*$scope.changeTerm = function(){
-        //console.log("OK")
-        $scope.show ='Term:' + $scope.term;
-
-    }
-    /*$scope.changeYear = function(){
-        //console.log("OK")
-        $scope.show =' "Year" :' + $scope.selYear;
-    }*/
-
-    $scope.changeGrade = function(){
-        //console.log("OK")
-        //$scope.show ='Grade:' + $scope.selGrade.grade;
-    }
-});
-
-</script>
-</body>
-</html>-->
+            }-->

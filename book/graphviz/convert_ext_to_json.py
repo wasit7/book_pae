@@ -6,14 +6,24 @@ Created on Wed Jan 20 11:04:32 2016
 """
 import json
 out={}
-node=[]
-edges=[]
+node={}
+sub={}
+edges={}
 with open("graph_reY.plain-ext") as f:
     content = f.readlines()
-for n in content[1:]:
+
+for n in content[1: ]:
     line = n.split()
     
     if line[0] == "node":
+        #sub['X'] = line[2]
+        node[line[1]] = {'X':line[2], 'Y':line[3]}
+        
+        print node
+#for n in content[1:]:
+#    line = n.split()
+    
+    """if line[0] == "node":
         #print line[1:4]
         node.append({"COURSE_ID":line[1],"Y":line[2],"X":line[3]})
     elif line[0] == "edge":
@@ -23,11 +33,11 @@ for n in content[1:]:
            y = line[5+(i*2)]
            mydict = {"x":x,"y":y}
            linepath.append(mydict)
-       edges.append(linepath)           
+       edges.append(linepath)      """     
 out["node"]=node
-out["edges"]=edges   
+#out["edges"]=edges   
            
-print out
 
-with open("coordinate.json","w") as outfile:
+
+with open("coordinateNode.json","w") as outfile:
     json.dump(out,outfile,sort_keys=True, indent=4, separators=(',',': '))

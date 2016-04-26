@@ -11,4 +11,5 @@ urlpatterns = [
 	url(r'^jsonSubject.json$', views.jsonSubject, name='jsonSubject'),  #get data
 	url(r'^jsonEnrollment.json$', views.jsonEnrollment, name='jsonEnrollment'),
 	url(r'^coordinate.json$', views.coordinate, name='coordinate'),
+	#url(r'^update/$', views.update, name='update'),
 ]
