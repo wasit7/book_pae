@@ -13,10 +13,10 @@
   stroke-width: 2.5px;
 }
 #licensing {
-  fill: #6E6E6E;
+  fill: #BDBDBD;
 }
 .link.licensing {
-  stroke: #6E6E6E;
+  stroke: #BDBDBD;
 }
 
 .node.comsci {
@@ -41,14 +41,13 @@ text {
 <body>
 <div id="framework">
 <!-- ####banner#### -->
-<<<<<<< HEAD
-=======
+
   <div id="banner-top">
         <span id="logout"><button>ออกจากระบบ</button></span>
         <span id="user">{{request.session.username}}</span>
   </div>
 
->>>>>>> d173f0e5c4b6f58c3620d42279fd83e73a10403f
+
   <div id="banner-home">
     <img src="{% static "banner/new-banner-middle.jpg" %}"> 
   </div>
@@ -128,8 +127,8 @@ svg.append("defs").selectAll("marker")
     .attr("viewBox", "0 -5 10 10")
     .attr("refX", 15)
     .attr("refY", -1.5)
-    .attr("markerWidth", 6)
-    .attr("markerHeight", 6)
+    .attr("markerWidth", 8)
+    .attr("markerHeight", 8)
     .attr("orient", "auto")
     .append("path")
     .attr("d", "M0,-5L10,0L0,5");
@@ -149,7 +148,7 @@ var node = g.selectAll("graph.nodes")
     .enter().append("circle")
     .attr("class", "node")
     .attr("class", function(d) { return "node " + d.type; })
-    .attr("r", 6)
+    .attr("r", 8)
     .call(force.drag);
 
   ;

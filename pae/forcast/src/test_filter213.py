@@ -28,10 +28,10 @@ I = I.astype(np.int64, copy=False)
 #I = S[A[:,3]=='CS213']
 #T = df_file.as_matrix(columns=['3COURSEID','4RESULT']
 
-with open('train/dataset00.pic', 'wb') as pickleFile:
-    #write label and feature vector
-    theta_dim=1
-    clmax = 14
-    theta_range = I.shape[1]
-    pickle.dump((clmax,theta_dim,theta_range,len(L),L,I,None), pickleFile, pickle.HIGHEST_PROTOCOL)
-    
+#with open('train/dataset00.pic', 'wb') as pickleFile:
+#    #write label and feature vector
+#    theta_dim=1
+#    clmax = 14
+#    theta_range = I.shape[1]
+#    pickle.dump((clmax,theta_dim,theta_range,len(L),L,I,None), pickleFile, pickle.HIGHEST_PROTOCOL)
+#    

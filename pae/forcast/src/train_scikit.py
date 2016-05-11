@@ -9,14 +9,19 @@ import pandas as pd
 import numpy as np
 import pickle
 import xlwt
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_classification
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.cross_validation import cross_val_score
 book = xlwt.Workbook(encoding="utf-8")
-sheet1 = book.add_sheet("Python Sheet 1")
+sheet1 = book.add_sheet("Precission Without Merge")
+sheet2 = book.add_sheet("Precission With Merge")
 
 
-#----------------------Traning Data-----------------------
-df_file = pd.read_csv('../data/df_more20.csv',delimiter=",", skip_blank_lines = True, 
+#----------------------Traning Data With Merging-----------------------
+#df_file = pd.read_csv('../data/df_more20.csv',delimiter=",", skip_blank_lines = True, 
+#                 error_bad_lines=False)
+df_file = pd.read_csv('../data/df_sub_more20_merge.csv',delimiter=",", skip_blank_lines = True, 
                  error_bad_lines=False)
                  
 count_courseId = df_file["3COURSEID"].value_counts() 
@@ -41,7 +46,7 @@ for subject in subjects["courseId"]:
     df_sub = df_file[df_file['3COURSEID'] == subject]
     df_sub = df_sub.iloc[np.random.permutation(len(df_sub))]
     count_enrollment = df_sub['3COURSEID'].value_counts()
-    print "Number of %s enrollment: %s"%(subject,count_enrollment)
+    #print "Number of %s enrollment: %s"%(subject,count_enrollment)
 
     A = df_sub.as_matrix()
     X = A[:,6:]
@@ -50,9 +55,9 @@ for subject in subjects["courseId"]:
     y = y.astype(np.int64, copy=False)
 
     #Training data
-    clf_rf = RandomForestClassifier(n_estimators=10, max_depth=None, 
+    forest = RandomForestClassifier(n_estimators=10, max_depth=None, 
             min_samples_split=1, random_state=None, max_features=None)
-    clf = clf_rf.fit(X, y)
+    clf = forest.fit(X, y)
     scores = cross_val_score(clf, X, y, cv=5)
     print scores
     print "Random Forest Cross Validation of %s: %s"%(subject,scores.mean())
@@ -60,15 +65,40 @@ for subject in subjects["courseId"]:
     df_precision.loc[subject]=precision_rf[subject]
     print "-----------------------------------"
     
-    sheet1.write(count, 0, subject)
-    sheet1.write(count,1, scores.mean())
+    sheet2.write(count, 0, subject)
+    sheet2.write(count,1, scores.mean())
     book.save("RF_crossvalidation.xls")
     count = count+1
     
+    #print all subjects
     #save trees to pickle file
     f = "tree/tree%s.pic"%subject
     with open(f, 'wb') as pickleFile:
         pickle.dump(clf, pickleFile, pickle.HIGHEST_PROTOCOL)
 
 df_precision.plot(kind='bar')
-    
+
+#///////////////Find Importance Feature importances with forests of trees////////////////////
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_classification
+
+importances = forest.feature_importances_
+std = np.std([tree.feature_importances_ for tree in forest.estimators_],
+             axis=0)
+indices = np.argsort(importances)[::-1]
+list_grade = df_file.columns[6:]
+# Print the feature ranking
+print("Feature ranking:")
+
+for f in range(X.shape[1]):
+    print("%d. feature %s (%f)" % (f + 1, list_grade[indices[f]], importances[indices[f]]))
+
+# Plot the feature importances of the forest
+#plt.figure()
+#plt.title("Feature importances")
+#plt.bar(range(X.shape[1]), importances[indices],
+#       color="r", yerr=std[indices], align="center")
+#plt.xticks(range(X.shape[1]), indices)
+#plt.xlim([-1, X.shape[1]])
+#plt.show()  
+
