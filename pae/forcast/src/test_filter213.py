@@ -11,11 +11,14 @@ import numpy as np
 import pickle
 
 df_file = pd.read_excel('../src/transform.xlsx')
+df_file = df_file.drop(['0STUDENTID','1ACADYEAR','2SEMESTER','3COURSEID','4RESULT'],axis=1)
+
 headers=list(df_file.columns.values)
 
 df_file = df_file.fillna(0)
 df_file = df_file.replace(['A', 'B+', 'B', 'C+', 'C' , 'D+' , 'D' , 'F' , 'W' , 'S' , 'S#' , 'U' , 'U#'], 
                      [13, 12, 11, 10 , 9, 8, 7, 6, 5, 4, 3, 2, 1])
+                     
                      
 A = df_file.as_matrix()
 temp = A[A[:,3]=='CS213']

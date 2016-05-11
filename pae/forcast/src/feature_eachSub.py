@@ -105,5 +105,4 @@ pd.DataFrame(allSubject_df).to_excel(writer,"all_feature")
 pd.DataFrame(top10_df).to_excel(writer,"top10_feature")
 writer.save()
 
- for i in r:
 
