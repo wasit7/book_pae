@@ -81,18 +81,18 @@ for i in xrange(5,208):
         L = "L%02d"%(j)
         I = "I%02d"%(j)
         L = dataset[j][:,4]
-        L = L.astype(np.int64, copy=False)
+        #L = L.astype(np.int64, copy=False)
         I = dataset[j][:,5:]#L.shape
-        I = I.astype(np.int64, copy=False)
+        #I = I.astype(np.int64, copy=False)
         
         #save pickle file
-        f = "train%s/dataset%02d.pic"%(headers[i],j)
-        print f
-        with open(f, 'wb') as pickleFile:
-            theta_dim=1
-            clmax = 14
-            theta_range = I.shape[1]
-            pickle.dump((clmax,theta_dim,theta_range,len(L),L,I,None), pickleFile, pickle.HIGHEST_PROTOCOL) 
-    
-        print "-------------------------------------------------------"
+#        f = "train%s/dataset%02d.pic"%(headers[i],j)
+#        print f
+#        with open(f, 'wb') as pickleFile:
+#            theta_dim=1
+#            clmax = 14
+#            theta_range = I.shape[1]
+#            pickle.dump((clmax,theta_dim,theta_range,len(L),L,I,None), pickleFile, pickle.HIGHEST_PROTOCOL) 
+#    
+#        print "-------------------------------------------------------"
 
