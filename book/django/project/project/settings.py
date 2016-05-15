@@ -109,6 +109,10 @@ AUTH_PASSWORD_VALIDATORS = [
 #APPEND_SLASH= False
 LANGUAGE_CODE = 'en-us'
 
+LANGUAGEs = [
+    ('th', ('Thai'))
+]
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True

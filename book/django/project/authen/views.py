@@ -1,11 +1,14 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, HttpResponse
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
-
+from django.contrib.auth.models import User
 from django.shortcuts import redirect
+import sys, json
+from mywebpage.models import Student, Enrollment, Subject
+
 # Create your views here.
 def login(request):
 	if request.POST:
@@ -26,7 +29,9 @@ def login(request):
 	return	render(request,'login.html',{'state':"Please login"})
 
 def logout(request):
-	if request.POST:
+	if request.GET:
+		#reverse('/authen/logout')
+		print >> sys.stderr, "logout"
 		if 'username' in request.session:
 			del request.session['username']				#delete user_username left from sesstion
 		auth_logout(request)
@@ -34,8 +39,22 @@ def logout(request):
 
 
 def registration(request):
-	pass
-	return render(request,'registration.html')
+	if request.method == 'GET':
+		return render(request,'registration.html')
+	if request.method == 'POST':
+		user = json.loads(request.body)
+		uname = user['uname']
+		password = user['password']
+		cfpassword = user['cfpassword']
+		if password == cfpassword:
+			#print >> sys.stderr, user
+			if not User.objects.filter(username=uname).exists():
+				createUser = User.objects.create_user(username= uname, password= password)
+				createUser.save()
+				return HttpResponse("OK")
+			elif User.objects.filter(username=uname).exists():
+				return HttpResponse("user is exist")
+		else:
+			return HttpResponse("password is not valid")
 
-#def home(request):
-   	#return render(request,'mywebpage/homep.html',request.session['user_username'])
+

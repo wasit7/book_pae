@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>ทำนายผลการเรียน</title>
+    <script src="https://code.jquery.com/jquery-1.12.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js" charset="utf-8"></script>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
+</head>
+<body>
+{% verbatim %}
+<div id="framework" ng-app="userprofile" ng-controller="myCtrl">
+<!-- ####banner#### -->
+
+  <div id="banner-top">
+        <span id="logout"><button>ออกจากระบบ</button></span>
+        <span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
+  </div>
+
+  <div id="banner-home">
+      <img src="{% static "banner/new-banner-middle.jpg" %}"> 
+  </div>
+
+{% verbatim %}
+  <div>
+      <form name="myform" novalidate>
+          ชื่อจริง
+          <input type="text" name="firstname" ng-model="uprofile['user'].firstname" required>
+          <span style="color:grey; font-size:12px;"  ng-show="myform.firstname.$error.required">*กรุณากรอกชื่อจริง</span><br />
+          นามสกุล
+          <input type="text" name="lastname" ng-model="uprofile['user'].lastname" required>
+          <span style="color:grey; font-size:12px;" ng-show="myform.lastname.$error.required">*กรุณากรอกนามสกุล</span><br />
+          รหัสนักศึกษา
+          <input type="text" name="std_id" ng-model="uprofile['user'].std_id" required>
+          <span style="color:grey; font-size:12px;" ng-show="myform.std_id.$error.required">*กรุณากรอกรหัสศึกษา</span><br />
+          อีเมลล์
+          <input type="text" name="email" ng-model="uprofile['user'].email" required>
+          <span style="color:grey; font-size:12px;" ng-show="myform.email.$error.required" >*กรุณากรอกอีเมลล์</span><br />
+          เกรดเฉลี่ย
+          <input type="text" name="sch_gpa" ng-model="uprofile['user'].sch_gpa" required>
+          <span style="color:grey; font-size:12px;" ng-show="myform.sch_gpa.$error.required" >*กรุณากรอกเกรด</span><br />
+          ปีการศึกษาที่เข้าเรียน
+          <input type="text" name="admit_year" ng-model="uprofile['user'].admit_year" required>
+          <span style="color:grey; font-size:12px;" ng-show="myform.admit_year.$error.required" >*กรุณากรอกปีการศึกษาที่เข้าเรียน</span><br />
+          จังหวัด
+          <input type="text" name="province_id" ng-model="uprofile['user'].province_id" required>
+          <span style="color:grey; font-size:12px;" ng-show="myform.province_id.$error.required" >*กรุณากรอกจังหวัด</span><br />
+          <!--<select ng-model="uprofile['user'].province" ng-options="p.name  for p in provience">-->
+          
+          </select>
+          <input type="submit" value="บันทึก" ng-click="btnSave()" ng-disabled="myform.firstname.$error.required || myform.lastname.$error.required || myform.email.$error.required || myform.sch_gpa.$error.required || myform.admit_year.$error.required || myform.province_id.$error.required"/>
+          <button ng-click="btnCancel()">ยกเลิก</button>
+          user : {{uprofile}}
+
+      </form>
+  </div>
+{% endverbatim %}
+
+<script>
+var app = angular.module('userprofile', []);
+app.config(function($httpProvider){
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken'
+});
+
+app.controller('myCtrl', function($scope, $q, $http, $window) {
+    /*var Provience = $http.get("{% url 'jsonProvience' %}"),
+        Uprofile = $http.get("{% url 'jsonStudent' %}");
+    $q.all([Provience, Uprofile]).then(function(response){
+        $scope.provience = response[0].data;
+        $scope.uprofile = response[1].data;
+        console.log($scope.provience)
+    })*/
+    $http.get("{% url 'jsonStudent' %}")
+    .then(function(response){
+        $scope.uprofile = response.data;
+        //console.log($scope.uprofile)
+    });
+
+    
+    $scope.btnSave = function(){
+      $http.post("{% url 'userprofile' %}", $scope.uprofile)
+      .then(function(response){
+        console.log($scope.uprofile)
+          $window.alert("บันทึกสำเร็จ");
+          $scope.msg = response.data.msg;
+          console.log($scope.msg)
+      });
+    }
+
+    $scope.btnCancel = function(){
+      $window.location.href = '../home';
+    }
+});
+</script>
+</div>
+</body>
+</html>

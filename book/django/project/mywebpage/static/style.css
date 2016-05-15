@@ -2,12 +2,11 @@ body{
 	font-family: Tahoma;
 	margin: 0;
 	padding: 0;
-<<<<<<< HEAD
+
 	background-color: yellow;
-=======
+
 	background-color: white;
 	height: 100%;
->>>>>>> d173f0e5c4b6f58c3620d42279fd83e73a10403f
 }
 
 /* framework */
@@ -34,7 +33,9 @@ ul#regist {
 	margin: 10px auto 0 auto;
 	padding: 20px;
 }
-	
+#containerAllEnrollmented{
+	border-style: groove;
+}	
 #left {
 	float: left;
 	width: auto;	
@@ -140,14 +141,17 @@ ul#menu li a#predict-click{
 
 #topic-home{
 	margin-top: 100px;
+	text-align: center;
 }
 
 #topic-predict{
 	margin-top: 100px;
+	text-align: center;
 }
 
 #topic-login{
 	margin-top: 20px;
+	text-align: center;
 }
 
 /* <!-- ---------table------------ --> */
@@ -158,6 +162,7 @@ table, th, td {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
+
 		
 th, td {
 	padding: 3px;
@@ -185,6 +190,10 @@ tr#head-table{
 		
 #button{
 	clear: left;
+	text-align: center;
+}
+
+#btnEdit{
 	text-align: center;
 }
 

@@ -3,7 +3,8 @@ from .models import Student, Subject, Enrollment
 
 # Register your models here
 class StudentAdmin(admin.ModelAdmin):
-	list_display = ('username','std_id','std_name','province_id','sch_gpa','admit_year')
+	list_display = ('username','std_id','firstname','lastname','email','province_id','sch_gpa','admit_year')
+	#list_display = ('username','std_id','province_id','sch_gpa','admit_year')
 
 class SubjectAdmin(admin.ModelAdmin):
 	list_display = ('sub_id','sub_name','description','credit')
@@ -15,7 +16,6 @@ class EnrollmentAdmin(admin.ModelAdmin):
 
 	#def std_id(self,obj):
 		#return obj.std_id
-		
 		
 
 admin.site.register(Student,StudentAdmin)

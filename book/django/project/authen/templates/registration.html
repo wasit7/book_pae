@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
 	<title>สมัครสมาชิก</title>
-  		<script src="https://code.jquery.com/jquery-1.12.0.js"></script>
-  		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
-  		{% load staticfiles %}
-		<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js" charset="utf-8"></script>
+  {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
 </head>
 <body>
 
@@ -15,23 +15,81 @@
 		<img src="{% static "banner/banner.jpg" %}"> 
 	</div>
 	
-	<div class="formregis">
-		ชื่อ
-		<input type="text" name="firstname"><br />
-		นามสกุล
-		<input type="text" name="lastname"><br />
-		ชื่อผู้ใช้(รหัสนักศึกษา)
-		<input type="text" name="uname"><br />
-		รหัสผ่าน
-		<input type="text" name="password"><br />
-		<button id="btnOk" type="submit" value="ยืนยัน">ยืนยัน</button>
-		<button id="btnCancel" type="submit" value="ยกเลิก"><a href="../login">ยกเลิก</a></button>
+	{% verbatim %}
+	<div  ng-app="regis" ng-controller="myCtrl">
+		<form novalidate class="simple-form">
+			ชื่อผู้ใช้
+			<input type="text" ng-model="user.uname"><br />
+			รหัสผ่าน
+			<input type="text" ng-model="user.password"><br />
+			ยืนยันรหัสผ่าน
+			<input type="text" ng-model="user.cfpassword"><br />
+			<button ng-click="btnOk()">ยืนยัน</button>
+			<button ng-click="btnCancel()">ยกเลิก</button>
+		</form>
+
+		user: {{ user }} <br/>
 	</div>
+	{% endverbatim %}
 
 </div>	
 
 <script>
-	
+var app = angular.module('regis', []);
+app.config(function($httpProvider){
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken'
+});
+
+app.controller('myCtrl', function($scope, $http, $window) {
+
+	$scope.user = {}
+	$scope.btnOk = function(){
+		$http.post("{% url 'registration' %}", $scope.user)
+		.then(function(response){
+			if(response.data == 'OK'){
+				$window.alert(response.data)
+				$window.location.href = '../login';
+			}
+			else{
+				$window.alert(response.data)
+			}
+
+		})
+	}
+
+	$scope.btnCancel = function(){
+		$window.location.href = '../login';
+	}
+})
 </script>
 </body>
-</html>
+</html> 
+
+<!--<!DOCTYPE html>
+<html>
+<script src= "Page on googleapis.com"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="personCtrl">
+
+First Name: <input type="text" ng-model="firstName"><br>
+Last Name: <input type="text" ng-model="lastName"><br>
+<br>
+Full Name: {{fullName}}
+
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('personCtrl', function($scope) {
+    $scope.firstName = "";
+    $scope.lastName = "";
+    $scope.fullName = function() {
+        return $scope.firstName + " " + $scope.lastName;
+    }
+});
+</script>
+
+</body>
+</html>-->

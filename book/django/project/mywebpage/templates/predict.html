@@ -4,6 +4,7 @@
   <title>ทำนายผลการเรียน</title>
   <script src="https://code.jquery.com/jquery-1.12.0.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   {% load staticfiles %}
   <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
 <style>
@@ -17,6 +18,10 @@
 }
 .link.licensing {
   stroke: #6E6E6E;
+}
+
+.node.enroll{
+  fill: #224300;
 }
 
 .node.comsci {
@@ -39,28 +44,27 @@ text {
 </style>
 </head>
 <body>
-<div id="framework">
+{% verbatim %}
+<div id="framework" ng-app="predict" ng-controller="myCtrl">
 <!-- ####banner#### -->
-<<<<<<< HEAD
-=======
+
   <div id="banner-top">
         <span id="logout"><button>ออกจากระบบ</button></span>
-        <span id="user">{{request.session.username}}</span>
+        <span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
   </div>
 
->>>>>>> d173f0e5c4b6f58c3620d42279fd83e73a10403f
   <div id="banner-home">
     <img src="{% static "banner/new-banner-middle.jpg" %}"> 
   </div>
   <!-- ---------menu------------ -->
   <div id="menu-bar" width= "1000px">
     <ul id="menu">
-      <li ><a href="../homep/">หน้าแรก</a></li>
+      <li ><a href="../home/">หน้าแรก</a></li>
       <li><a href="../showprofile/" >ประวัติผลการเรียน</a></li>
       <li><a href="../predict/" id="history-click">ทำนายผลการเรียน</a></li>
     </ul>
   </div>
-  <div id="topic-home">
+  <div id="topic-home" style="text-align: center;">
     <img src="{% static "banner/topic-predict.jpg" %}">
   </div>
   <div id="curriculumD3">
@@ -265,6 +269,14 @@ function exit_highlight()
 });
 
 </script> 
+<script>
+var app = angular.module('predict', []);
+app.controller('myCtrl', function($scope, $http, $window) {
+    $scope.profile = function(){
+      console.log("profile")
+    }
+});
+</script>
 </div>
 </body>
 </html>

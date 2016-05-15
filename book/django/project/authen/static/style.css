@@ -2,6 +2,9 @@ body{
 	font-family: Tahoma;
 	margin: 0;
 	padding: 0;
+
+	background-color: yellow;
+
 	background-color: white;
 	height: 100%;
 }
@@ -78,14 +81,9 @@ ul#regist {
 /* menu */
 #menu-bar{
 	float: right;
-<<<<<<< HEAD
-	margin-top: 20px;
-	margin-right: 0px;
-=======
 	margin-top: 10px;
-	margin-right: 0px;
+	margin-right: 10px;
 	margin-bottom: 15px;
->>>>>>> d173f0e5c4b6f58c3620d42279fd83e73a10403f
 	clear: both;
 }
 
@@ -139,19 +137,16 @@ ul#menu li a#predict-click{
 }
 
 
-
 #topic-home{
-	text-align: center;
+	margin-top: 100px;
 }
 
 #topic-predict{
 	margin-top: 100px;
-	text-align: center;
 }
 
 #topic-login{
 	margin-top: 20px;
-	text-align: center;
 }
 
 /* <!-- ---------table------------ --> */
@@ -191,3 +186,9 @@ tr#head-table{
 	clear: left;
 	text-align: center;
 }
+
+#btnEdit{
+	text-align: center;
+}
+
+

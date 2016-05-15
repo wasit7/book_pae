@@ -16,11 +16,11 @@
 	        <img src="{% static "banner/new-banner-middle.jpg" %}"> 
 	    </div>
 	
-		<div id="topic-home">
+		<div id="topic-home" style="text-align: center;">
 			<img src="{% static "banner/topic-login.jpg" %}">
 		</div>
 	
-		<div class="login">
+		<div class="login" style="text-align: center;">
 				<form id="formlogin" method="post"  >{% csrf_token %}
 					{{state}} <br>
 					ชื่อผู้ใช้: 
