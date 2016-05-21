@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ประวัติผลการเรียน</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js" charset="utf-8"></script>
+  {% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
+</head>
+<body>
+{% verbatim %}
+<div id="framework" ng-app="showprofile" ng-controller="myCtrl">
+
+<!-- ####banner#### -->
+	<div id="banner-top">
+		
+		<span id="logout"><button ng-click="logout()">ออกจากระบบ</button></span>
+
+		<span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
+	</div>
+
+	<div id="banner-home">
+		<img src="{% static "banner/new-banner-middle.jpg" %}"> 
+	</div>
+
+	<!-- ---------menu------------ -->
+	<div id="menu-bar">
+		<ul id="menu">
+		  <li ><a href="../home/" id="home">หน้าแรก</a></li>
+		  <li><a href="../addprofile/" id="history-click">ประวัติผลการเรียน</a></li>
+		  <li><a href="../predict/" id="predict">ทำนายผลการเรียน</a></li>
+		</ul>
+	</div>
+
+
+<div >
+	<div class="containerAllEnrollment">
+		{% verbatim %}
+		<table>
+		<tr>
+			<th>Term/Year</th>
+			<th>Subject</th>
+			<th>Grade</th>
+		</tr>
+		<tr ng-repeat="(key, value) in enrollments">
+			<td>{{value.term}}/{{value.year}}</td>
+			<td>{{key}}</td>
+			<td>{{value.grade}}</td>
+		</tr>
+	</table>
+    </div>
+    
+    <button ng-click="toAddprofile()" style="margin-left:650px; margin-top:30px;" >แก้ไขข้อมูล</button>
+</div>
+{% endverbatim %}
+
+<script> 
+var app = angular.module('showprofile', []);
+app.controller('myCtrl', function($scope, $http, $window) {
+	$http.get("{% url 'jsonEnrollment' %}")
+	.then(function(response) {
+		$scope.enrollments = response.data;
+    });
+
+    $scope.toAddprofile = function(){
+    	$window.location.href = '../addprofile';
+    }
+
+    $scope.profile = function(){
+    	console.log("profile")
+    }
+});
+	
+</script>
+</div>
+</body>
+</html>
