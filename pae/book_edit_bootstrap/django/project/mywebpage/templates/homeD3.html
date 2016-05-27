@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-     <title>Graph Predict-predict</title>
+     <title>Graph Predict-cirriculum</title>
 
     <!-- Bootstrap Core CSS -->
     {% load staticfiles %} 
@@ -97,32 +97,33 @@ text {
 				<span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
 			</div>
 			<ul class="nav navbar-nav">
-				<li class="dropdown">
+				<li class="dropdown active">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">หน้าแรก <b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a href="../home/" >รายวิชา</a></li>
-						<li><a ng-click="login()" href="../homeD3/" >แผนผังการเรียน</a></li>
+						<li class="active"><a ng-click="login()" href="../homeD3/" >แผนผังการเรียน</a></li>
 					</ul>
 				</li>
 				<!-- <li class="active"><a href="home.html">หน้าแรก</a></li> -->
-				<li><a href="../showprofile/" >ประวัติการเรียน</a></li>
-				<li class="active"><a href="../predict/">ทำนายผลการศึกษา</a></li>
+				<li><a href="../showprofile/" >ประวัติการศึกษา</a></li>
+				<li><a href="../predict/">ทำนายผลการศึกษา</a></li>
 			</ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
 
 <!-- About Section -->
-<section id="about">
+    <section id="about">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">ผลการทำนาย</h2>
-                    <h3 class="section-subheading text-muted">**แผนภาพตามวิชาใน Label X (จำนวน111วิชา)**</h3>
+                    <h2 class="section-heading">แผนผังการเรียน</h2>
+                    <h3 class="section-subheading text-muted">หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาวิทยาการคอมพิวเตอร์ (หลักสูตรปรับปรุง พ.ศ.2552)</h3>
                 </div>
             </div>
         </div>
-    
+    </section>
+
 <script>
 var w = 1300,
     h = 800;
@@ -143,9 +144,9 @@ var max_stroke = 4.5;
 
 
 //import json to d3
-d3.json("../coordinate_predict.json", function(error, jsonfile) {
-  console.log(jsonfile.myfile.node);
-var js = jsonfile.myfile;
+d3.json("../coordinate_home.json", function(error, jsonfile) {
+  console.log(jsonfile.myfile1.node);
+var js = jsonfile.myfile1;
 
 var nodes = js.node
 var links = js.link
@@ -159,7 +160,6 @@ var linkedByIndex = {};
   function isConnected(a, b) {
         return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
     }
-
 
 var force = d3.layout.force()
     .nodes(graph.nodes)
@@ -321,8 +321,7 @@ function exit_highlight()
   
 });
 
-</script>
-</section>
+</script> 
 
 <script>
 var app = angular.module('homep', []);
