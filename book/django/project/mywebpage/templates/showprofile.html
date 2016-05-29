@@ -1,58 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>ประวัติผลการเรียน</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js" charset="utf-8"></script>
-  {% load staticfiles %}
-	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
-</head>
-<body>
-{% verbatim %}
-<div id="framework" ng-app="showprofile" ng-controller="myCtrl">
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<title>Graph Predict - Show Profile</title>
 
-<!-- ####banner#### -->
-	<div id="banner-top">
-		
-		<span id="logout"><button ng-click="logout()">ออกจากระบบ</button></span>
+  {% load staticfiles %} 
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}" > 
+  <!-- Custom CSS --> 
+    <link rel="stylesheet" type="text/css" href="{% static 'agency.css' %}" > 
+    <!-- Custom Fonts -->
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-		<span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
-	</div>
-
-	<div id="banner-home">
-		<img src="{% static "banner/new-banner-middle.jpg" %}"> 
-	</div>
-
-	<!-- ---------menu------------ -->
-	<div id="menu-bar">
-		<ul id="menu">
-		  <li ><a href="../home/" id="home">หน้าแรก</a></li>
-		  <li><a href="../addprofile/" id="history-click">ประวัติผลการเรียน</a></li>
-		  <li><a href="../predict/" id="predict">ทำนายผลการเรียน</a></li>
-		</ul>
-	</div>
-
-
-<div >
-	<div class="containerAllEnrollment">
-		{% verbatim %}
-		<table>
-		<tr>
-			<th>Term/Year</th>
-			<th>Subject</th>
-			<th>Grade</th>
-		</tr>
-		<tr ng-repeat="(key, value) in enrollments">
-			<td>{{value.term}}/{{value.year}}</td>
-			<td>{{key}}</td>
-			<td>{{value.grade}}</td>
-		</tr>
-	</table>
-    </div>
-    
-    <button ng-click="toAddprofile()" style="margin-left:650px; margin-top:30px;" >แก้ไขข้อมูล</button>
-</div>
-{% endverbatim %}
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
 <script> 
 var app = angular.module('showprofile', []);
@@ -63,15 +32,132 @@ app.controller('myCtrl', function($scope, $http, $window) {
     });
 
     $scope.toAddprofile = function(){
-    	$window.location.href = '../addprofile';
+    	$http.get("{% url 'addprofile' %}")
+	      .then(function(response){
+	        $window.location.href = '../addprofile';
+	      })
     }
 
     $scope.profile = function(){
-    	console.log("profile")
+      $http.get("{% url 'userprofile' %}")
+      .then(function(response){
+        $window.location.href= '../userprofile';
+      })
+    }
+
+    $scope.logout = function(){
+      $http.get("{% url 'logout' %}")
+      .then(function(response){
+        alert('logout') 
+        $window.location.href= '../../authen/login';
+      });
+    }
+
+    $scope.toShowprofile = function(){
+      $http.get("{% url 'showprofile' %}")
+      .then(function(response){
+        $window.location.href= '../showprofile';
+      })
+    }
+
+    $scope.toHome = function(){
+      $http.get("{% url 'home' %}")
+      .then(function(response){
+        $window.location.href= '../home';
+      })
+    }
+
+    $scope.toHomegraph = function(){
+      $http.get("{% url 'homegraph' %}")
+      .then(function(response){
+        $window.location.href= '../homegraph';
+      })
+    }
+    
+    $scope.toPredict = function(){
+      $http.get("{% url 'predict' %}")
+      .then(function(response){
+        $window.location.href= '../predict';
+      })
     }
 });
 	
 </script>
+</head>
+<body>
+{% verbatim %}
+<div id="page-top" class="index" ng-app="showprofile" ng-controller="myCtrl">
+
+<!-- Navigation -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" ng-click="toHome()">Graph Predict</a>
+        </div>
+
+<!-- Menu and User,Logout -->   
+        <div class="navbar-collapse collapse navbar-right">
+      
+      <!-- ####banner#### -->
+      <div id="banner-top">
+        <span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
+        <span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
+      </div>
+{% verbatim %}
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">หน้าแรก <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a ng-click="toHome()" >รายวิชา</a></li>
+            <li><a ng-click="toHomegraph()" >แผนผังการเรียน</a></li>
+          </ul>
+        </li>
+        <li class="active"><a ng-click="toShowprofile()" >ประวัติการศึกษา</a></li>
+        <li><a ng-click="toPredict()">ทำนายผลการศึกษา</a></li>
+      </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>        
+
+
+<section id="about" >
+	<div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h2 class="section-heading">รายวิชา</h2>
+            <h3 class="section-subheading text-muted">หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาวิทยาการคอมพิวเตอร์ (หลักสูตรปรับปรุง พ.ศ.2552)</h3>
+        </div>
+    </div>
+		<table class="table table-bordered">
+      <thead>
+  		<tr>
+  			<th>Year / Term</th>
+  			<th>Subject</th>
+  			<th>Grade</th>
+  		</tr>
+      </thead>
+  		<tr ng-repeat="(key, value) in enrollments">
+  			<td>{{value.year}} / {{value.term}}</td>
+  			<td>{{key}}</td>
+  			<td>{{value.grade}}</td>
+  		</tr>
+
+    </table>
+    <div class="col-lg-12 text-center">
+      <button class="btn" ng-click="toAddprofile()" type="submit">แก้ไขข้อมูล</button>
+    </div>
+  </div>
+</section>
+
+{% endverbatim %}
+
+
 </div>
 </body>
 </html>

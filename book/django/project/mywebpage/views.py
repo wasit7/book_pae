@@ -5,25 +5,45 @@ from django.core.urlresolvers import reverse
 from .models import Subject, Enrollment, Student
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.models import User
+from django.contrib.staticfiles.templatetags.staticfiles import static
 import sys
 import json
+import pickle
 # Create your views here.
 
 def home(request):
-    username = User.objects.get(username=request.session['username'])
-    student = Student.objects.filter(username__username=username)
-    if not student:
-        return render(request,'userprofile.html')
-    else:
-        return render(request,'home.html')
+    if request.method == 'GET':
+        if 'username' not in request.session:
+            return render(request, 'pleaselogin.html')
+        else:
+            username = User.objects.get(username=request.session['username'])
+            student = Student.objects.filter(username__username=username)
+            if not student:
+                return render(request,'userprofile.html')
+            else:
+                return render(request,'home.html')
+
+def homegraph(request):
+    if request.method == 'GET':
+        if 'username' not in request.session:
+            return render(request, 'pleaselogin.html')
+        else:
+            return render(request, 'homegraph.html')
+
 
 def showprofile(request):
-    return render(request,'showprofile.html')
+    if request.method == 'GET':
+        if 'username' not in request.session:
+            return render(request, 'pleaselogin.html')
+        else:
+            return render(request, 'showprofile.html')
 
 def addprofile(request):
-
     if request.method == 'GET':
-        return render(request,'addprofile.html')
+        if 'username' not in request.session:
+            return render(request, 'pleaselogin.html')
+        else:
+            return render(request, 'addprofile.html')
     if request.method == 'POST':
         enroll = json.loads(request.body)  #jsEnrolled is python Object or python dictionary  #101
         #body={"CS101": {"sub_id": "CS101", "grade": "A", "term": "2", "year": "2555"}}
@@ -54,31 +74,124 @@ def addprofile(request):
             elif Enrollment.objects.filter(std_id__std_id = std_id ,sub_id__sub_id=key ).exists() is False:
                 fk_std_id = Student.objects.get(std_id=std_id)
                 fk_sub_id = Subject.objects.get(sub_id=key)
-                #print >> sys.stderr, fk_sub_id
                 new_enroll = Enrollment.objects.create(std_id=fk_std_id, sub_id=fk_sub_id, grade=value['grade'], term=value['term'], year=value['year'])
                 new_enroll.save()
 
         return HttpResponse("OK")
 
-def editprofile(request):
-    return render(request,'editprofile.html')
-
 def predict(request):
-    std_id = str(Student.objects.get(username__username=request.session['username']).std_id)
-    enroll = Enrollment.objects.filter(std_id__std_id = std_id)
-    
-    return render(request, 'predict.html')
+    if request.method == 'GET':
+        if 'username' not in request.session:
+            return render(request, 'pleaselogin.html')
+        else:
+            subject = Subject.objects.values('sub_id').order_by('sub_id')  #sort by subid
+            sList = [ i for i in subject ]
+            subjectList =[]
+            for i in range(len(sList)):
+                v = sList[i]
+                obj = v['sub_id']
+                subjectList.append(obj)
+            #print subjectList #[u'AT316, u'AT326, .... , u'TU154']
+
+            std_id = str(Student.objects.get(username__username=request.session['username']).std_id)
+            enroll = Enrollment.objects.filter(std_id__std_id = std_id).order_by('sub_id').values('sub_id','grade')
+            #print >> sys.stderr, enroll      #type(enroll) 
+
+            enList = [i for i in enroll]    #[{'sub_id':u'AT316', 'grade': u'B'}]
+            enrollList = []
+            for i in range(len(enList)):
+                v = enList[i]
+                obj = v['sub_id']
+                enrollList.append(obj)
+            #print >> sys.stderr,enrollList      #type(enList)   
+
+            label = []
+            for i,n in enumerate(subjectList):
+                if n in enrollList:
+                    label.append(n)
+                else:
+                    label.append(0)
+
+            for i in enList:
+                #print type(i)  #print i['sub_id']
+                if i['sub_id'] in label:
+                    sub = i['sub_id']
+                    rep = i['grade']
+
+                if rep == 'A':
+                    label[label.index(sub)] = 8
+                elif rep == 'B+':
+                    label[label.index(sub)] = 7
+                elif rep == 'B':
+                    label[label.index(sub)] = 7
+                elif rep == 'C+':
+                    label[label.index(sub)] = 6
+                elif rep == 'C':
+                    label[label.index(sub)] = 6
+                elif rep == 'D+':
+                    label[label.index(sub)] = 5
+                elif rep == 'D':
+                    label[label.index(sub)] = 5
+                elif rep == 'F':
+                    label[label.index(sub)] = 4
+                elif rep == 'W':
+                    label[label.index(sub)] = 3
+                elif rep == 'S':
+                    label[label.index(sub)] = 2
+                elif rep == 'S#':
+                    label[label.index(sub)] = 2
+                elif rep == 'U':
+                    label[label.index(sub)] = 1
+                elif rep == 'U#':
+                    label[label.index(sub)] = 1    
+            #print label
+
+            #print label[-1][0]
+            classify(label)
+            return render(request, 'predict.html')
+
+def classify(X):
+    #print X
+    subject = Subject.objects.values('sub_id').order_by('sub_id')  #sort by subid
+    sList = [ i for i in subject ]
+    subjectList =[]
+    for i in range(len(sList)):
+        v = sList[i]
+        obj = v['sub_id']
+        subjectList.append(obj)
+
+    #url = static('file.txt')
+    #print url
+    '''for i in range(0,111):
+        if X[i] == 0:
+            subject = subjectList[i]
+            f = static("tree/tree%s.pic"%subject)
+            with open(f, 'rb') as pickleFile:
+                clf2 = pickle.load(pickleFile)
+            clf2.predict(X)
+            Grade=['A', 'B', 'C' , 'D' , 'F' , 'W' , 'S' , 'U' ,'na']
+            grade_predicted = Grade[clf2.predict(X)]
+            print "prediction of %s: "%subject,grade_predicted
+        elif X[i] != 0:
+            subject = subjects[i]
+            print "already have grade of %s: "%subject'''
+
+    return HttpResponse("OK")
 
 def userprofile(request):
     if request.method == 'GET':
-        return render(request, 'userprofile.html')
+        if 'username' not in request.session:
+            print "pleaselogin"
+            return render(request, 'pleaselogin.html')
+        else:
+            print "userprofile"
+            return render(request, 'userprofile.html')
 
     if request.method == 'POST':
         userprofile = json.loads(request.body)
 
         for key,value in userprofile.iteritems():
             username = str(User.objects.get(username=request.session['username']))
-
 
             #update
             if Student.objects.filter(username__username=username).exists():
@@ -97,26 +210,21 @@ def userprofile(request):
                 #print >> sys.stderr, value['firstname']
                 record.save()
 
-                #check field none
-
             #add
             elif Student.objects.filter(username__username=username).exists() is False:
                 fk_username = User.objects.get(username=username)
-
-                #else:
                 new_student = Student.objects.create(username=fk_username,firstname=value['firstname'],lastname=value['lastname'],std_id=value['std_id'],email=value['email'],sch_gpa=value['sch_gpa'],admit_year= value['admit_year'], province_id=value['province_id'])
                 new_student.save()
 
         return render(request, 'userprofile.html')
 
 def jsonProvience(request):
-    province = {'10':{'name':'10-bangkok'},'11':{'name':'11-nonthaburi'}}
-    return JsonResponse(province)
+    subject = Subject.objects.all().order_by('sub_id')
+    return HttpResponse(subject)
 
 def jsonSubject(request):
     subjectID = Subject.objects.all()
-
-    subjectIDdata = { i.sub_id : {'sub_name' : i.sub_name} for i in subjectID } 
+    subjectIDdata = { i.sub_id : {'sub_name' : i.sub_name} for i in subjectID }
     return JsonResponse(subjectIDdata)
 
 def jsonEnrollment(request):
@@ -133,11 +241,835 @@ def jsonStudent(request):
     studentData = { 'user' :{'std_id': str(i.std_id), 'firstname': i.firstname, 'lastname': i.lastname,'email': i.email, 'sch_gpa': str(i.sch_gpa),'admit_year': str(i.admit_year), 'province_id':i.province_id } for i in student}
     return JsonResponse(studentData)
 
-def test(request):
-    return render(request,'test.html')
+def coordinate_home(request):
+    myfile1 = {
+    "link": [
+        {
+            "source": 87,
+            "target": 44,
+            "type": "licensing"
+        },
+        {
+            "source": 1,
+            "target": 3,
+            "type": "licensing"
+        },
+        {
+            "source": 2,
+            "target": 3,
+            "type": "licensing"
+        },
+        {
+            "source": 3,
+            "target": 5,
+            "type": "licensing"
+        },
+        {
+            "source": 3,
+            "target": 7,
+            "type": "licensing"
+        },
+        {
+            "source": 3,
+            "target": 8,
+            "type": "licensing"
+        },
+        {
+            "source": 3,
+            "target": 12,
+            "type": "licensing"
+        },
+        {
+            "source": 5,
+            "target": 9,
+            "type": "licensing"
+        },
+        {
+            "source": 5,
+            "target": 13,
+            "type": "licensing"
+        },
+        {
+            "source": 5,
+            "target": 22,
+            "type": "licensing"
+        },
+        {
+            "source": 5,
+            "target": 27,
+            "type": "licensing"
+        },
+        {
+            "source": 5,
+            "target": 34,
+            "type": "licensing"
+        },
+        {
+            "source": 5,
+            "target": 38,
+            "type": "licensing"
+        },
+        {
+            "source": 5,
+            "target": 44,
+            "type": "licensing"
+        },
+        {
+            "source": 7,
+            "target": 23,
+            "type": "licensing"
+        },
+        {
+            "source": 7,
+            "target": 59,
+            "type": "licensing"
+        },
+        {
+            "source": 8,
+            "target": 24,
+            "type": "licensing"
+        },
+        {
+            "source": 8,
+            "target": 25,
+            "type": "licensing"
+        },
+        {
+            "source": 8,
+            "target": 27,
+            "type": "licensing"
+        },
+        {
+            "source": 8,
+            "target": 55,
+            "type": "licensing"
+        },
+        {
+            "source": 8,
+            "target": 58,
+            "type": "licensing"
+        },
+        {
+            "source": 9,
+            "target": 11,
+            "type": "licensing"
+        },
+        {
+            "source": 9,
+            "target": 30,
+            "type": "licensing"
+        },
+        {
+            "source": 9,
+            "target": 33,
+            "type": "licensing"
+        },
+        {
+            "source": 9,
+            "target": 64,
+            "type": "licensing"
+        },
+        {
+            "source": 9,
+            "target": 65,
+            "type": "licensing"
+        },
+        {
+            "source": 9,
+            "target": 67,
+            "type": "licensing"
+        },
+        {
+            "source": 10,
+            "target": 37,
+            "type": "licensing"
+        },
+        {
+            "source": 12,
+            "target": 14,
+            "type": "licensing"
+        },
+        {
+            "source": 12,
+            "target": 16,
+            "type": "licensing"
+        },
+        {
+            "source": 12,
+            "target": 37,
+            "type": "licensing"
+        },
+        {
+            "source": 12,
+            "target": 39,
+            "type": "licensing"
+        },
+        {
+            "source": 12,
+            "target": 51,
+            "type": "licensing"
+        },
+        {
+            "source": 12,
+            "target": 52,
+            "type": "licensing"
+        },
+        {
+            "source": 12,
+            "target": 53,
+            "type": "licensing"
+        },
+        {
+            "source": 12,
+            "target": 71,
+            "type": "licensing"
+        },
+        {
+            "source": 12,
+            "target": 74,
+            "type": "licensing"
+        },
+        {
+            "source": 11,
+            "target": 15,
+            "type": "licensing"
+        },
+        {
+            "source": 11,
+            "target": 42,
+            "type": "licensing"
+        },
+        {
+            "source": 15,
+            "target": 43,
+            "type": "licensing"
+        },
+        {
+            "source": 16,
+            "target": 40,
+            "type": "licensing"
+        },
+        {
+            "source": 16,
+            "target": 72,
+            "type": "licensing"
+        },
+        {
+            "source": 0,
+            "target": 66,
+            "type": "licensing"
+        },
+        {
+            "source": 17,
+            "target": 44,
+            "type": "licensing"
+        },
+        {
+            "source": 17,
+            "target": 45,
+            "type": "licensing"
+        },
+        {
+            "source": 17,
+            "target": 19,
+            "type": "licensing"
+        },
+        {
+            "source": 18,
+            "target": 45,
+            "type": "licensing"
+        },
+        {
+            "source": 20,
+            "target": 49,
+            "type": "licensing"
+        },
+        {
+            "source": 23,
+            "target": 26,
+            "type": "licensing"
+        },
+        {
+            "source": 27,
+            "target": 28,
+            "type": "licensing"
+        },
+        {
+            "source": 27,
+            "target": 29,
+            "type": "licensing"
+        },
+        {
+            "source": 27,
+            "target": 55,
+            "type": "licensing"
+        },
+        {
+            "source": 27,
+            "target": 56,
+            "type": "licensing"
+        },
+        {
+            "source": 27,
+            "target": 57,
+            "type": "licensing"
+        },
+        {
+            "source": 27,
+            "target": 61,
+            "type": "licensing"
+        },
+        {
+            "source": 28,
+            "target": 41,
+            "type": "licensing"
+        },
+        {
+            "source": 28,
+            "target": 60,
+            "type": "licensing"
+        },
+        {
+            "source": 28,
+            "target": 63,
+            "type": "licensing"
+        },
+        {
+            "source": 29,
+            "target": 62,
+            "type": "licensing"
+        },
+        {
+            "source": 30,
+            "target": 31,
+            "type": "licensing"
+        },
+        {
+            "source": 30,
+            "target": 32,
+            "type": "licensing"
+        },
+        {
+            "source": 30,
+            "target": 66,
+            "type": "licensing"
+        },
+        {
+            "source": 34,
+            "target": 35,
+            "type": "licensing"
+        },
+        {
+            "source": 34,
+            "target": 36,
+            "type": "licensing"
+        },
+        {
+            "source": 34,
+            "target": 69,
+            "type": "licensing"
+        },
+        {
+            "source": 37,
+            "target": 70,
+            "type": "licensing"
+        },
+        {
+            "source": 38,
+            "target": 70,
+            "type": "licensing"
+        },
+        {
+            "source": 39,
+            "target": 72,
+            "type": "licensing"
+        },
+        {
+            "source": 39,
+            "target": 73,
+            "type": "licensing"
+        },
+        {
+            "source": 44,
+            "target": 19,
+            "type": "licensing"
+        },
+        {
+            "source": 44,
+            "target": 46,
+            "type": "licensing"
+        },
+        {
+            "source": 44,
+            "target": 47,
+            "type": "licensing"
+        },
+        {
+            "source": 45,
+            "target": 47,
+            "type": "licensing"
+        },
+        {
+            "source": 46,
+            "target": 75,
+            "type": "licensing"
+        },
+        {
+            "source": 47,
+            "target": 48,
+            "type": "licensing"
+        },
+        {
+            "source": 47,
+            "target": 76,
+            "type": "licensing"
+        },
+        {
+            "source": 47,
+            "target": 77,
+            "type": "licensing"
+        },
+        {
+            "source": 49,
+            "target": 50,
+            "type": "licensing"
+        },
+        {
+            "source": 64,
+            "target": 67,
+            "type": "licensing"
+        },
+        {
+            "source": 75,
+            "target": 76,
+            "type": "licensing"
+        },
+        {
+            "source": 84,
+            "target": 64,
+            "type": "licensing"
+        },
+        {
+            "source": 0,
+            "target": 66,
+            "type": "licensing"
+        }
+    ],
+    "node": [
+        {
+            "name": "BA291",
+            "type": "general"
+        },
+        {
+            "name": "CS101",
+            "type": "force"
+        },
+        {
+            "name": "CS102",
+            "type": "force"
+        },
+        {
+            "name": "CS111",
+            "type": "force"
+        },
+        {
+            "name": "CS112",
+            "type": "force"
+        },
+        {
+            "name": "CS213",
+            "type": "force"
+        },
+        {
+            "name": "CS214",
+            "type": "force"
+        },
+        {
+            "name": "CS222",
+            "type": "force"
+        },
+        {
+            "name": "CS223",
+            "type": "force"
+        },
+        {
+            "name": "CS251",
+            "type": "force"
+        },
+        {
+            "name": "CS261",
+            "type": "force"
+        },
+        {
+            "name": "CS281",
+            "type": "force"
+        },
+        {
+            "name": "CS284",
+            "type": "force"
+        },
+        {
+            "name": "CS285",
+            "type": "force"
+        },
+        {
+            "name": "CS286",
+            "type": "force"
+        },
+        {
+            "name": "CS288",
+            "type": "force"
+        },
+        {
+            "name": "CS289",
+            "type": "force"
+        },
+        {
+            "name": "CS295",
+            "type": "force"
+        },
+        {
+            "name": "CS296",
+            "type": "force"
+        },
+        {
+            "name": "CS297",
+            "type": "force"
+        },
+        {
+            "name": "CS301",
+            "type": "force"
+        },
+        {
+            "name": "CS302",
+            "type": "force"
+        },
+        {
+            "name": "CS311",
+            "type": "force"
+        },
+        {
+            "name": "CS314",
+            "type": "force"
+        },
+        {
+            "name": "CS326",
+            "type": "force"
+        },
+        {
+            "name": "CS327",
+            "type": "force"
+        },
+        {
+            "name": "CS328",
+            "type": "force"
+        },
+        {
+            "name": "CS341",
+            "type": "force"
+        },
+        {
+            "name": "CS342",
+            "type": "force"
+        },
+        {
+            "name": "CS348",
+            "type": "force"
+        },
+        {
+            "name": "CS356",
+            "type": "force"
+        },
+        {
+            "name": "CS357",
+            "type": "force"
+        },
+        {
+            "name": "CS358",
+            "type": "force"
+        },
+        {
+            "name": "CS359",
+            "type": "force"
+        },
+        {
+            "name": "CS365",
+            "type": "force"
+        },
+        {
+            "name": "CS366",
+            "type": "force"
+        },
+        {
+            "name": "CS367",
+            "type": "force"
+        },
+        {
+            "name": "CS374",
+            "type": "force"
+        },
+        {
+            "name": "CS377",
+            "type": "force"
+        },
+        {
+            "name": "CS385",
+            "type": "force"
+        },
+        {
+            "name": "CS386",
+            "type": "force"
+        },
+        {
+            "name": "CS387",
+            "type": "force"
+        },
+        {
+            "name": "CS388",
+            "type": "force"
+        },
+        {
+            "name": "CS389",
+            "type": "force"
+        },
+        {
+            "name": "CS395",
+            "type": "force"
+        },
+        {
+            "name": "CS396",
+            "type": "force"
+        },
+        {
+            "name": "CS397",
+            "type": "force"
+        },
+        {
+            "name": "CS398",
+            "type": "force"
+        },
+        {
+            "name": "CS399",
+            "type": "force"
+        },
+        {
+            "name": "CS401",
+            "type": "force"
+        },
+        {
+            "name": "CS402",
+            "type": "force"
+        },
+        {
+            "name": "CS406",
+            "type": "force"
+        },
+        {
+            "name": "CS407",
+            "type": "force"
+        },
+        {
+            "name": "CS408",
+            "type": "force"
+        },
+        {
+            "name": "CS409",
+            "type": "force"
+        },
+        {
+            "name": "CS426",
+            "type": "force"
+        },
+        {
+            "name": "CS427",
+            "type": "force"
+        },
+        {
+            "name": "CS428",
+            "type": "force"
+        },
+        {
+            "name": "CS429",
+            "type": "force"
+        },
+        {
+            "name": "CS439",
+            "type": "force"
+        },
+        {
+            "name": "CS446",
+            "type": "force"
+        },
+        {
+            "name": "CS447",
+            "type": "force"
+        },
+        {
+            "name": "CS448",
+            "type": "force"
+        },
+        {
+            "name": "CS449",
+            "type": "force"
+        },
+        {
+            "name": "CS456",
+            "type": "force"
+        },
+        {
+            "name": "CS457",
+            "type": "force"
+        },
+        {
+            "name": "CS458",
+            "type": "force"
+        },
+        {
+            "name": "CS459",
+            "type": "force"
+        },
+        {
+            "name": "CS467",
+            "type": "force"
+        },
+        {
+            "name": "CS469",
+            "type": "force"
+        },
+        {
+            "name": "CS479",
+            "type": "force"
+        },
+        {
+            "name": "CS486",
+            "type": "force"
+        },
+        {
+            "name": "CS487",
+            "type": "force"
+        },
+        {
+            "name": "CS488",
+            "type": "force"
+        },
+        {
+            "name": "CS489",
+            "type": "force"
+        },
+        {
+            "name": "CS496",
+            "type": "force"
+        },
+        {
+            "name": "CS497",
+            "type": "force"
+        },
+        {
+            "name": "CS499",
+            "type": "force"
+        },
+        {
+            "name": "EC210",
+            "type": "general"
+        },
+        {
+            "name": "EL070",
+            "type": "general"
+        },
+        {
+            "name": "EL171",
+            "type": "general"
+        },
+        {
+            "name": "EL172",
+            "type": "general"
+        },
+        {
+            "name": "EL295",
+            "type": "general"
+        },
+        {
+            "name": "EL395",
+            "type": "force"
+        },
+        {
+            "name": "HO201",
+            "type": "general"
+        },
+        {
+            "name": "MA211",
+            "type": "force"
+        },
+        {
+            "name": "MA212",
+            "type": "force"
+        },
+        {
+            "name": "MA332",
+            "type": "force"
+        },
+        {
+            "name": "PY228",
+            "type": "general"
+        },
+        {
+            "name": "SC123",
+            "type": "force"
+        },
+        {
+            "name": "SC135",
+            "type": "force"
+        },
+        {
+            "name": "SC173",
+            "type": "force"
+        },
+        {
+            "name": "SC185",
+            "type": "force"
+        },
+        {
+            "name": "ST216",
+            "type": "force"
+        },
+        {
+            "name": "TH161",
+            "type": "general"
+        },
+        {
+            "name": "TU100",
+            "type": "general"
+        },
+        {
+            "name": "TU110",
+            "type": "general"
+        },
+        {
+            "name": "TU120",
+            "type": "general"
+        },
+        {
+            "name": "TU122",
+            "type": "general"
+        },
+        {
+            "name": "TU130",
+            "type": "general"
+        },
+        {
+            "name": "TU154",
+            "type": "general"
+        }
+    ]
+}
+    
 
+    return JsonResponse({'myfile1':myfile1})
 
-def coordinate(request):
+def coordinate_predict(request):
+    '''handle = open('static/coordinate.json','r+')
+    var = handle.read()
+    print var'''
     myfile = {
     "link": [
         {
