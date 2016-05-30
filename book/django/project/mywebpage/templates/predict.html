@@ -28,17 +28,11 @@
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   <!-- Plugin JavaScript -->
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-  <script type="text/javascript" src="{% static "classie.js" %}"></script>
-  <script type="text/javascript" src="{% static "cbpAnimatedHeader.js" %}"></script>
-
-
-  <!-- Contact Form JavaScript -->
-  <script type="text/javascript" src="{% static "jqBootstrapValidation.js" %}"></script>
-  <script type="text/javascript" src="{% static "contact_me.js" %}"></script>
-    
-
   <!-- Custom Theme JavaScript -->
   <script type="text/javascript" src="{% static "agency.js" %}"></script>
+  <script id="data" type="application/json" src="{% static "coordinate_predict.json" %}"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
 <style>
 .link {
@@ -73,7 +67,7 @@ text {
 </style>
 <script>
 var w = 1300,
-    h = 800;
+    h = 950;
 
 var focus_node = null, highlight_node = null, highlight_link = null;
 
@@ -91,12 +85,14 @@ var max_stroke = 4.5;
 
 
 //import json to d3
+//var data = JSON.parse($("#data").html());
+
 d3.json("../coordinate_predict.json", function(error, jsonfile) {
-  console.log(jsonfile.myfile.node);
+  console.log(jsonfile);
 var js = jsonfile.myfile;
 
-var nodes = js.node
 var links = js.link
+var nodes = js.node
 var graph = {nodes,links};
 
 var linkedByIndex = {};
@@ -270,8 +266,6 @@ function exit_highlight()
 });
 
 </script>
-</section>
-
 <script>
 var app = angular.module('predict', []);
 app.controller('myCtrl', function($scope, $http, $window) {
@@ -361,6 +355,7 @@ app.controller('myCtrl', function($scope, $http, $window) {
 <!-- About Section -->
 <section id="about">
         <div class="container">
+          {{id}}
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">ผลการทำนาย</h2>
@@ -368,5 +363,6 @@ app.controller('myCtrl', function($scope, $http, $window) {
                 </div>
             </div>
         </div>
+</section>
 </body>
 </html>

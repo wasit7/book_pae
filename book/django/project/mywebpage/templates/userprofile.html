@@ -121,14 +121,15 @@ app.controller('myCtrl', function($scope, $q, $http, $window) {
           <div class="col-xs-6">
             <div class="form-group"> 
               <label>ชื่อจริง</label>
-              <input type="text" name="firstname" ng-model="uprofile['user'].firstname" class="form-control" placeholder="ชื่อจริง*" ng-pattern="" required/> 
+              <input type="text" name="firstname" ng-model="uprofile['user'].firstname" class="form-control" placeholder="ชื่อจริง*"  required/> 
               <!--<p class="help-block text-danger"></p> -->
               <p ng-show="myform.firstname.$error.required">You firstname is required.</p>
             </div> 
             <div class="form-group"> 
               <label>รหัสนักศึกษา</label>
-              <input type="text" name="std_id" ng-model="uprofile['user'].std_id" class="form-control" placeholder="รหัสนักศึกษา*" required/> 
-              <p></p> 
+              <input type="text" name="std_id" ng-model="uprofile['user'].std_id" class="form-control" placeholder="รหัสนักศึกษา*" ng-minlength="10" ng-pattern="/^[0-9]{1,10}$/" required/> 
+              <p ng-show="myform.std_id.$error.required">You student id is required.</p>
+              <p ng-show="myform.std_id.$error.pattern">Student id is required number</p>  
             </div>
             <div class="form-group">
               <label>เกรดเฉลี่ยที่โรงเรียน</label> 

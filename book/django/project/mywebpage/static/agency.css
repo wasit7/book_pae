@@ -178,6 +178,15 @@ fieldset[disabled] .btn-xl.active {
   color:#fff;
 }
 
+.navbar-default .nav .dropdown-menu>.active>a,
+.navbar-default .nav .dropdown-menu>.active>a:focus,
+.navbar-default .nav.dropdown-menu>.active>a:hover {
+  color:#555; 
+  background-color:#e7e7e7;
+  text-decoration:none;
+  outline:0;
+}
+
 .navbar-default .nav li a:hover,
 .navbar-default .nav li a:focus {
   color:#fed136;
@@ -198,7 +207,7 @@ fieldset[disabled] .btn-xl.active {
 
 @media (min-width:768px) {
   .navbar-default {
-	background-color:#222;  
+  background-color:#222;  
     border-color:transparent;
     padding:15px 0;
     -webkit-transition:padding .3s;
@@ -222,7 +231,7 @@ fieldset[disabled] .btn-xl.active {
     padding:10px 0;
   }
 
-  .navbar-default.navbar-shrink .navbar-brand { font-size:1.5em; }
+  .navbar-default.navbar-shrink .navbar-brand { font-size:2em; }
 }
 
 header {
@@ -302,7 +311,7 @@ section h3.section-subheading {
 }
 
 @media (min-width:768px) {
-  section { padding:150px 0; }
+  section { padding:150px 0 30px 0; }
 }
 
 .service-heading {
@@ -585,11 +594,11 @@ section#contact .section-heading { color:#fff; }
 section#contact .form-group { margin-bottom:25px; }
 
 section#contact .form-group input,
-section#contact .form-group textarea { padding:20px; }
+section#contact .form-group textarea { padding:20px;}
 
-section#contact .form-group input.form-control { height:auto; }
+section#contact .form-group input.form-control {height:auto;}
 
-section#contact .form-group textarea.form-control { height:236px; }
+section#contact .form-group textarea.form-control { height:236px;}
 
 section#contact .form-control:focus {
   border-color:#fed136;
