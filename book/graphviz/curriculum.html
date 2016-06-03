@@ -2,13 +2,14 @@
 <!-- saved from url=(0049)file:///D:/GitHub/book_pae/book/svg/Sugiyama.html -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 <script src="d3.v3.min.js" charset="utf-8"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 </head>
 
 <body>
 
 <script>
 
-d3.json("coordinate.json", function(error,json){
+d3.json("../testco", function(error,json){
 console.log(json)
   var svgContainer = d3.select("body").append("svg")
                                       .attr("width", 2000)

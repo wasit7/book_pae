@@ -12,7 +12,8 @@ urlpatterns = [
 	url(r'^jsonEnrollment.json$', views.jsonEnrollment, name='jsonEnrollment'),
 	url(r'^jsonStudent.json$', views.jsonStudent, name='jsonStudent'),
 	url(r'^jsonProvience.json$', views.jsonProvience, name='jsonProvience'),
-	url(r'^coordinate_predict.json$', views.coordinate_predict, name='coordinate_predict'),
-	url(r'^coordinate_home.json$', views.coordinate_home, name='coordinate_home'),
-	#url(r'^logout/$', views.logout, name='logout'),
+	url(r'^coordinate_predict$', views.coordinate_predict, name='coordinate_predict'),
+	url(r'^coordinate_home$', views.coordinate_home, name='coordinate_home'),
+	url(r'^test$', views.test, name='test'),
+	url(r'^testcoor$', views.testcoor, name='testcoor'),
 ]

@@ -83,182 +83,62 @@ var nominal_stroke = 1.5;
 var max_stroke = 4.5;
 
 //d3.json("{% static 'j.json' %}", function(error, jsonfile) {
-d3.json("../coordinate_predict", function(error, jsonfile) {
-  console.log(jsonfile);
-var js = jsonfile.myfile;
-//var js = jsonfile;
-var links = js.link
-var nodes = js.node
-var graph = {nodes,links};
+d3.json("testcoor", function(error,json){
+console.log(json.myfile)
+var js = json.myfile;
+  var svgContainer = d3.select("body").append("svg")
+                                      .attr("width", 2000)
+                                      .attr("height", 500);
 
-var linkedByIndex = {};
-    graph.links.forEach(function(d) {
-  linkedByIndex[d.source + "," + d.target] = true;
-    });
+  var nodeG = svgContainer.selectAll("g")
+            .data(js.node)
+            .enter()
+            .append("g");
 
-  function isConnected(a, b) {
-        return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
-    }
+  var rectangle = nodeG
+            .append("rect");
+
+  var text = nodeG
+            .append("text");
+
+  var rectangleAttributes = rectangle
+                            .attr("width", 10)
+                            .attr("height", 20)
+                            .attr("fill","none")
+                            .attr("stroke","black")
+                            .attr("stroke-width","1px")
+                            .attr("rx","10")
+                            .attr("ry","10")
+                            .attr("x", function(d) { return d.Y*30; })
+                            .attr("y", function(d) { return d.X*30; })
+                              ;
 
 
-var force = d3.layout.force()
-    .nodes(graph.nodes)
-    .links(graph.links)
-    .size([w, h])
-    .linkDistance(25)
-    .charge(-150)
-    .on("tick", tick)
-    .start();
+  var textAttributes = text
+                        .attr("font-family", "cordia new")
+                        .attr("font-size", "16px")
+                        .attr("x", function(d) { return d.Y*30; })
+                        .attr("y", function(d) { return d.X*30; })
+                        .text( function(d) { return d.COURSE_ID; })
+                        .attr("transform","translate(9,13)");
+  var node = nodeG
+            .attr("id", function(d) {return d.COURSE_ID;})
 
-var svg = d3.select("body").append("svg")
-    .attr("viewBox", "0 0 " + w + " " + h )
-    .attr("preserveAspectRatio", "xMinYMin")
-    .style("cursor","move");
-  
+  var d3line = d3.svg.line()
+              //.data(json.edge)
+              //.enter()
+              .x(function(d) {return d.x*30+25;})
+              .y(function(d) {return d.y*30+10;})
+              .interpolate("linear");
+              
+  js.edges.forEach(function(d){
+    svgContainer.append("svg:path")
+              .attr("d",d3line(d))
+              .style("stroke-width", 2)
+              .style("stroke", "steelblue")
+              .style("fill", "none");
+  });
 
-// Per-type markers, as they don't inherit styles.
-svg.append("defs").selectAll("marker")
-    .data(["suit", "licensing", "resolved"])
-    .enter().append("marker")
-    .attr("id", function(d) { return d; })
-    .attr("viewBox", "0 -5 10 10")
-    .attr("refX", 15)
-    .attr("refY", -1.5)
-    .attr("markerWidth", 6)
-    .attr("markerHeight", 6)
-    .attr("orient", "auto")
-    .append("path")
-    .attr("d", "M0,-5L10,0L0,5");
-
-var g = svg.append("g");
-var link = g.selectAll("graph.links")
-    .data(graph.links)
-    .enter().append("line")
-    .attr("class", "link")
-    .style("stroke-width",nominal_stroke)
-    .attr("class", function(d) { return "link " + d.type; })
-    .attr("marker-end", function(d) { return "url(#" + d.type + ")"; });
-
-var node = g.selectAll("graph.nodes")
-    .data(graph.nodes)
-    //.enter().append("g")
-    .enter().append("circle")
-    .attr("class", "node")
-    .attr("class", function(d) { return "node " + d.type; })
-    .attr("r", 6)
-    .call(force.drag);
-
-  ;
-  
-var tocolor = "fill";
-var towhite = "stroke";
-  if (outline) {
-    tocolor = "stroke"
-    towhite = "fill"
-  }
-
-var text = g.selectAll(".text")
-     .data(graph.nodes)
-     .enter().append("text")
-     .attr("dy", ".35em")
-     .style("font-size", 10 + "px")
-     .text(function(d) { return d.name + d.grade; });
-
-//interact with mouseover -> set highlight node with stoke black
-  node.on("mouseover", function(d) {
-      set_highlight(d);
-      })
-
-      .on("mousedown", function(d) { 
-        d3.event.stopPropagation();
-        focus_node = d;
-        set_focus(d)
-          if (highlight_node === null) 
-            set_highlight(d)
-        })
-      .on("mouseout", function(d) {
-        exit_highlight();
-        });
-
-    d3.select(window).on("mouseup",  
-    function() {
-    if (focus_node!==null)
-    {
-      focus_node = null;
-      if (highlight_trans<1)
-      {
-        node.style("opacity", 1);
-        text.style("opacity", 1);
-        link.style("opacity", 1);
-      }
-    }
-  
-    if (highlight_node === null) exit_highlight();
-    });
-
-function set_focus(d)
-{ 
-if (highlight_trans<1)  {
-    node.style("opacity", function(o) {
-                return isConnected(d, o) ? 1 : highlight_trans;
-            });
-
-      text.style("opacity", function(o) {
-                return isConnected(d, o) ? 1 : highlight_trans;
-            });
-      
-            link.style("opacity", function(o) {
-                return o.source.index == d.index || o.target.index == d.index ? 1 : highlight_trans;
-            });   
-  }
-}
-
-function set_highlight(d)
-{
-  svg.style("cursor","pointer");
-  if (focus_node!==null) d = focus_node;
-  highlight_node = d;
-
-  if (highlight_color!="white")
-  {
-      node.style(towhite, function(o) {
-                return isConnected(d, o) ? highlight_color : "white";});
-      text.style("font-weight", function(o) {
-                return isConnected(d, o) ? "bold" : "normal";});
-      link.style("stroke", function(o) {
-                return o.source.index == d.index || o.target.index == d.index ;});
-  }
-}
-
-function exit_highlight()
-{
-  highlight_node = null;
-  if (focus_node===null)
-  {
-    svg.style("cursor","move");
-    if (highlight_color!="white")
-    {
-      node.style(towhite, "white");
-      text.style("font-weight", "normal");
-    }
-  }
-}
-  
-  
-  function tick() {
-    
-    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-    text.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-  
-    link.attr("x1", function(d) { return d.source.x; })
-      .attr("y1", function(d) { return d.source.y; })
-      .attr("x2", function(d) { return d.target.x; })
-      .attr("y2", function(d) { return d.target.y; });
-    
-  }
-  
-  
-  
 });
 
 </script>

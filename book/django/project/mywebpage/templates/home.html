@@ -8,86 +8,14 @@
     <meta name="author" content="">
 
      <title>Graph Predict - Home</title>
-
     <!-- Bootstrap Core CSS -->
     {% load staticfiles %} 
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}" > 
   <!-- Custom CSS --> 
-    <link rel="stylesheet" type="text/css" href="{% static 'agency.css' %}" > 
-    <!-- Custom Fonts -->
+    <link rel="stylesheet" type="text/css" href="{% static 'agency.css' %}" >
   
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-  <!-- Plugin JavaScript -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-<script type="text/javascript" src="{% static "classie.js" %}"></script>
-<script type="text/javascript" src="{% static "cbpAnimatedHeader.js" %}"></script>
-
-<!-- Contact Form JavaScript -->
-<script type="text/javascript" src="{% static "jqBootstrapValidation.js" %}"></script>
-<script type="text/javascript" src="{% static "contact_me.js" %}"></script>
   
-<!-- Custom Theme JavaScript -->
-<script type="text/javascript" src="{% static "agency.js" %}"></script>
-<script>
-var app = angular.module('home', []);
-app.config(function($httpProvider){
-    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken'
-});
 
-app.controller('myCtrl', function($scope, $http, $q, $window) {
-    $scope.profile = function(){
-      $http.get("{% url 'userprofile' %}")
-      .then(function(response){
-        $window.location.href= '../userprofile';
-      })
-    }
-
-    $scope.logout = function(){
-      $http.get("{% url 'logout' %}")
-      .then(function(response){
-        alert('logout') 
-        $window.location.href= '../../authen/login';
-      });
-    }
-
-    $scope.toShowprofile = function(){
-      $http.get("{% url 'showprofile' %}")
-      .then(function(response){
-        $window.location.href= '../showprofile';
-      })
-    }
-
-    $scope.toHome = function(){
-      $http.get("{% url 'home' %}")
-      .then(function(response){
-        $window.location.href= '../home';
-      })
-    }
-
-    $scope.toHomegraph = function(){
-      $http.get("{% url 'homegraph' %}")
-      .then(function(response){
-        $window.location.href= '../homegraph';
-      })
-    }
-    
-    $scope.toPredict = function(){
-      $http.get("{% url 'predict' %}")
-      .then(function(response){
-        $window.location.href= '../predict';
-      })
-    }
-});
-
-</script>
 </head>
 
 {% verbatim %}
@@ -273,5 +201,65 @@ app.controller('myCtrl', function($scope, $http, $q, $window) {
             </div>
         </div>
     </section>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+  <!-- Custom Theme JavaScript -->
+  <script type="text/javascript" src="{% static "agency.js" %}"></script>
+
+  <script>
+var app = angular.module('home', []);
+app.config(function($httpProvider){
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken'
+});
+
+app.controller('myCtrl', function($scope, $http, $q, $window) {
+    $scope.profile = function(){
+      $http.get("{% url 'userprofile' %}")
+      .then(function(response){
+        $window.location.href= '../userprofile';
+      })
+    }
+
+    $scope.logout = function(){
+      $http.get("{% url 'logout' %}")
+      .then(function(response){
+        alert('logout') 
+        $window.location.href= '../../authen/login';
+      });
+    }
+
+    $scope.toShowprofile = function(){
+      $http.get("{% url 'showprofile' %}")
+      .then(function(response){
+        $window.location.href= '../showprofile';
+      })
+    }
+
+    $scope.toHome = function(){
+      $http.get("{% url 'home' %}")
+      .then(function(response){
+        $window.location.href= '../home';
+      })
+    }
+
+    $scope.toHomegraph = function(){
+      $http.get("{% url 'homegraph' %}")
+      .then(function(response){
+        $window.location.href= '../homegraph';
+      })
+    }
+    
+    $scope.toPredict = function(){
+      $http.get("{% url 'predict' %}")
+      .then(function(response){
+        $window.location.href= '../predict';
+      })
+    }
+});
+
+</script>
 </body>
 </html>

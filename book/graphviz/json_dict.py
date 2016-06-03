@@ -8,7 +8,7 @@ import json
 out={}
 node=[]
 edges=[]
-with open("graph_reY.plain-ext") as f:
+with open("graph1.plain-ext") as f:
     content = f.readlines()
 for n in content[1:]:
     line = n.split()
@@ -73,5 +73,5 @@ out["edges"]=edges
                 #        "x9":line[20],"y9":line[21],"x10":line[22],"y10":line[23]})
 print out
 
-with open("coordinate.json","w") as outfile:
+with open("test.json","w") as outfile:
     json.dump(out,outfile,sort_keys=True, indent=4, separators=(',',': '))
