@@ -1,40 +1,32 @@
  <!DOCTYPE html>
 <html>
 <head>
-	<title>สมัครสมาชิก</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js" charset="utf-8"></script>
-  {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
-</head>
-<body>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<div id="framework">
-	<!-- ####banner#### -->
-	<div id="banner-home">
-		<img src="{% static "banner/banner.jpg" %}"> 
-	</div>
-	
-	{% verbatim %}
-	<div  ng-app="regis" ng-controller="myCtrl">
-		<form novalidate class="simple-form">
-			ชื่อผู้ใช้
-			<input type="text" ng-model="user.uname"><br />
-			รหัสผ่าน
-			<input type="text" ng-model="user.password"><br />
-			ยืนยันรหัสผ่าน
-			<input type="text" ng-model="user.cfpassword"><br />
-			<button ng-click="btnOk()">ยืนยัน</button>
-			<button ng-click="btnCancel()">ยกเลิก</button>
-		</form>
+    <title>Graph Predict-registration</title>
 
-		user: {{ user }} <br/>
-	</div>
-	{% endverbatim %}
+    <!-- Bootstrap Core CSS -->
+    {% load staticfiles %} 
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}" > 
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css' %}" >
+  <!-- Custom CSS --> 
+    <link rel="stylesheet" type="text/css" href="{% static 'agency.css' %}" > 
+    <!-- Custom Fonts -->
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-</div>	
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
-<script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+ <script>
 var app = angular.module('regis', []);
 app.config(function($httpProvider){
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
@@ -54,7 +46,6 @@ app.controller('myCtrl', function($scope, $http, $window) {
 			else{
 				$window.alert(response.data)
 			}
-
 		})
 	}
 
@@ -63,6 +54,70 @@ app.controller('myCtrl', function($scope, $http, $window) {
 	}
 })
 </script>
+</head>
+<body>
+{% verbatim %}
+<div id="page-top" class="index" ng-app="regis" ng-controller="myCtrl">
+<!-- Navigation --> 
+  <nav class="navbar navbar-default navabar-index navbar-fixed-top"> 
+  <div class="container"> 
+    <!-- Brand and toggle get grouped for better mobile display --> 
+    <div class="navbar-header page-scroll">  
+      <a class="navbar-brand page-scroll">Graph Predict</a> 
+    </div> 
+    <!-- Collect the nav links, forms, and other content for toggling --> 
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
+      <ul class="nav navbar-nav navbar-right"></ul> 
+    </div> 
+    <!-- /.navbar-collapse --> 
+  </div> 
+    <!-- /.container-fluid --> 
+  </nav> 
+
+<section id="about">
+	<div class="container">
+		<div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">สมัครสมาชิก</h2>
+                    <h3 class="section-subheading text-muted">**สมัครสมาชิกก่อนเข้าใช้ระบบ**</h3>
+                </div>
+        </div>
+        <div class="row"> 
+		      <div class="clearfix"></div> 
+		      <div class="col-lg-4"></div>
+		      <div class="col-lg-4" text-center>
+		      	<form name="myform" novalidate>
+		      		<!-- ng-class="{ 'has-error' : myform.uname.$invalid }"  -->
+		      		<div class="form-group"> 
+			              <input type="text" ng-model="user.uname" name="uname" class="form-control" placeholder="ชื่อผู้ใช้*" ng-minlength="3" required/> 
+			              <p ng-show="myform.uname.$error.required">You name is required.</p>
+			              <!--<p ng-show="myform.uname.$error.pattern">Username doesn't respect the pattern</p>-->
+			              <p ng-show="myform.uname.$error.minlength">Username is too short.</p> 
+            		</div> 
+		            <div class="form-group"> 
+			              <input type="text" ng-model="user.password" name="password" class="form-control" placeholder="ชื่อผู้ใช้*" ng-minlength="3" required/> 
+			              <p ng-show="myform.password.$error.required">You password is required.</p>
+			              <p ng-show="myform.password.$error.minlength">Password is too short.</p> 
+		            </div> 
+		            <div class="form-group"> 
+			              <input type="text" ng-model="user.cfpassword" name="cfpassword" class="form-control" placeholder="ยืนยันรหัสผ่าน*" required/> 
+		            </div>
+            
+		            <div class="col-lg-12 text-center"> 
+		              <button ng-click="btnOk()" class="btn" ng-disabled="myform.uname.$error.required || myform.password.$error.required || myform.cfpassword.$error.required">ยืนยัน</button>
+		              <button ng-click="btnCancel()" class="btn">ยกเลิก</button> 
+		            </div> 
+					<!--user: {{ user }} <br/>-->
+				</form>
+		      </div>	
+		</div>
+		
+	</div>
+	
+</section>
+</div>	
+{% endverbatim %}
+
 </body>
 </html> 
 

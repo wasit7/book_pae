@@ -29,13 +29,12 @@ def login(request):
 	return	render(request,'login.html',{'state':"Please login"})
 
 def logout(request):
-	if request.GET:
-		#reverse('/authen/logout')
-		print >> sys.stderr, "logout"
-		if 'username' in request.session:
-			del request.session['username']				#delete user_username left from sesstion
-		auth_logout(request)
-	return render(request,'login.html',{'state':"Please login"})
+    if request.method == 'GET':
+        if 'username' in request.session:
+            del request.session['username']             #delete user_username left from sesstion
+        auth_logout(request)
+    #print request.session['username']
+    return HttpResponse("OK")
 
 
 def registration(request):
@@ -58,3 +57,5 @@ def registration(request):
 			return HttpResponse("password is not valid")
 
 
+def pleaselogin(request):
+	return render(request,'pleaselogin.html')

@@ -1,58 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ประวัติผลการเรียน</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-  {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Graph Predict - Edit Profile</title>
+
+  {% load staticfiles %} 
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}" > 
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css' %}" >
+  <!-- Custom CSS --> 
+    <link rel="stylesheet" type="text/css" href="{% static 'agency.css' %}" > 
+
 </head>
+
 <body>
-<div id="framework">
-    <!-- ####banner#### -->
-    <div id="banner-top">
-        <span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
-        <span id="user">{{request.session.username}}</span>
-    </div>
-
-    <div id="banner-home">
-        <img src="{% static "banner/new-banner-middle.jpg" %}"> 
-    </div>
-
-    <!-- ---------menu------------ -->
-    <div id="menu-bar" style="clear: both;">
-        <ul id="menu">
-          <li ><a href="../home/" id="home">หน้าแรก</a></li>
-          <li><a href="../addprofile/" id="history-click">ประวัติผลการเรียน</a></li>
-          <li><a href="../predict/" id="predict">ทำนายผลการเรียน</a></li>
-        </ul>
-    </div>
-    <div id="topic-home" style="text-align: center;">
-        <img src="{% static "banner/topic-history.jpg" %}">
-    </div>
-
 {% verbatim %}
-<div ng-app="addprofile" ng-controller="myCtrl">
-    <!--<h3>list of subjects: subject table</h3><p>{{subjects}}</p> 
-    <h3>list of enrollment: subject table</h3><p>{{enrollments}}</p>
-    <h2>----------------------------------------------------</h2>-->
-    <div id="containerAllSubjects" style="margin-left: 250px; width:50%; float: left; clear:left;" >
+<div id="page-top" class="index" ng-app="addprofile" ng-controller="myCtrl">
+<!-- Navigation -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" ng-click="toHome()">Graph Predict</a>
+        </div>
+
+<!-- Menu and User,Logout -->   
+        <div class="navbar-collapse collapse navbar-right">
+      
+      <!-- ####banner#### -->
+      <div class="pull-right">
+        <span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
+        <span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
+      </div>
+{% verbatim %}
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">หน้าแรก <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li ><a ng-click="toHome()" >รายวิชา</a></li>
+            <li><a ng-click="toHomegraph()" >แผนผังการเรียน</a></li>
+          </ul>
+        </li>
+        <li class="active"><a ng-click="toShowprofile()" >ประวัติการศึกษา</a></li>
+        <li><a ng-click="toPredict()">ทำนายผลการศึกษา</a></li>
+      </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>        
+
+
+<section id="about">
+    
+    <!--style="overflow-y: scroll; height:500px;"-->
+    <div  class="container col-xs-6 pre-scrollable" >
         <h3 >Select subject:</h3>
-        <div  ng-repeat="(key,value) in subjects | orderBy: 'sub_name'">
+        <div  ng-repeat="(key,value) in subjects" >
 
             <input type="checkbox" ng-model="value.selected" ng-change="checkedSub()"><label>{{key}} {{value.sub_name}}<label/>
         </div>
     </div>
     
-    <div id="containerAllEnrollmented" style="width:45%; float: right; clear:right;">
+    <div class="container col-xs-6  pre-scrollable" >
         <h3>Enrolled:</h3>
-        <table>
+        <table class="table table-bordered">
+            <thead>
             <tr>
                 <th>Year</th>
                 <th>Term</th>
                 <th>Subject</th>
                 <th>Grade</th>
             </tr>
+            </thead>
             <tr ng-repeat="(key,value) in enrollments" >   
                 <td>
                     <select ng-model="enrollments[key].year" ng-init="enrollments[key].year">
@@ -79,16 +105,25 @@
                         <option value="D+">D+</option>
                         <option value="D">D</option>
                         <option value="F">F</option>
+                        <option value="W">W</option>
+                        <option value="S">S</option>
+                        <option value="S#">S#</option>
+                        <option value="U">U</option>
+                        <option value="U#">U#</option>
                     </select>
                 </td>
             </tr>
         </table>
     </div>
-    <button ng-click="submit()" style="text-align: center; margin-top: 250px;">บันทึก</button>
-    
-
-</div>
+    <div  class="col-lg-12 text-center">
+        <button class="btn" ng-click="submit()">บันทึก</button>
+    </div>
+</section>
 {% endverbatim %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
 <script> 
 var app = angular.module('addprofile', []);
@@ -100,12 +135,15 @@ app.config(function($httpProvider){
 app.controller('myCtrl', function($scope, $http, $q, $window) {
     var AllSubject = $http.get("{% url 'jsonSubject' %}"),
         AllEnrollment = $http.get("{% url 'jsonEnrollment' %}");
+        //console.log(AllSubject)
     $q.all([AllSubject, AllEnrollment]).then(function(response){
         $scope.subjects = response[0].data;
+
         $scope.enrollments = response[1].data;
-        //console.log($scope.enrollment);
+
         for(i in $scope.subjects){
             $scope.subjects[i].selected = false
+
         }
 
         for(j in $scope.enrollments){
@@ -134,9 +172,51 @@ app.controller('myCtrl', function($scope, $http, $q, $window) {
             $window.location.href = '../showprofile';
         });
     }
-    
-})
 
+    $scope.logout = function(){
+      $http.get("{% url 'logout' %}")
+      .then(function(response){
+        alert('logout') 
+        $window.location.href= '../../authen/login';
+      });
+    }
+
+    $scope.profile = function(){
+      $http.get("{% url 'userprofile' %}")
+      .then(function(response){
+        $window.location.href= '../userprofile';
+      })
+    }
+
+    $scope.toShowprofile = function(){
+      $http.get("{% url 'showprofile' %}")
+      .then(function(response){
+        $window.location.href= '../showprofile';
+      })
+    }
+
+    $scope.toHome = function(){
+      $http.get("{% url 'home' %}")
+      .then(function(response){
+        $window.location.href= '../home';
+      })
+    }
+
+    $scope.toHomegraph = function(){
+      $http.get("{% url 'homegraph' %}")
+      .then(function(response){
+        $window.location.href= '../homegraph';
+      })
+    }
+    
+    $scope.toPredict = function(){
+      $http.get("{% url 'predict' %}")
+      .then(function(response){
+        $window.location.href= '../predict';
+      })
+    }
+    
+});
 
 </script>
 </body>

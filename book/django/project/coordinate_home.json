@@ -1,0 +1,820 @@
+{
+    "link": [
+        {
+            "source": 87,
+            "target": 44,
+            "type": "licensing"
+        },
+        {
+            "source": 1,
+            "target": 3,
+            "type": "licensing"
+        },
+        {
+            "source": 2,
+            "target": 3,
+            "type": "licensing"
+        },
+        {
+            "source": 3,
+            "target": 5,
+            "type": "licensing"
+        },
+        {
+            "source": 3,
+            "target": 7,
+            "type": "licensing"
+        },
+        {
+            "source": 3,
+            "target": 8,
+            "type": "licensing"
+        },
+        {
+            "source": 3,
+            "target": 12,
+            "type": "licensing"
+        },
+        {
+            "source": 5,
+            "target": 9,
+            "type": "licensing"
+        },
+        {
+            "source": 5,
+            "target": 13,
+            "type": "licensing"
+        },
+        {
+            "source": 5,
+            "target": 22,
+            "type": "licensing"
+        },
+        {
+            "source": 5,
+            "target": 27,
+            "type": "licensing"
+        },
+        {
+            "source": 5,
+            "target": 34,
+            "type": "licensing"
+        },
+        {
+            "source": 5,
+            "target": 38,
+            "type": "licensing"
+        },
+        {
+            "source": 5,
+            "target": 44,
+            "type": "licensing"
+        },
+        {
+            "source": 7,
+            "target": 23,
+            "type": "licensing"
+        },
+        {
+            "source": 7,
+            "target": 59,
+            "type": "licensing"
+        },
+        {
+            "source": 8,
+            "target": 24,
+            "type": "licensing"
+        },
+        {
+            "source": 8,
+            "target": 25,
+            "type": "licensing"
+        },
+        {
+            "source": 8,
+            "target": 27,
+            "type": "licensing"
+        },
+        {
+            "source": 8,
+            "target": 55,
+            "type": "licensing"
+        },
+        {
+            "source": 8,
+            "target": 58,
+            "type": "licensing"
+        },
+        {
+            "source": 9,
+            "target": 11,
+            "type": "licensing"
+        },
+        {
+            "source": 9,
+            "target": 30,
+            "type": "licensing"
+        },
+        {
+            "source": 9,
+            "target": 33,
+            "type": "licensing"
+        },
+        {
+            "source": 9,
+            "target": 64,
+            "type": "licensing"
+        },
+        {
+            "source": 9,
+            "target": 65,
+            "type": "licensing"
+        },
+        {
+            "source": 9,
+            "target": 67,
+            "type": "licensing"
+        },
+        {
+            "source": 10,
+            "target": 37,
+            "type": "licensing"
+        },
+        {
+            "source": 12,
+            "target": 14,
+            "type": "licensing"
+        },
+        {
+            "source": 12,
+            "target": 16,
+            "type": "licensing"
+        },
+        {
+            "source": 12,
+            "target": 37,
+            "type": "licensing"
+        },
+        {
+            "source": 12,
+            "target": 39,
+            "type": "licensing"
+        },
+        {
+            "source": 12,
+            "target": 51,
+            "type": "licensing"
+        },
+        {
+            "source": 12,
+            "target": 52,
+            "type": "licensing"
+        },
+        {
+            "source": 12,
+            "target": 53,
+            "type": "licensing"
+        },
+        {
+            "source": 12,
+            "target": 71,
+            "type": "licensing"
+        },
+        {
+            "source": 12,
+            "target": 74,
+            "type": "licensing"
+        },
+        {
+            "source": 11,
+            "target": 15,
+            "type": "licensing"
+        },
+        {
+            "source": 11,
+            "target": 42,
+            "type": "licensing"
+        },
+        {
+            "source": 15,
+            "target": 43,
+            "type": "licensing"
+        },
+        {
+            "source": 16,
+            "target": 40,
+            "type": "licensing"
+        },
+        {
+            "source": 16,
+            "target": 72,
+            "type": "licensing"
+        },
+        {
+            "source": 0,
+            "target": 66,
+            "type": "licensing"
+        },
+        {
+            "source": 17,
+            "target": 44,
+            "type": "licensing"
+        },
+        {
+            "source": 17,
+            "target": 45,
+            "type": "licensing"
+        },
+        {
+            "source": 17,
+            "target": 19,
+            "type": "licensing"
+        },
+        {
+            "source": 18,
+            "target": 45,
+            "type": "licensing"
+        },
+        {
+            "source": 20,
+            "target": 49,
+            "type": "licensing"
+        },
+        {
+            "source": 23,
+            "target": 26,
+            "type": "licensing"
+        },
+        {
+            "source": 27,
+            "target": 28,
+            "type": "licensing"
+        },
+        {
+            "source": 27,
+            "target": 29,
+            "type": "licensing"
+        },
+        {
+            "source": 27,
+            "target": 55,
+            "type": "licensing"
+        },
+        {
+            "source": 27,
+            "target": 56,
+            "type": "licensing"
+        },
+        {
+            "source": 27,
+            "target": 57,
+            "type": "licensing"
+        },
+        {
+            "source": 27,
+            "target": 61,
+            "type": "licensing"
+        },
+        {
+            "source": 28,
+            "target": 41,
+            "type": "licensing"
+        },
+        {
+            "source": 28,
+            "target": 60,
+            "type": "licensing"
+        },
+        {
+            "source": 28,
+            "target": 63,
+            "type": "licensing"
+        },
+        {
+            "source": 29,
+            "target": 62,
+            "type": "licensing"
+        },
+        {
+            "source": 30,
+            "target": 31,
+            "type": "licensing"
+        },
+        {
+            "source": 30,
+            "target": 32,
+            "type": "licensing"
+        },
+        {
+            "source": 30,
+            "target": 66,
+            "type": "licensing"
+        },
+        {
+            "source": 34,
+            "target": 35,
+            "type": "licensing"
+        },
+        {
+            "source": 34,
+            "target": 36,
+            "type": "licensing"
+        },
+        {
+            "source": 34,
+            "target": 69,
+            "type": "licensing"
+        },
+        {
+            "source": 37,
+            "target": 70,
+            "type": "licensing"
+        },
+        {
+            "source": 38,
+            "target": 70,
+            "type": "licensing"
+        },
+        {
+            "source": 39,
+            "target": 72,
+            "type": "licensing"
+        },
+        {
+            "source": 39,
+            "target": 73,
+            "type": "licensing"
+        },
+        {
+            "source": 44,
+            "target": 19,
+            "type": "licensing"
+        },
+        {
+            "source": 44,
+            "target": 46,
+            "type": "licensing"
+        },
+        {
+            "source": 44,
+            "target": 47,
+            "type": "licensing"
+        },
+        {
+            "source": 45,
+            "target": 47,
+            "type": "licensing"
+        },
+        {
+            "source": 46,
+            "target": 75,
+            "type": "licensing"
+        },
+        {
+            "source": 47,
+            "target": 48,
+            "type": "licensing"
+        },
+        {
+            "source": 47,
+            "target": 76,
+            "type": "licensing"
+        },
+        {
+            "source": 47,
+            "target": 77,
+            "type": "licensing"
+        },
+        {
+            "source": 49,
+            "target": 50,
+            "type": "licensing"
+        },
+        {
+            "source": 64,
+            "target": 67,
+            "type": "licensing"
+        },
+        {
+            "source": 75,
+            "target": 76,
+            "type": "licensing"
+        },
+        {
+            "source": 84,
+            "target": 64,
+            "type": "licensing"
+        },
+        {
+            "source": 0,
+            "target": 66,
+            "type": "licensing"
+        }
+    ],
+    "node": [
+        {
+            "name": "BA291",
+            "type": "general"
+        },
+        {
+            "name": "CS101",
+            "type": "force"
+        },
+        {
+            "name": "CS102",
+            "type": "force"
+        },
+        {
+            "name": "CS111",
+            "type": "force"
+        },
+        {
+            "name": "CS112",
+            "type": "force"
+        },
+        {
+            "name": "CS213",
+            "type": "force"
+        },
+        {
+            "name": "CS214",
+            "type": "force"
+        },
+        {
+            "name": "CS222",
+            "type": "force"
+        },
+        {
+            "name": "CS223",
+            "type": "force"
+        },
+        {
+            "name": "CS251",
+            "type": "force"
+        },
+        {
+            "name": "CS261",
+            "type": "force"
+        },
+        {
+            "name": "CS281",
+            "type": "force"
+        },
+        {
+            "name": "CS284",
+            "type": "force"
+        },
+        {
+            "name": "CS285",
+            "type": "force"
+        },
+        {
+            "name": "CS286",
+            "type": "force"
+        },
+        {
+            "name": "CS288",
+            "type": "force"
+        },
+        {
+            "name": "CS289",
+            "type": "force"
+        },
+        {
+            "name": "CS295",
+            "type": "force"
+        },
+        {
+            "name": "CS296",
+            "type": "force"
+        },
+        {
+            "name": "CS297",
+            "type": "force"
+        },
+        {
+            "name": "CS301",
+            "type": "force"
+        },
+        {
+            "name": "CS302",
+            "type": "force"
+        },
+        {
+            "name": "CS311",
+            "type": "force"
+        },
+        {
+            "name": "CS314",
+            "type": "force"
+        },
+        {
+            "name": "CS326",
+            "type": "force"
+        },
+        {
+            "name": "CS327",
+            "type": "force"
+        },
+        {
+            "name": "CS328",
+            "type": "force"
+        },
+        {
+            "name": "CS341",
+            "type": "force"
+        },
+        {
+            "name": "CS342",
+            "type": "force"
+        },
+        {
+            "name": "CS348",
+            "type": "force"
+        },
+        {
+            "name": "CS356",
+            "type": "force"
+        },
+        {
+            "name": "CS357",
+            "type": "force"
+        },
+        {
+            "name": "CS358",
+            "type": "force"
+        },
+        {
+            "name": "CS359",
+            "type": "force"
+        },
+        {
+            "name": "CS365",
+            "type": "force"
+        },
+        {
+            "name": "CS366",
+            "type": "force"
+        },
+        {
+            "name": "CS367",
+            "type": "force"
+        },
+        {
+            "name": "CS374",
+            "type": "force"
+        },
+        {
+            "name": "CS377",
+            "type": "force"
+        },
+        {
+            "name": "CS385",
+            "type": "force"
+        },
+        {
+            "name": "CS386",
+            "type": "force"
+        },
+        {
+            "name": "CS387",
+            "type": "force"
+        },
+        {
+            "name": "CS388",
+            "type": "force"
+        },
+        {
+            "name": "CS389",
+            "type": "force"
+        },
+        {
+            "name": "CS395",
+            "type": "force"
+        },
+        {
+            "name": "CS396",
+            "type": "force"
+        },
+        {
+            "name": "CS397",
+            "type": "force"
+        },
+        {
+            "name": "CS398",
+            "type": "force"
+        },
+        {
+            "name": "CS399",
+            "type": "force"
+        },
+        {
+            "name": "CS401",
+            "type": "force"
+        },
+        {
+            "name": "CS402",
+            "type": "force"
+        },
+        {
+            "name": "CS406",
+            "type": "force"
+        },
+        {
+            "name": "CS407",
+            "type": "force"
+        },
+        {
+            "name": "CS408",
+            "type": "force"
+        },
+        {
+            "name": "CS409",
+            "type": "force"
+        },
+        {
+            "name": "CS426",
+            "type": "force"
+        },
+        {
+            "name": "CS427",
+            "type": "force"
+        },
+        {
+            "name": "CS428",
+            "type": "force"
+        },
+        {
+            "name": "CS429",
+            "type": "force"
+        },
+        {
+            "name": "CS439",
+            "type": "force"
+        },
+        {
+            "name": "CS446",
+            "type": "force"
+        },
+        {
+            "name": "CS447",
+            "type": "force"
+        },
+        {
+            "name": "CS448",
+            "type": "force"
+        },
+        {
+            "name": "CS449",
+            "type": "force"
+        },
+        {
+            "name": "CS456",
+            "type": "force"
+        },
+        {
+            "name": "CS457",
+            "type": "force"
+        },
+        {
+            "name": "CS458",
+            "type": "force"
+        },
+        {
+            "name": "CS459",
+            "type": "force"
+        },
+        {
+            "name": "CS467",
+            "type": "force"
+        },
+        {
+            "name": "CS469",
+            "type": "force"
+        },
+        {
+            "name": "CS479",
+            "type": "force"
+        },
+        {
+            "name": "CS486",
+            "type": "force"
+        },
+        {
+            "name": "CS487",
+            "type": "force"
+        },
+        {
+            "name": "CS488",
+            "type": "force"
+        },
+        {
+            "name": "CS489",
+            "type": "force"
+        },
+        {
+            "name": "CS496",
+            "type": "force"
+        },
+        {
+            "name": "CS497",
+            "type": "force"
+        },
+        {
+            "name": "CS499",
+            "type": "force"
+        },
+        {
+            "name": "EC210",
+            "type": "general"
+        },
+        {
+            "name": "EL070",
+            "type": "general"
+        },
+        {
+            "name": "EL171",
+            "type": "general"
+        },
+        {
+            "name": "EL172",
+            "type": "general"
+        },
+        {
+            "name": "EL295",
+            "type": "general"
+        },
+        {
+            "name": "EL395",
+            "type": "force"
+        },
+        {
+            "name": "HO201",
+            "type": "general"
+        },
+        {
+            "name": "MA211",
+            "type": "force"
+        },
+        {
+            "name": "MA212",
+            "type": "force"
+        },
+        {
+            "name": "MA332",
+            "type": "force"
+        },
+        {
+            "name": "PY228",
+            "type": "general"
+        },
+        {
+            "name": "SC123",
+            "type": "force"
+        },
+        {
+            "name": "SC135",
+            "type": "force"
+        },
+        {
+            "name": "SC173",
+            "type": "force"
+        },
+        {
+            "name": "SC185",
+            "type": "force"
+        },
+        {
+            "name": "ST216",
+            "type": "force"
+        },
+        {
+            "name": "TH161",
+            "type": "general"
+        },
+        {
+            "name": "TU100",
+            "type": "general"
+        },
+        {
+            "name": "TU110",
+            "type": "general"
+        },
+        {
+            "name": "TU120",
+            "type": "general"
+        },
+        {
+            "name": "TU122",
+            "type": "general"
+        },
+        {
+            "name": "TU130",
+            "type": "general"
+        },
+        {
+            "name": "TU154",
+            "type": "general"
+        }
+    ]
+}

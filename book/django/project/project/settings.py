@@ -56,6 +56,7 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'project.urls'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -109,10 +110,6 @@ AUTH_PASSWORD_VALIDATORS = [
 #APPEND_SLASH= False
 LANGUAGE_CODE = 'en-us'
 
-LANGUAGEs = [
-    ('th', ('Thai'))
-]
-
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -125,4 +122,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
+#STATIC_ROOT = "/mywebpage/static"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = '/static/'
