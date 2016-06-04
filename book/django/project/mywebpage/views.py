@@ -211,7 +211,7 @@ def userprofile(request):
         userprofile = json.loads(request.body)
 
         for key,value in userprofile.iteritems():
-            print key
+            #print key
             username = str(User.objects.get(username=request.session['username']))
             #print username
             #update
