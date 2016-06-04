@@ -561,407 +561,509 @@ def coordinate_home(request):
     ],
     "node": [
         {
-            "name": "BA291",
+            "id": "BA291",
+            "name": "Introduction Of Business",
             "type": "general"
         },
         {
-            "name": "CS101",
+            "id": "CS101",
+            "name": "DISCRETE STRUCTURES",
+            "type": "force",
             "type": "force"
         },
         {
-            "name": "CS102",
+            "id": "CS102",
+            "name": "COMPUTER PROGRAMMING FUNDAMENTALS",
             "type": "force"
         },
         {
-            "name": "CS111",
+            "id": "CS111",
+            "name": "OBJECT-ORIENTED PROGRAMMING",
             "type": "force"
         },
         {
-            "name": "CS112",
+            "id": "CS112",
+            "name": "Introduction to Object-Oriented Programming",
             "type": "force"
         },
         {
-            "name": "CS213",
+            "id": "CS213",
+            "name": "DATA STRUCTURES",
             "type": "force"
         },
         {
-            "name": "CS214",
+            "id": "CS214",
+            "name": "SOCIAL AND PROFESSIONAL ETHICS",
             "type": "force"
         },
         {
-            "name": "CS222",
+            "id": "CS222",
+            "name": "PROGRAMMING LANGUAGES AND PARADIGMS",
             "type": "force"
         },
         {
-            "name": "CS223",
+            "id": "CS223",
+            "name": "COMPUTER ORGANIZATION AND ARCHITECTURE",
             "type": "force"
         },
         {
-            "name": "CS251",
+            "id": "CS251",
+            "name": "DATABASE SYSTEMS 1",
             "type": "force"
         },
         {
-            "name": "CS261",
+            "id": "CS261",
+            "name": "HUMAN INFORMATION PROCESSING",
             "type": "force"
         },
         {
-            "name": "CS281",
+            "id": "CS281",
+            "name": "OBJECT-ORIENTED ANALYSIS AND DESIGN",
             "type": "force"
         },
         {
-            "name": "CS284",
+            "id": "CS284",
+            "name": "INTRODUCTION TO SOFTWARE ENGINEERING",
             "type": "force"
         },
         {
-            "name": "CS285",
+            "id": "CS285",
+            "name": "PRACTICES AND PATTERNS IN OBJECT-ORIENTED PROGRAMMING",
             "type": "force"
         },
         {
-            "name": "CS286",
+            "id": "CS286",
+            "name": "SOFTWARE PROCESS AND QUALITY ASSURANCE",
             "type": "force"
         },
         {
-            "name": "CS288",
+            "id": "CS288",
+            "name": "COMPONENT-BASED SOFTWARE DEVELOPMENT",
             "type": "force"
         },
         {
-            "name": "CS289",
+            "id": "CS289",
+            "name": "SOFTWARE PROCESS AND QUALITY ASSURANCE",
             "type": "force"
         },
         {
-            "name": "CS295",
+            "id": "CS295",
+            "name": "MATHEMATICS FOR COMPUTER GRAPHICS",
             "type": "force"
         },
         {
-            "name": "CS296",
+            "id": "CS296",
+            "name": "ART AND DESIGN FOUNDATIONS",
             "type": "force"
         },
         {
-            "name": "CS297",
+            "id": "CS297",
+            "name": "FUNDAMENTAL TECHNIQUES IN COMPUTER GRAPHICS USING API",
             "type": "force"
         },
         {
-            "name": "CS301",
+            "id": "CS301",
+            "name": "COMPUTER SCIENCE PROJECT PROPOSAL AND PRESENTATION",
             "type": "force"
         },
         {
-            "name": "CS302",
+            "id": "CS302",
+            "name": "COMPUTER SECURITY",
             "type": "force"
         },
         {
-            "name": "CS311",
+            "id": "CS311",
+            "name": "DESIGN AND ANALYSIS OF ALGORITHMS",
             "type": "force"
         },
         {
-            "name": "CS314",
+            "id": "CS314",
+            "name": "THEORY OF COMPUTATION",
             "type": "force"
         },
         {
-            "name": "CS326",
+            "id": "CS326",
+            "name": "EMBEDDED SYSTEMS DESIGN",
             "type": "force"
         },
         {
-            "name": "CS327",
+            "id": "CS327",
+            "name": "Digital Logic Design",
             "type": "force"
         },
         {
-            "name": "CS328",
+            "id": "CS328",
+            "name": "Compiler Construction",
             "type": "force"
         },
         {
-            "name": "CS341",
+            "id": "CS341",
+            "name": "OPERATING SYSTEMS I",
             "type": "force"
         },
         {
-            "name": "CS342",
+            "id": "CS342",
+            "name": "NET-CENTRIC COMPUTING 1",
             "type": "force"
         },
         {
-            "name": "CS348",
+            "id": "CS348",
+            "name": "INTRODUCTION TO CLUSTER COMPUTING AND DISTRIBUTED COMPUTING",
             "type": "force"
         },
         {
-            "name": "CS356",
+            "id": "CS356",
+            "name": "COMPUTER APPLICATIONS IN BUSINESS",
             "type": "force"
         },
         {
-            "name": "CS357",
+            "id": "CS357",
+            "name": "Electronic Business",
             "type": "force"
         },
         {
-            "name": "CS358",
+            "id": "CS358",
+            "name": "Computer Simulation and Forecasting Techniques in Business",
             "type": "force"
         },
         {
-            "name": "CS359",
+            "id": "CS359",
+            "name": "Document Indexing and Retrieval",
             "type": "force"
         },
         {
-            "name": "CS365",
+            "id": "CS365",
+            "name": "ARTIFICIAL INTELLIGENT SYSTEMS",
             "type": "force"
         },
         {
-            "name": "CS366",
+            "id": "CS366",
+            "name": "FUNDAMENTAL OF NATURAL LANGUAGE PROCESSING",
             "type": "force"
         },
         {
-            "name": "CS367",
+            "id": "CS367",
+            "name": "KNOWLEDGE REPRESENTATION AND REASONING",
             "type": "force"
         },
         {
-            "name": "CS374",
+            "id": "CS374",
+            "name": "HUMAN COMPUTER INTERACTION",
             "type": "force"
         },
         {
-            "name": "CS377",
+            "id": "CS377",
+            "name": "DIGITAL IMAGE PROCESSING",
             "type": "force"
         },
         {
-            "name": "CS385",
+            "id": "CS385",
+            "name": "SOFTWARE REQUIREMENT SPECIFICATION AND MANAGEMENT",
             "type": "force"
         },
         {
-            "name": "CS386",
+            "id": "CS386",
+            "name": "SOFTWARE CONFIGURATION MANAGEMENT",
             "type": "force"
         },
         {
-            "name": "CS387",
+            "id": "CS387",
+            "name": "WEB APPLICATION AND ENTERPRISE PROGRAMS",
             "type": "force"
         },
         {
-            "name": "CS388",
+            "id": "CS388",
+            "name": "SOFTWARE CONSTRUCTION AND EVOLUTION",
             "type": "force"
         },
         {
-            "name": "CS389",
+            "id": "CS389",
+            "name": "Software Architecture",
             "type": "force"
         },
         {
-            "name": "CS395",
+            "id": "CS395",
+            "name": "COMPUTER GRAPHICS",
             "type": "force"
         },
         {
-            "name": "CS396",
+            "id": "CS396",
+            "name": "COMPUTER GRAPHICS  MODELING",
             "type": "force"
         },
         {
-            "name": "CS397",
+            "id": "CS397",
+            "name": "RENDERING 1",
             "type": "force"
         },
         {
-            "name": "CS398",
+            "id": "CS398",
+            "name": "COMPUTER ANIMATION",
             "type": "force"
         },
         {
-            "name": "CS399",
+            "id": "CS399",
+            "name": "THREE DIMENSIONAL  INDUSTRY CONCEPTS AND PRACTICES",
             "type": "force"
         },
         {
-            "name": "CS401",
+            "id": "CS401",
+            "name": "SPECIAL PROJECTS  1",
             "type": "force"
         },
         {
-            "name": "CS402",
+            "id": "CS402",
+            "name": "SPECIAL PROJECTS 2",
             "type": "force"
         },
         {
-            "name": "CS406",
+            "id": "CS406",
+            "name": "Selected Topics in Advance Sofware Engineering Technology",
             "type": "force"
         },
         {
-            "name": "CS407",
+            "id": "CS407",
+            "name": "SEMINAR IN SOFTWARE ENGINEERING",
             "type": "force"
         },
         {
-            "name": "CS408",
+            "id": "CS408",
+            "name": "SEMINAR IN SYSTEM ENGINEERING",
             "type": "force"
         },
         {
-            "name": "CS409",
+            "id": "CS409",
+            "name": "SELECTED TOPICS IN COMPUTER SCIENCE",
             "type": "force"
         },
         {
-            "name": "CS426",
+            "id": "CS426",
+            "name": "PARALLEL ALGORITHM DESIGNS",
             "type": "force"
         },
         {
-            "name": "CS427",
+            "id": "CS427",
+            "name": "INTRODUCTION TO PARALLEL COMPUTING",
             "type": "force"
         },
         {
-            "name": "CS428",
+            "id": "CS428",
+            "name": "Principles of Multiprocessors Programming",
             "type": "force"
         },
         {
-            "name": "CS429",
+            "id": "CS429",
+            "name": "SELECTED TOPICS  IN  COMPUTER ARCHITECTURE",
             "type": "force"
         },
         {
-            "name": "CS439",
+            "id": "CS439",
+            "name": "Selected Topics in Programming Languages",
             "type": "force"
         },
         {
-            "name": "CS446",
+            "id": "CS446",
+            "name": "NET-CENTRIC COMPUTING 2",
             "type": "force"
         },
         {
-            "name": "CS447",
+            "id": "CS447",
+            "name": "Operating Systems II",
             "type": "force"
         },
         {
-            "name": "CS448",
+            "id": "CS448",
+            "name": "Software systems for advanced distributed computing",
             "type": "force"
         },
         {
-            "name": "CS449",
+            "id": "CS449",
+            "name": "SELECTED TOPICS IN NET-CENTRIC COMPUTING",
             "type": "force"
         },
         {
-            "name": "CS456",
+            "id": "CS456",
+            "name": "MANAGEMENT INFORMATION SYSTEMS",
             "type": "force"
         },
         {
-            "name": "CS457",
+            "id": "CS457",
+            "name": "DATABASE SYSTEMS 2",
             "type": "force"
         },
         {
-            "name": "CS458",
+            "id": "CS458",
+            "name": "Information Systems for Entrepreneur Management",
             "type": "force"
         },
         {
-            "name": "CS459",
+            "id": "CS459",
+            "name": "SELECTED TOPICS IN INFORMATION SYSTEMS",
             "type": "force"
         },
         {
-            "name": "CS467",
+            "id": "CS467",
+            "name": "MACHINE LEARNING",
             "type": "force"
         },
         {
-            "name": "CS469",
+            "id": "CS469",
+            "name": "Selected Topics in Artificial Intelligent Systems",
             "type": "force"
         },
         {
-            "name": "CS479",
+            "id": "CS479",
+            "name": "Selected Topics in Computer Interface and Multimedia",
             "type": "force"
         },
         {
-            "name": "CS486",
+            "id": "CS486",
+            "name": "SOFTWARE VALIDATION  AND  VERIFICATION",
             "type": "force"
         },
         {
-            "name": "CS487",
+            "id": "CS487",
+            "name": "SOFTWARE PROJECT MANAGEMENT",
             "type": "force"
         },
         {
-            "name": "CS488",
+            "id": "CS488",
+            "name": "FORMAL METHODS",
             "type": "force"
         },
         {
-            "name": "CS489",
+            "id": "CS489",
+            "name": "SELECTED TOPICS IN SOFTWARE ENGINEERING",
             "type": "force"
         },
         {
-            "name": "CS496",
+            "id": "CS496",
+            "name": "Rendering II",
             "type": "force"
         },
         {
-            "name": "CS497",
+            "id": "CS497",
+            "name": "Real-time Graphics",
             "type": "force"
         },
         {
-            "name": "CS499",
+            "id": "CS499",
+            "name": "Selected Topics in Computer Graphics",
             "type": "force"
         },
         {
-            "name": "EC210",
+            "id": "EC210",
+            "name": "Introductory Economics",
             "type": "general"
         },
         {
-            "name": "EL070",
+            "id": "EL070",
+            "name": "ENGLISH COURSE 1",
             "type": "general"
         },
         {
-            "name": "EL171",
+            "id": "EL171",
+            "name": "ENGLISH COURSE 2",
             "type": "general"
         },
         {
-            "name": "EL172",
+            "id": "EL172",
+            "name": "ENGLISH COURSE 3",
             "type": "general"
         },
         {
-            "name": "EL295",
+            "id": "EL295",
+            "name": "ACADEMIC ENGLISH 1",
             "type": "general"
         },
         {
-            "name": "EL395",
+            "id": "EL395",
+            "name": "ACADEMIC ENGLISH 2",
             "type": "force"
         },
         {
-            "name": "HO201",
+            "id": "HO201",
+            "name": "Principles Of Management",
             "type": "general"
         },
         {
-            "name": "MA211",
+            "id": "MA211",
+            "name": "Calculus 1",
             "type": "force"
         },
         {
-            "name": "MA212",
+            "id": "MA212",
+            "name": "Calculus 2",
             "type": "force"
         },
         {
-            "name": "MA332",
+            "id": "MA332",
+            "name": "Linear Algebra",
             "type": "force"
         },
         {
-            "name": "PY228",
+            "id": "PY228",
+            "name": "Psychology Of Interpersonal Relations",
             "type": "general"
         },
         {
-            "name": "SC123",
+            "id": "SC123",
+            "name": "Fundamental Chemistry",
             "type": "force"
         },
         {
-            "name": "SC135",
+            "id": "SC135",
+            "name": "General Physics",
             "type": "force"
         },
         {
-            "name": "SC173",
+            "id": "SC173",
+            "name": "Fundamental Chemistry Laboratory",
             "type": "force"
         },
         {
-            "name": "SC185",
+            "id": "SC185",
+            "name": "General Physics Laboratory",
             "type": "force"
         },
         {
-            "name": "ST216",
+            "id": "ST216",
+            "name": "Statistics For Social Science Students 1",
             "type": "force"
         },
         {
-            "name": "TH161",
+            "id": "TH161",
+            "name": "Thai Usage",
             "type": "general"
         },
         {
-            "name": "TU100",
+            "id": "TU100",
+            "name": "CIVIC EDUCATION",
             "type": "general"
         },
         {
-            "name": "TU110",
+            "id": "TU110",
+            "name": "INTEGRATED HUMANITIES",
             "type": "general"
         },
         {
-            "name": "TU120",
+            "id": "TU120",
+            "name": "INTEGRATED SOCIAL SCIENCES",
             "type": "general"
         },
         {
-            "name": "TU122",
+            "id": "TU122",
+            "name": "LAW IN EVERYDAY LIFE",
             "type": "general"
         },
         {
-            "name": "TU130",
+            "id": "TU130",
+            "name": "INTEGRATED SCIENCES AND TECHNOLOGY",
             "type": "general"
         },
         {
-            "name": "TU154",
+            "id": "TU154",
+            "name": "FOUNDATION OF MATHEMATICS",
             "type": "general"
         }
     ]
@@ -1008,46 +1110,51 @@ def coordinate_predict(request):
         },
         {
             "source": 10,
+            "target": 21,
+            "type": "licensing"
+        },
+        {
+            "source": 13,
+            "target": 18,
+            "type": "licensing"
+        },
+        {
+            "source": 13,
             "target": 22,
             "type": "licensing"
         },
         {
             "source": 13,
-            "target": 19,
+            "target": 32,
             "type": "licensing"
         },
         {
             "source": 13,
-            "target": 23,
+            "target": 35,
             "type": "licensing"
         },
         {
             "source": 13,
-            "target": 33,
+            "target": 39,
             "type": "licensing"
         },
         {
             "source": 13,
-            "target": 36,
+            "target": 43,
             "type": "licensing"
         },
         {
             "source": 13,
-            "target": 40,
-            "type": "licensing"
-        },
-        {
-            "source": 13,
-            "target": 44,
-            "type": "licensing"
-        },
-        {
-            "source": 13,
-            "target": 49,
+            "target": 48,
             "type": "licensing"
         },
         {
             "source": 16,
+            "target": 33,
+            "type": "licensing"
+        },
+        {
+            "source": 17,
             "target": 34,
             "type": "licensing"
         },
@@ -1058,87 +1165,47 @@ def coordinate_predict(request):
         },
         {
             "source": 17,
-            "target": 36,
+            "target": 58,
             "type": "licensing"
         },
         {
             "source": 17,
-            "target": 59,
+            "target": 60,
             "type": "licensing"
         },
         {
-            "source": 17,
-            "target": 61,
+            "source": 18,
+            "target": 20,
             "type": "licensing"
         },
         {
-            "source": 19,
-            "target": 21,
+            "source": 18,
+            "target": 38,
             "type": "licensing"
         },
         {
-            "source": 19,
-            "target": 39,
+            "source": 18,
+            "target": 63,
             "type": "licensing"
         },
         {
-            "source": 19,
+            "source": 18,
             "target": 64,
             "type": "licensing"
         },
         {
-            "source": 19,
+            "source": 18,
             "target": 65,
             "type": "licensing"
         },
         {
             "source": 19,
-            "target": 66,
+            "target": 42,
             "type": "licensing"
         },
         {
-            "source": 20,
-            "target": 43,
-            "type": "licensing"
-        },
-        {
-            "source": 22,
-            "target": 24,
-            "type": "licensing"
-        },
-        {
-            "source": 22,
-            "target": 26,
-            "type": "licensing"
-        },
-        {
-            "source": 22,
-            "target": 43,
-            "type": "licensing"
-        },
-        {
-            "source": 22,
-            "target": 45,
-            "type": "licensing"
-        },
-        {
-            "source": 22,
-            "target": 56,
-            "type": "licensing"
-        },
-        {
-            "source": 22,
-            "target": 57,
-            "type": "licensing"
-        },
-        {
-            "source": 22,
-            "target": 68,
-            "type": "licensing"
-        },
-        {
-            "source": 22,
-            "target": 71,
+            "source": 21,
+            "target": 23,
             "type": "licensing"
         },
         {
@@ -1148,17 +1215,67 @@ def coordinate_predict(request):
         },
         {
             "source": 21,
+            "target": 42,
+            "type": "licensing"
+        },
+        {
+            "source": 21,
+            "target": 44,
+            "type": "licensing"
+        },
+        {
+            "source": 21,
+            "target": 55,
+            "type": "licensing"
+        },
+        {
+            "source": 21,
+            "target": 56,
+            "type": "licensing"
+        },
+        {
+            "source": 21,
+            "target": 67,
+            "type": "licensing"
+        },
+        {
+            "source": 21,
+            "target": 70,
+            "type": "licensing"
+        },
+        {
+            "source": 20,
+            "target": 24,
+            "type": "licensing"
+        },
+        {
+            "source": 20,
+            "target": 47,
+            "type": "licensing"
+        },
+        {
+            "source": 25,
+            "target": 45,
+            "type": "licensing"
+        },
+        {
+            "source": 25,
+            "target": 68,
+            "type": "licensing"
+        },
+        {
+            "source": 26,
             "target": 48,
             "type": "licensing"
         },
         {
             "source": 26,
-            "target": 46,
+            "target": 49,
             "type": "licensing"
         },
         {
             "source": 26,
-            "target": 69,
+            "target": 28,
             "type": "licensing"
         },
         {
@@ -1167,83 +1284,78 @@ def coordinate_predict(request):
             "type": "licensing"
         },
         {
-            "source": 27,
-            "target": 50,
+            "source": 30,
+            "target": 53,
             "type": "licensing"
         },
         {
-            "source": 27,
-            "target": 29,
+            "source": 83,
+            "target": 48,
             "type": "licensing"
         },
         {
-            "source": 28,
-            "target": 50,
+            "source": 35,
+            "target": 36,
             "type": "licensing"
         },
         {
-            "source": 31,
-            "target": 54,
-            "type": "licensing"
-        },
-        {
-            "source": 84,
-            "target": 49,
-            "type": "licensing"
-        },
-        {
-            "source": 36,
+            "source": 35,
             "target": 37,
             "type": "licensing"
         },
         {
-            "source": 36,
-            "target": 38,
+            "source": 35,
+            "target": 58,
             "type": "licensing"
         },
         {
-            "source": 36,
+            "source": 35,
             "target": 59,
             "type": "licensing"
         },
         {
             "source": 36,
-            "target": 60,
+            "target": 46,
             "type": "licensing"
         },
         {
-            "source": 37,
-            "target": 47,
+            "source": 36,
+            "target": 61,
             "type": "licensing"
         },
         {
-            "source": 37,
+            "source": 36,
             "target": 62,
             "type": "licensing"
         },
         {
-            "source": 37,
-            "target": 63,
+            "source": 39,
+            "target": 66,
             "type": "licensing"
         },
         {
-            "source": 40,
-            "target": 67,
+            "source": 44,
+            "target": 68,
             "type": "licensing"
         },
         {
-            "source": 45,
+            "source": 44,
             "target": 69,
             "type": "licensing"
         },
         {
-            "source": 45,
-            "target": 70,
+            "source": 48,
+            "target": 28,
             "type": "licensing"
         },
         {
-            "source": 49,
-            "target": 29,
+            "source": 48,
+            "target": 50,
+            "type": "licensing"
+        },
+        {
+            "source": 48,
+            "target": 51,
             "type": "licensing"
         },
         {
@@ -1252,43 +1364,33 @@ def coordinate_predict(request):
             "type": "licensing"
         },
         {
-            "source": 49,
+            "source": 51,
             "target": 52,
             "type": "licensing"
         },
         {
-            "source": 50,
-            "target": 52,
+            "source": 39,
+            "target": 40,
             "type": "licensing"
         },
         {
-            "source": 52,
-            "target": 53,
-            "type": "licensing"
-        },
-        {
-            "source": 40,
+            "source": 39,
             "target": 41,
             "type": "licensing"
         },
         {
-            "source": 40,
-            "target": 42,
+            "source": 53,
+            "target": 54,
             "type": "licensing"
         },
         {
-            "source": 54,
-            "target": 55,
+            "source": 63,
+            "target": 65,
             "type": "licensing"
         },
         {
-            "source": 64,
-            "target": 66,
-            "type": "licensing"
-        },
-        {
-            "source": 78,
-            "target": 64,
+            "source": 77,
+            "target": 63,
             "type": "licensing"
         }
     ],
@@ -1363,10 +1465,6 @@ def coordinate_predict(request):
         },
         {
             "name": "CS223",
-            "type": "force"
-        },
-        {
-            "name": "CS231",
             "type": "force"
         },
         {
@@ -1739,5 +1837,4 @@ def coordinate_predict(request):
         }
     ]
 }
-
     return JsonResponse({'myfile':myfile})

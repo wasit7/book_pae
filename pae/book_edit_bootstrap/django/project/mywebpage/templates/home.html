@@ -62,10 +62,14 @@
         <div class="navbar-collapse collapse navbar-right">
 			{% verbatim %}
 			<!-- ####banner#### -->
-			<div id="banner-top">
+			<!-- <div id="banner-top"> -->
+			<div class="row">
+			<div class="pull-right">
 				<span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
 				<span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
 			</div>
+			</div>
+			<div class="row">
 			<ul class="nav navbar-nav">
 				<li class="dropdown active">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">หน้าแรก <b class="caret"></b></a>
@@ -78,6 +82,7 @@
 				<li><a href="../showprofile/" >ประวัติการเรียน</a></li>
 				<li><a href="../predict/">ทำนายผลการศึกษา</a></li>
 			</ul>
+			</div>
         </div><!--/.nav-collapse -->
       </div>
     </div>
