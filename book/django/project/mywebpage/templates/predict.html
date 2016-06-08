@@ -63,6 +63,20 @@ text {
   pointer-events: none;
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
 }
+
+
+.tooltip {	      
+  position: absolute;			
+    text-align: center;			
+    width: 100px;					
+    height: 70px;					
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: lightsteelblue;	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;
+
 </style>
 <script>
 var w = 1300,
@@ -100,6 +114,13 @@ var linkedByIndex = {};
         return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
     }
 
+	
+// Define the div for the tooltip
+var div = d3.select("body").append("div")	
+    .attr("class", "tooltip")				
+    .style("opacity", 0);
+div.append('div')                        
+  .attr('class', 'name'); 	
 
 var force = d3.layout.force()
     .nodes(graph.nodes)
@@ -164,12 +185,16 @@ var text = g.selectAll(".text")
      .style("font-size", 10 + "px")
      .text(function(d) { return d.name + "(" + d.grade + ")"; });
 
+	 
+var click = 0;
+	 
 //interact with mouseover -> set highlight node with stoke black
   node.on("mouseover", function(d) {
       set_highlight(d);
       })
 
       .on("mousedown", function(d) { 
+		console.log("downnnn");
         d3.event.stopPropagation();
         focus_node = d;
         set_focus(d)
@@ -178,7 +203,28 @@ var text = g.selectAll(".text")
         })
       .on("mouseout", function(d) {
         exit_highlight();
-        });
+        })
+		
+	  .on("click",function(d){
+		if(click == 0){
+			console.log("clickkk");
+		div.transition()		
+                .duration(200)		
+                .style("opacity", .9);		
+			
+			console.log(div)
+			
+		div.html("<strong>"+d.name+"</strong>" +"<br/>" 
+				+"ผลทำนาย: "  + "<span style='color:red'>"+ d.grade+"</span>")
+			.style("margin-left", (d.x+30)+'px')
+			.style("margin-top", (d.y+10) +'px');
+			console.log(d.x)
+			console.log(d.y)
+			click = 1;
+			console.log(click)
+		
+		}	
+	   });
 
     d3.select(window).on("mouseup",  
     function() {
@@ -194,6 +240,13 @@ var text = g.selectAll(".text")
     }
   
     if (highlight_node === null) exit_highlight();
+	if (click == 1){ 
+		div.transition()		
+                .duration(500)		
+                .style("opacity", 0);
+		click = 0;
+		console.log(click);
+	}
     });
 
 function set_focus(d)
@@ -355,7 +408,7 @@ app.controller('myCtrl', function($scope, $http, $window) {
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">ผลการทำนาย</h2>
-                    <h3 class="section-subheading text-muted">**แผนภาพตามวิชาใน Label X (จำนวน111วิชา)**</h3>
+                    <h3 class="section-subheading text-muted"></h3>
                 </div>
             </div>
         </div>

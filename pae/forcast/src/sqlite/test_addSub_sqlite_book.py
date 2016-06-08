@@ -29,7 +29,7 @@ df_db = df_file_all[df_file_all["COURSEID"].isin(subjects)]
 df_db = df_db.drop_duplicates(['COURSEID'], take_last=True)  
 df_db = df_db.sort(['COURSEID'])          
                                 
-con = sql.connect("subject.sqlite")
-#df = pd.DataFrame({'TestData': [1, 2, 3, 4, 5, 6, 7, 8, 9]}, dtype='float')
-pd_sql.to_sql(df_db, "new_subject", con, index=False)
-con.close()
+#con = sql.connect("subject.sqlite")
+##df = pd.DataFrame({'TestData': [1, 2, 3, 4, 5, 6, 7, 8, 9]}, dtype='float')
+#pd_sql.to_sql(df_db, "new_subject", con, index=False)
+#con.close()

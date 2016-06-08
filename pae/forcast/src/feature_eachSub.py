@@ -88,7 +88,7 @@ for subject in subjects:
     std = np.std([tree.feature_importances_ for tree in forest.estimators_],
              axis=0)
     indices = np.argsort(importances)[::-1]
-    list_grade = df_file.columns[4:]
+    list_grade = df_file.columns[6:117]
     # Print the feature ranking
     print("Feature ranking:")
 

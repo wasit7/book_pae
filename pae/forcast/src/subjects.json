@@ -1,103 +1,203 @@
 {
     "link": [
         {
-            "source": 19,
+            "source": 7,
+            "target": 10,
+            "type": "licensing"
+        },
+        {
+            "source": 8,
+            "target": 10,
+            "type": "licensing"
+        },
+        {
+            "source": 10,
+            "target": 13,
+            "type": "licensing"
+        },
+        {
+            "source": 10,
+            "target": 16,
+            "type": "licensing"
+        },
+        {
+            "source": 10,
+            "target": 17,
+            "type": "licensing"
+        },
+        {
+            "source": 10,
             "target": 22,
             "type": "licensing"
         },
         {
-            "source": 20,
-            "target": 22,
+            "source": 13,
+            "target": 19,
             "type": "licensing"
         },
         {
-            "source": 22,
-            "target": 25,
+            "source": 13,
+            "target": 23,
             "type": "licensing"
         },
         {
-            "source": 22,
-            "target": 28,
+            "source": 13,
+            "target": 33,
             "type": "licensing"
         },
         {
-            "source": 22,
-            "target": 29,
-            "type": "licensing"
-        },
-        {
-            "source": 22,
-            "target": 35,
-            "type": "licensing"
-        },
-        {
-            "source": 25,
-            "target": 31,
-            "type": "licensing"
-        },
-        {
-            "source": 25,
+            "source": 13,
             "target": 36,
             "type": "licensing"
         },
         {
-            "source": 25,
-            "target": 46,
+            "source": 13,
+            "target": 40,
             "type": "licensing"
         },
         {
-            "source": 25,
-            "target": 50,
+            "source": 13,
+            "target": 44,
             "type": "licensing"
         },
         {
-            "source": 25,
-            "target": 55,
+            "source": 13,
+            "target": 49,
             "type": "licensing"
         },
         {
-            "source": 25,
-            "target": 59,
-            "type": "licensing"
-        },
-        {
-            "source": 25,
-            "target": 64,
-            "type": "licensing"
-        },
-        {
-            "source": 28,
-            "target": 47,
-            "type": "licensing"
-        },
-        {
-            "source": 29,
-            "target": 48,
-            "type": "licensing"
-        },
-        {
-            "source": 29,
-            "target": 50,
-            "type": "licensing"
-        },
-        {
-            "source": 29,
-            "target": 74,
-            "type": "licensing"
-        },
-        {
-            "source": 29,
-            "target": 76,
-            "type": "licensing"
-        },
-        {
-            "source": 31,
+            "source": 16,
             "target": 34,
             "type": "licensing"
         },
         {
-            "source": 31,
-            "target": 53,
+            "source": 17,
+            "target": 35,
+            "type": "licensing"
+        },
+        {
+            "source": 17,
+            "target": 36,
+            "type": "licensing"
+        },
+        {
+            "source": 17,
+            "target": 59,
+            "type": "licensing"
+        },
+        {
+            "source": 17,
+            "target": 61,
+            "type": "licensing"
+        },
+        {
+            "source": 19,
+            "target": 21,
+            "type": "licensing"
+        },
+        {
+            "source": 19,
+            "target": 39,
+            "type": "licensing"
+        },
+        {
+            "source": 19,
+            "target": 64,
+            "type": "licensing"
+        },
+        {
+            "source": 19,
+            "target": 65,
+            "type": "licensing"
+        },
+        {
+            "source": 19,
+            "target": 66,
+            "type": "licensing"
+        },
+        {
+            "source": 20,
+            "target": 43,
+            "type": "licensing"
+        },
+        {
+            "source": 22,
+            "target": 24,
+            "type": "licensing"
+        },
+        {
+            "source": 22,
+            "target": 26,
+            "type": "licensing"
+        },
+        {
+            "source": 22,
+            "target": 43,
+            "type": "licensing"
+        },
+        {
+            "source": 22,
+            "target": 45,
+            "type": "licensing"
+        },
+        {
+            "source": 22,
+            "target": 56,
+            "type": "licensing"
+        },
+        {
+            "source": 22,
+            "target": 57,
+            "type": "licensing"
+        },
+        {
+            "source": 22,
+            "target": 68,
+            "type": "licensing"
+        },
+        {
+            "source": 22,
+            "target": 71,
+            "type": "licensing"
+        },
+        {
+            "source": 21,
+            "target": 25,
+            "type": "licensing"
+        },
+        {
+            "source": 21,
+            "target": 48,
+            "type": "licensing"
+        },
+        {
+            "source": 26,
+            "target": 46,
+            "type": "licensing"
+        },
+        {
+            "source": 26,
+            "target": 69,
+            "type": "licensing"
+        },
+        {
+            "source": 27,
+            "target": 49,
+            "type": "licensing"
+        },
+        {
+            "source": 27,
+            "target": 50,
+            "type": "licensing"
+        },
+        {
+            "source": 27,
+            "target": 29,
+            "type": "licensing"
+        },
+        {
+            "source": 28,
+            "target": 50,
             "type": "licensing"
         },
         {
@@ -106,123 +206,73 @@
             "type": "licensing"
         },
         {
-            "source": 31,
-            "target": 80,
-            "type": "licensing"
-        },
-        {
-            "source": 31,
-            "target": 81,
-            "type": "licensing"
-        },
-        {
-            "source": 31,
-            "target": 82,
-            "type": "licensing"
-        },
-        {
-            "source": 32,
-            "target": 58,
-            "type": "licensing"
-        },
-        {
-            "source": 35,
-            "target": 37,
-            "type": "licensing"
-        },
-        {
-            "source": 35,
-            "target": 39,
-            "type": "licensing"
-        },
-        {
-            "source": 35,
-            "target": 58,
-            "type": "licensing"
-        },
-        {
-            "source": 35,
-            "target": 60,
-            "type": "licensing"
-        },
-        {
-            "source": 35,
-            "target": 71,
-            "type": "licensing"
-        },
-        {
-            "source": 35,
-            "target": 72,
-            "type": "licensing"
-        },
-        {
-            "source": 35,
-            "target": 86,
-            "type": "licensing"
-        },
-        {
-            "source": 35,
-            "target": 89,
-            "type": "licensing"
-        },
-        {
-            "source": 34,
-            "target": 38,
-            "type": "licensing"
-        },
-        {
-            "source": 34,
-            "target": 63,
-            "type": "licensing"
-        },
-        {
-            "source": 39,
-            "target": 61,
-            "type": "licensing"
-        },
-        {
-            "source": 39,
-            "target": 87,
-            "type": "licensing"
-        },
-        {
-            "source": 40,
-            "target": 64,
-            "type": "licensing"
-        },
-        {
-            "source": 40,
-            "target": 65,
-            "type": "licensing"
-        },
-        {
-            "source": 40,
-            "target": 42,
-            "type": "licensing"
-        },
-        {
-            "source": 41,
-            "target": 65,
-            "type": "licensing"
-        },
-        {
-            "source": 44,
-            "target": 69,
-            "type": "licensing"
-        },
-        {
-            "source": 47,
+            "source": 84,
             "target": 49,
             "type": "licensing"
         },
         {
-            "source": 130,
-            "target": 64,
+            "source": 36,
+            "target": 37,
             "type": "licensing"
         },
         {
-            "source": 50,
+            "source": 36,
+            "target": 38,
+            "type": "licensing"
+        },
+        {
+            "source": 36,
+            "target": 59,
+            "type": "licensing"
+        },
+        {
+            "source": 36,
+            "target": 60,
+            "type": "licensing"
+        },
+        {
+            "source": 37,
+            "target": 47,
+            "type": "licensing"
+        },
+        {
+            "source": 37,
+            "target": 62,
+            "type": "licensing"
+        },
+        {
+            "source": 37,
+            "target": 63,
+            "type": "licensing"
+        },
+        {
+            "source": 40,
+            "target": 67,
+            "type": "licensing"
+        },
+        {
+            "source": 45,
+            "target": 69,
+            "type": "licensing"
+        },
+        {
+            "source": 45,
+            "target": 70,
+            "type": "licensing"
+        },
+        {
+            "source": 49,
+            "target": 29,
+            "type": "licensing"
+        },
+        {
+            "source": 49,
             "target": 51,
+            "type": "licensing"
+        },
+        {
+            "source": 49,
+            "target": 52,
             "type": "licensing"
         },
         {
@@ -231,68 +281,23 @@
             "type": "licensing"
         },
         {
-            "source": 50,
-            "target": 74,
+            "source": 52,
+            "target": 53,
             "type": "licensing"
         },
         {
-            "source": 50,
-            "target": 75,
+            "source": 40,
+            "target": 41,
             "type": "licensing"
         },
         {
-            "source": 50,
-            "target": 78,
-            "type": "licensing"
-        },
-        {
-            "source": 51,
-            "target": 62,
-            "type": "licensing"
-        },
-        {
-            "source": 51,
-            "target": 77,
-            "type": "licensing"
-        },
-        {
-            "source": 51,
-            "target": 79,
-            "type": "licensing"
-        },
-        {
-            "source": 55,
-            "target": 83,
-            "type": "licensing"
-        },
-        {
-            "source": 55,
-            "target": 84,
-            "type": "licensing"
-        },
-        {
-            "source": 58,
-            "target": 85,
-            "type": "licensing"
-        },
-        {
-            "source": 59,
-            "target": 85,
-            "type": "licensing"
-        },
-        {
-            "source": 60,
-            "target": 87,
-            "type": "licensing"
-        },
-        {
-            "source": 60,
-            "target": 88,
-            "type": "licensing"
-        },
-        {
-            "source": 64,
+            "source": 40,
             "target": 42,
+            "type": "licensing"
+        },
+        {
+            "source": 54,
+            "target": 55,
             "type": "licensing"
         },
         {
@@ -301,968 +306,344 @@
             "type": "licensing"
         },
         {
-            "source": 64,
-            "target": 67,
+            "source": 78,
+            "target": 64,
             "type": "licensing"
-        },
-        {
-            "source": 65,
-            "target": 67,
-            "type": "licensing"
-        },
-        {
-            "source": 66,
-            "target": 90,
-            "type": "licensing"
-        },
-        {
-            "source": 67,
-            "target": 68,
-            "type": "licensing"
-        },
-        {
-            "source": 67,
-            "target": 91,
-            "type": "licensing"
-        },
-        {
-            "source": 55,
-            "target": 56,
-            "type": "licensing"
-        },
-        {
-            "source": 55,
-            "target": 57,
-            "type": "licensing"
-        },
-        {
-            "source": 69,
-            "target": 70,
-            "type": "licensing"
-        },
-        {
-            "source": 80,
-            "target": 82,
-            "type": "licensing"
-        },
-        {
-            "source": 111,
-            "target": 80,
-            "type": "licensing"
-        },
-		{
-            "source": 28,
-            "target": 203,
-            "type": "licensing"
-        },
-		{
-            "source": 29,
-            "target": 204,
-            "type": "licensing"
-        },
-		{
-            "source": 35,
-            "target": 205,
-            "type": "licensing"
-        },
-		{
-            "source": 38,
-            "target": 206,
-            "type": "licensing"
-        },
-		{
-            "source": 50,
-            "target": 207,
-            "type": "licensing"
-        },
-		{
-            "source": 52,
-            "target": 208,
-            "type": "licensing"
-        },
-		{
-            "source": 53,
-            "target": 209,
-            "type": "licensing"
-        },
-		{
-            "source": 11,
-            "target": 209,
-            "type": "licensing"
-        },
-		{
-            "source": 67,
-            "target": 210,
-            "type": "licensing"
-        },
-		{
-            "source": 90,
-            "target": 210,
-            "type": "licensing"
-        },
-		{
-            "source": 53,
-            "target": 211,
-            "type": "licensing"
-        },
-		{
-            "source": 53,
-            "target": 212,
-            "type": "licensing"
-        },
+        }
     ],
     "node": [
         {
-            "name": "AN201",
-			"type": "freedom"
+            "name": "AT316"
         },
         {
-            "name": "AS171",
-			"type": "freedom"
+            "name": "AT326"
         },
         {
-            "name": "AS177",
-			"type": "freedom"
+            "name": "BA291"
         },
         {
-            "name": "AS178",
-			"type": "freedom"
+            "name": "CJ315"
         },
         {
-            "name": "AT207",
-			"type": "freedom"
+            "name": "CJ316"
         },
         {
-            "name": "AT307",
-			"type": "freedom"
+            "name": "CJ317"
         },
         {
-            "name": "AT316",
-			"type": "freedom"
+            "name": "CJ321"
         },
         {
-            "name": "AT326",
-			"type": "freedom"
+            "name": "CS101"
         },
         {
-            "name": "AT336",
-			"type": "freedom"
+            "name": "CS102"
         },
         {
-            "name": "AT346",
-			"type": "freedom"
+            "name": "CS105"
         },
         {
-            "name": "AT366",
-			"type": "freedom"
+            "name": "CS111"
         },
         {
-            "name": "BA291",
-			"type": "general"
+            "name": "CS115"
         },
         {
-            "name": "CF366",
-			"type": "freedom"
+            "name": "CS211"
         },
         {
-            "name": "CF367",
-			"type": "freedom"
+            "name": "CS213"
         },
         {
-            "name": "CJ315",
-			"type": "freedom"
+            "name": "CS214"
         },
         {
-            "name": "CJ316",
-			"type": "freedom"
+            "name": "CS215"
         },
         {
-            "name": "CJ317",
-			"type": "freedom"
+            "name": "CS222"
         },
         {
-            "name": "CJ321",
-			"type": "freedom"
+            "name": "CS223"
         },
         {
-            "name": "CN342",
-			"type": "freedom"
+            "name": "CS231"
         },
         {
-            "name": "CS101",
-			"type": "comsci"
+            "name": "CS251"
         },
         {
-            "name": "CS102",
-			"type": "comsci"
+            "name": "CS261"
         },
         {
-            "name": "CS105",
-			"type": "comsci"
+            "name": "CS281"
         },
         {
-            "name": "CS111",
-			"type": "comsci"
+            "name": "CS284"
         },
         {
-            "name": "CS115",
-			"type": "comsci"
+            "name": "CS285"
         },
         {
-            "name": "CS211",
-			"type": "comsci"
+            "name": "CS286"
         },
         {
-            "name": "CS213",
-			"type": "comsci"
+            "name": "CS288"
         },
         {
-            "name": "CS214",
-			"type": "comsci"
+            "name": "CS289"
         },
         {
-            "name": "CS215",
-			"type": "comsci"
+            "name": "CS295"
         },
         {
-            "name": "CS222",
-			"type": "comsci"
+            "name": "CS296"
         },
         {
-            "name": "CS223",
-			"type": "comsci"
+            "name": "CS297"
         },
         {
-            "name": "CS231",
-			"type": "comsci"
+            "name": "CS300"
         },
         {
-            "name": "CS251",
-			"type": "comsci"
+            "name": "CS301"
         },
         {
-            "name": "CS261",
-			"type": "comsci"
+            "name": "CS302"
         },
         {
-            "name": "CS275",
-			"type": "comsci"
+            "name": "CS311"
         },
         {
-            "name": "CS281",
-			"type": "comsci"
+            "name": "CS314"
         },
         {
-            "name": "CS284",
-			"type": "comsci"
+            "name": "CS326"
         },
         {
-            "name": "CS285",
-			"type": "comsci"
+            "name": "CS341"
         },
         {
-            "name": "CS286",
-			"type": "comsci"
+            "name": "CS342"
         },
         {
-            "name": "CS288",
-			"type": "comsci"
+            "name": "CS348"
         },
         {
-            "name": "CS289",
-			"type": "comsci"
+            "name": "CS356"
         },
         {
-            "name": "CS295",
-			"type": "comsci"
+            "name": "CS365"
         },
         {
-            "name": "CS296",
-			"type": "comsci"
+            "name": "CS366"
         },
         {
-            "name": "CS297",
-			"type": "comsci"
+            "name": "CS367"
         },
         {
-            "name": "CS300",
-			"type": "comsci"
+            "name": "CS374"
         },
         {
-            "name": "CS301",
-			"type": "comsci"
+            "name": "CS377"
         },
         {
-            "name": "CS302",
-			"type": "comsci"
+            "name": "CS385"
         },
         {
-            "name": "CS311",
-			"type": "comsci"
+            "name": "CS386"
         },
         {
-            "name": "CS314",
-			"type": "comsci"
+            "name": "CS387"
         },
         {
-            "name": "CS326",
-			"type": "comsci"
+            "name": "CS388"
         },
         {
-            "name": "CS328",
-			"type": "comsci"
+            "name": "CS395"
         },
         {
-            "name": "CS341",
-			"type": "comsci"
+            "name": "CS396"
         },
         {
-            "name": "CS342",
-			"type": "comsci"
+            "name": "CS397"
         },
         {
-            "name": "CS348",
-			"type": "comsci"
+            "name": "CS398"
         },
         {
-            "name": "CS356",
-			"type": "comsci"
+            "name": "CS399"
         },
         {
-            "name": "CS359",
-			"type": "comsci"
+            "name": "CS401"
         },
         {
-            "name": "CS365",
-			"type": "comsci"
+            "name": "CS402"
         },
         {
-            "name": "CS366",
-			"type": "comsci"
+            "name": "CS407"
         },
         {
-            "name": "CS367",
-			"type": "comsci"
+            "name": "CS408"
         },
         {
-            "name": "CS374",
-			"type": "comsci"
+            "name": "CS409"
         },
         {
-            "name": "CS377",
-			"type": "comsci"
+            "name": "CS426"
         },
         {
-            "name": "CS385",
-			"type": "comsci"
+            "name": "CS427"
         },
         {
-            "name": "CS386",
-			"type": "comsci"
+            "name": "CS429"
         },
         {
-            "name": "CS387",
-			"type": "comsci"
+            "name": "CS446"
         },
         {
-            "name": "CS388",
-			"type": "comsci"
+            "name": "CS449"
         },
         {
-            "name": "CS395",
-			"type": "comsci"
+            "name": "CS456"
         },
         {
-            "name": "CS396",
-			"type": "comsci"
+            "name": "CS457"
         },
         {
-            "name": "CS397",
-			"type": "comsci"
+            "name": "CS459"
         },
         {
-            "name": "CS398",
-			"type": "comsci"
+            "name": "CS467"
         },
         {
-            "name": "CS399",
-			"type": "comsci"
+            "name": "CS486"
         },
         {
-            "name": "CS401",
-			"type": "comsci"
+            "name": "CS487"
         },
         {
-            "name": "CS402",
-			"type": "comsci"
+            "name": "CS488"
         },
         {
-            "name": "CS407",
-			"type": "comsci"
+            "name": "CS489"
         },
         {
-            "name": "CS408",
-			"type": "comsci"
+            "name": "EL070"
         },
         {
-            "name": "CS409",
-			"type": "comsci"
+            "name": "EL171"
         },
         {
-            "name": "CS426",
-			"type": "comsci"
+            "name": "EL172"
         },
         {
-            "name": "CS427",
-			"type": "comsci"
+            "name": "EL295"
         },
         {
-            "name": "CS429",
-			"type": "comsci"
+            "name": "EL395"
         },
         {
-            "name": "CS446",
-			"type": "comsci"
+            "name": "ES356"
         },
         {
-            "name": "CS447",
-			"type": "comsci"
+            "name": "HO201"
         },
         {
-            "name": "CS449",
-			"type": "comsci"
+            "name": "HR201"
         },
         {
-            "name": "CS456",
-			"type": "comsci"
+            "name": "LA209"
         },
         {
-            "name": "CS457",
-			"type": "comsci"
+            "name": "MA211"
         },
         {
-            "name": "CS459",
-			"type": "comsci"
+            "name": "MA212"
         },
         {
-            "name": "CS467",
-			"type": "comsci"
+            "name": "MA216"
         },
         {
-            "name": "CS469",
-			"type": "comsci"
+            "name": "MA332"
         },
         {
-            "name": "CS479",
-			"type": "comsci"
+            "name": "MW313"
         },
         {
-            "name": "CS486",
-			"type": "comsci"
+            "name": "MW314"
         },
         {
-            "name": "CS487",
-			"type": "comsci"
+            "name": "NS132"
         },
         {
-            "name": "CS488",
-			"type": "comsci"
+            "name": "PY228"
         },
         {
-            "name": "CS489",
-			"type": "comsci"
+            "name": "SC123"
         },
         {
-            "name": "CS496",
-			"type": "comsci"
+            "name": "SC135"
         },
         {
-            "name": "CS499",
-			"type": "comsci"
+            "name": "SC173"
         },
         {
-            "name": "DM201",
-			"type": "freedom"
+            "name": "SC185"
         },
         {
-            "name": "DM207",
-			"type": "freedom"
+            "name": "SO201"
         },
         {
-            "name": "DM215",
-			"type": "freedom"
+            "name": "ST216"
         },
         {
-            "name": "EC210",
-			"type": "general"
+            "name": "SW111"
         },
         {
-            "name": "EG241",
-			"type": "freedom"
+            "name": "SW212"
         },
         {
-            "name": "EL070",
-			"type": "general"
+            "name": "SW213"
         },
         {
-            "name": "EL171",
-			"type": "general"
+            "name": "SW221"
         },
         {
-            "name": "EL172",
-			"type": "general"
+            "name": "SW335"
         },
         {
-            "name": "EL202",
-			"type": "freedom"
+            "name": "SW365"
         },
         {
-            "name": "EL231",
-			"type": "freedom"
+            "name": "SW475"
         },
         {
-            "name": "EL295",
-			"type": "general"
+            "name": "SW478"
         },
         {
-            "name": "EL395",
-			"type": "general"
+            "name": "TA395"
         },
         {
-            "name": "ES256",
-			"type": "freedom"
+            "name": "TH161"
         },
         {
-            "name": "ES356",
-			"type": "freedom"
+            "name": "TU100"
         },
         {
-            "name": "ES456",
-			"type": "freedom"
+            "name": "TU110"
         },
         {
-            "name": "FD211",
-			"type": "freedom"
+            "name": "TU120"
         },
         {
-            "name": "FN211",
-			"type": "freedom"
+            "name": "TU122"
         },
         {
-            "name": "GE225",
-			"type": "freedom"
+            "name": "TU130"
         },
         {
-            "name": "GE311",
-			"type": "freedom"
-        },
-        {
-            "name": "HO201",
-			"type": "general"
-        },
-        {
-            "name": "HR201",
-			"type": "freedom"
-        },
-        {
-            "name": "HS266",
-			"type": "freedom"
-        },
-        {
-            "name": "HS269",
-			"type": "freedom"
-        },
-        {
-            "name": "HS356",
-			"type": "freedom"
-        },
-        {
-            "name": "HS360",
-			"type": "freedom"
-        },
-        {
-            "name": "IS201",
-			"type": "freedom"
-        },
-        {
-            "name": "JC200",
-			"type": "freedom"
-        },
-        {
-            "name": "JC201",
-			"type": "freedom"
-        },
-        {
-            "name": "JC260",
-			"type": "freedom"
-        },
-        {
-            "name": "JC281",
-			"type": "freedom"
-        },
-        {
-            "name": "JP171",
-			"type": "freedom"
-        },
-        {
-            "name": "JP172",
-			"type": "freedom"
-        },
-        {
-            "name": "LA209",
-			"type": "freedom"
-        },
-        {
-            "name": "MA211",
-			"type": "general"
-        },
-        {
-            "name": "MA212",
-			"type": "general"
-        },
-        {
-            "name": "MA216",
-			"type": "freedom"
-        },
-        {
-            "name": "MA217",
-			"type": "freedom"
-        },
-        {
-            "name": "MA221",
-			"type": "freedom"
-        },
-        {
-            "name": "MA332",
-			"type": "freedom"
-        },
-        {
-            "name": "MU100",
-			"type": "freedom"
-        },
-        {
-            "name": "MU130",
-			"type": "freedom"
-        },
-        {
-            "name": "MU135",
-			"type": "freedom"
-        },
-        {
-            "name": "MU165",
-			"type": "freedom"
-        },
-        {
-            "name": "MU202",
-			"type": "freedom"
-        },
-        {
-            "name": "MU275",
-			"type": "freedom"
-        },
-        {
-            "name": "MU277",
-			"type": "freedom"
-        },
-        {
-            "name": "MU278",
-			"type": "freedom"
-        },
-        {
-            "name": "MW313",
-			"type": "freedom"
-        },
-        {
-            "name": "MW314",
-			"type": "freedom"
-        },
-        {
-            "name": "MW318",
-			"type": "freedom"
-        },
-        {
-            "name": "NS112",
-			"type": "freedom"
-        },
-        {
-            "name": "NS132",
-			"type": "freedom"
-        },
-        {
-            "name": "PC286",
-			"type": "freedom"
-        },
-        {
-            "name": "PE240",
-			"type": "freedom"
-        },
-        {
-            "name": "PE245",
-			"type": "freedom"
-        },
-        {
-            "name": "PM215",
-			"type": "freedom"
-        },
-        {
-            "name": "PM235",
-			"type": "freedom"
-        },
-        {
-            "name": "PM236",
-			"type": "freedom"
-        },
-        {
-            "name": "PY211",
-			"type": "freedom"
-        },
-        {
-            "name": "PY217",
-			"type": "freedom"
-        },
-        {
-            "name": "PY218",
-			"type": "freedom"
-        },
-        {
-            "name": "PY226",
-			"type": "freedom"
-        },
-        {
-            "name": "PY228",
-			"type": "general"
-        },
-        {
-            "name": "PY237",
-			"type": "freedom"
-        },
-        {
-            "name": "PY267",
-			"type": "freedom"
-        },
-        {
-            "name": "RE333",
-			"type": "freedom"
-        },
-        {
-            "name": "RT326",
-			"type": "freedom"
-        },
-        {
-            "name": "SC123",
-			"type": "freedom"
-        },
-        {
-            "name": "SC135",
-			"type": "general"
-        },
-        {
-            "name": "SC173",
-			"type": "freedom"
-        },
-        {
-            "name": "SC185",
-			"type": "general"
-        },
-        {
-            "name": "SN212",
-			"type": "freedom"
-        },
-        {
-            "name": "SO201",
-			"type": "freedom"
-        },
-        {
-            "name": "ST216",
-			"type": "general"
-        },
-        {
-            "name": "ST217",
-			"type": "freedom"
-        },
-        {
-            "name": "ST218",
-			"type": "freedom"
-        },
-        {
-            "name": "ST326",
-			"type": "freedom"
-        },
-        {
-            "name": "SW111",
-			"type": "freedom"
-        },
-        {
-            "name": "SW201",
-			"type": "freedom"
-        },
-        {
-            "name": "SW212",
-			"type": "freedom"
-        },
-        {
-            "name": "SW213",
-			"type": "freedom"
-        },
-        {
-            "name": "SW214",
-			"type": "freedom"
-        },
-        {
-            "name": "SW221",
-			"type": "freedom"
-        },
-        {
-            "name": "SW222",
-			"type": "freedom"
-        },
-        {
-            "name": "SW223",
-			"type": "freedom"
-        },
-        {
-            "name": "SW224",
-			"type": "freedom"
-        },
-        {
-            "name": "SW335",
-			"type": "freedom"
-        },
-        {
-            "name": "SW365",
-			"type": "freedom"
-        },
-        {
-            "name": "SW366",
-			"type": "freedom"
-        },
-        {
-            "name": "SW467",
-			"type": "freedom"
-        },
-        {
-            "name": "SW475",
-			"type": "freedom"
-        },
-        {
-            "name": "SW478",
-			"type": "freedom"
-        },
-        {
-            "name": "SW486",
-			"type": "freedom"
-        },
-        {
-            "name": "SW489",
-			"type": "freedom"
-        },
-        {
-            "name": "SW496",
-			"type": "freedom"
-        },
-        {
-            "name": "TA395",
-			"type": "freedom"
-        },
-        {
-            "name": "TD436",
-			"type": "freedom"
-        },
-        {
-            "name": "TH161",
-			"type": "general"
-        },
-        {
-            "name": "TU100",
-			"type": "general"
-        },
-        {
-            "name": "TU110",
-			"type": "general"
-        },
-        {
-            "name": "TU111",
-			"type": "freedom"
-        },
-        {
-            "name": "TU113",
-			"type": "freedom"
-        },
-        {
-            "name": "TU115",
-			"type": "freedom"
-        },
-        {
-            "name": "TU116",
-			"type": "freedom"
-        },
-        {
-            "name": "TU120",
-			"type": "general"
-        },
-        {
-            "name": "TU121",
-			"type": "freedom"
-        },
-        {
-            "name": "TU122",
-			"type": "general"
-        },
-        {
-            "name": "TU130",
-			"type": "general"
-        },
-        {
-            "name": "TU153",
-			"type": "freedom"
-        },
-        {
-            "name": "TU154",
-			"type": "general"
-        },
-        {
-            "name": "TU156",
-			"type": "freedom"
-        },
-        {
-            "name": "CS439",
-			"type": "comsci"
-        },
-        {
-            "name": "CS327",
-			"type": "comsci"
-        },
-        {
-            "name": "CS406",
-			"type": "comsci"
-        },
-        {
-            "name": "CS389",
-			"type": "comsci"
-        },
-        {
-            "name": "CS428",
-			"type": "comsci"
-        },
-        {
-            "name": "CS448",
-			"type": "comsci"
-        },
-        {
-            "name": "CS458",
-			"type": "comsci"
-        },
-        {
-            "name": "CS497",
-			"type": "comsci"
-        },
-        {
-            "name": "CS357",
-			"type": "comsci"
-        },
-        {
-            "name": "CS358",
-			"type": "comsci"
-        },
-	]
+            "name": "TU154"
+        }
+    ]
 }

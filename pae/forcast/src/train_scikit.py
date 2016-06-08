@@ -31,7 +31,7 @@ headers=list(df_file.columns.values)
 subjects = {'courseId':[]}
 countSub = 0
 #Create dictionary of list subjects
-for sub in df_file[headers[4]]:
+for sub in df_file[headers[1]]:
     if sub not in subjects['courseId']:
         subjects['courseId'].append(sub)
         countSub = countSub+1
@@ -49,9 +49,9 @@ for subject in subjects["courseId"]:
     #print "Number of %s enrollment: %s"%(subject,count_enrollment)
 
     A = df_sub.as_matrix()
-    X = A[:,6:]
+    X = A[:,4:]
     X = X.astype(np.int64, copy=False)
-    y = A[:,5]
+    y = A[:,2]
     y = y.astype(np.int64, copy=False)
 
     #Training data
@@ -72,9 +72,9 @@ for subject in subjects["courseId"]:
     
     #print all subjects
     #save trees to pickle file
-    f = "tree/tree%s.pic"%subject
-    with open(f, 'wb') as pickleFile:
-        pickle.dump(clf, pickleFile, pickle.HIGHEST_PROTOCOL)
+#    f = "tree/tree%s.pic"%subject
+#    with open(f, 'wb') as pickleFile:
+#        pickle.dump(clf, pickleFile, pickle.HIGHEST_PROTOCOL)
 
 df_precision.plot(kind='bar')
 
@@ -86,7 +86,7 @@ importances = forest.feature_importances_
 std = np.std([tree.feature_importances_ for tree in forest.estimators_],
              axis=0)
 indices = np.argsort(importances)[::-1]
-list_grade = df_file.columns[6:]
+list_grade = df_file.columns[4:]
 # Print the feature ranking
 print("Feature ranking:")
 

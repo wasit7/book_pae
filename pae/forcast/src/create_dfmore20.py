@@ -66,7 +66,7 @@ for m in more20.index:
     dfx=dfx.iloc[np.random.permutation(len(dfx))]
     dfx.to_csv('../data/df_sub_more20_merge'+"/df_%s.csv"%m)
 
-#more20.plot(kind='bar')
+more20.plot(kind='bar')
 
 #Create new Dataframe (drop column subject that less than 20)
 subjects = []
@@ -78,4 +78,4 @@ for sub in df_less20['3COURSEID']:
 for drop in subjects:
       df_file = df_file.drop([drop],axis=1)
 df_file = df_file[df_file["3COURSEID"].isin(more20.index)]
-df_file.to_csv('../data'+'/df_dropSub_less20.csv') #create new dataframe (>=20 enrollment))
+#df_file.to_csv('../data'+'/df_dropSub_less20.csv') #create new dataframe (>=20 enrollment))
