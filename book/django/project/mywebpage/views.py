@@ -47,6 +47,10 @@ def addprofile(request):
     if request.method == 'POST':
         enroll = json.loads(request.body)  #jsEnrolled is python Object or python dictionary  #101
         #body={"CS101": {"sub_id": "CS101", "grade": "A", "term": "2", "year": "2555"}}
+        
+        if not enroll:
+            print "enroll", enroll
+            
         enrolled_old = Enrollment.objects.all() #2 cs101 cs102
         enrolled_oldData = { str(i.sub_id) : { 'sub_id': str(i.sub_id),'term': str(i.term), 'year': str(i.year) , 'grade': i.grade} for i in enrolled_old }
 
@@ -268,20 +272,6 @@ def coordinate_home(request):
     return JsonResponse({'myfile1':myfile1})
 
 def coordinate_predict(request):
-    #y = ['B', 'B', 'W', 'B', 'B', 'B', 'A', 'C', 'C', 'D', 'D', 'W', 'D', 'D', 'B', 'C', 'C', 'D', 'C', 'C', 'W', 'D', 'C', 'B', 'D', 'D', 'F', 'W', 'C', 'S', 'B', 'D', 'D', 'F', 'B', 'C', 'C', 'B', 'A', 'C', 'W', 'C', 'D', 'C', 'C', 'C', 'C', 'C', 'F', 'C', 'B', 'C', 'B', 'B', 'C', 'B', 'B', 'B', 'B', 'C', 'A', 'C', 'B', 'W', 'B', 'B', 'B', 'C', 'D', 'B', 'C', 'S', 'D', 'D', 'C', 'C', 'B', 'B', 'B', 'B', 'F', 'W', 'W', 'D', 'B', 'B', 'A', 'C', 'W', 'B', 'B', 'C', 'C', 'D', 'B', 'C', 'B', 'B', 'B', 'A', 'B', 'B', 'A', 'C', 'B', 'D', 'B', 'D', 'C', 'C']
-    # with open('coordinate_predict.json') as f:
-    #     myfile = json.load(f)
-    #     #jj type is dict
-    #     all_subject = myfile['node']
-    #     for i,k in enumerate(all_subject):
-    #         subject = all_subject[i]
-    #         subject['grade'] = y[i]
-    #     #print myfile
-
-    # with open('j.json','w+') as f:
-    #     json.dump(myfile, f)
-    #     f.close()
-
     with open('j.json') as f:
         myfile = json.load(f)
     #print myfile

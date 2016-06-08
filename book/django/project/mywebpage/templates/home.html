@@ -13,8 +13,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}" > 
   <!-- Custom CSS --> 
     <link rel="stylesheet" type="text/css" href="{% static 'agency.css' %}" >
-  
-  
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
 </head>
 
@@ -36,12 +35,17 @@
     
 <!-- Menu and User,Logout -->   
         <div class="navbar-collapse collapse navbar-right">
-      
-      <!-- ####banner#### -->
-      <div id="banner-top">
-        <span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
-        <span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
-      </div>
+          <!-- ####banner#### -->
+          <div id="banner-top">
+            <div class="row">
+              <div class="pull-right">
+                <span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
+                <span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
+              </div>
+            </div>
+          </div>
+{% verbatim %}
+    <div class="row">
       <ul class="nav navbar-nav">
         <li class="dropdown active">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">หน้าแรก <b class="caret"></b></a>
@@ -53,6 +57,7 @@
         <li><a ng-click="toShowprofile()" >ประวัติการศึกษา</a></li>
         <li><a ng-click="toPredict()">ทำนายผลการศึกษา</a></li>
       </ul>
+    </div>
         </div><!--/.nav-collapse -->
       </div>
     </div>
@@ -98,11 +103,11 @@
                             </div>
                         </li>
                         <li class="timeline-inverted">
-                            <div class="timeline-image">
+                            <div class="timeline-image" style="background-color:#d5db43;">
                               <h4>100 หน่วยกิต</h4>
                             </div>
                             <div class="timeline-panel">
-                                <div class="timeline-heading">
+                                <div class="timeline-heading" >
                                     <h4>2. วิชาเฉพาะ</h4>
                                     <h4 class="subheading"></h4>
                                 </div>
@@ -139,7 +144,7 @@
                             </div>
                         </li>
                         <li>
-                            <div class="timeline-image">
+                            <div class="timeline-image" style="background-color:#a2d3f0;">
                               <h4>6 หน่วยกิต</h4>
                             </div>
                             <div class="timeline-panel">
@@ -153,7 +158,7 @@
                             </div>
                         </li>
                         <li class="timeline-inverted">
-                            <div class="timeline-image">
+                            <div class="timeline-image" style="background-color:#d5db43;">
                               <h4>ข้อกำหนด</h4>
                             </div>
                             <div class="timeline-panel">
@@ -192,7 +197,7 @@
                             </div>
                         </li>
                         <li class="timeline-inverted">
-                            <div class="timeline-image">
+                            <div class="timeline-image" style="color:black; background-color:white;">
                                 <h4>ไม่น้อยกว่า 136 หน่วยกิต</h4>
                             </div>
                         </li>
@@ -201,9 +206,10 @@
             </div>
         </div>
     </section>
+{% endverbatim %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  
 
   <!-- Custom Theme JavaScript -->
   <script type="text/javascript" src="{% static "agency.js" %}"></script>
@@ -253,9 +259,17 @@ app.controller('myCtrl', function($scope, $http, $q, $window) {
     }
     
     $scope.toPredict = function(){
-      $http.get("{% url 'predict' %}")
+      $http.get("{% url 'jsonEnrollment' %}")
       .then(function(response){
-        $window.location.href= '../predict';
+        $scope.enrollments = response.data;
+          if(Object.keys($scope.enrollments).length == 0){
+            alert("กรุณากรอกข้อมูลก่อนทำนาย")
+          }else{
+            $http.get("{% url 'predict' %}")
+            .then(function(response){
+              $window.location.href= '../predict';
+            })
+          }
       })
     }
 });

@@ -19,19 +19,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-  <!-- Plugin JavaScript -->
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-  <!-- Custom Theme JavaScript -->
-  <script type="text/javascript" src="{% static "agency.js" %}"></script>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  
 
 <style>
 .link {
@@ -78,6 +68,76 @@ text {
     pointer-events: none;
 
 </style>
+
+</head>
+
+{% verbatim %}
+<body id="page-top" class="index" ng-app="predict" ng-controller="myCtrl">
+
+  
+<!-- Navigation -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" ng-click="toHome()">Graph Predict</a>
+        </div>
+    
+<!-- Menu and User,Logout -->   
+        <div class="navbar-collapse collapse navbar-right">
+          <!-- ####banner#### -->
+          <div id="banner-top">
+            <div class="row">
+              <div class="pull-right">
+                <span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
+                <span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
+              </div>
+            </div>
+          </div>
+
+{% verbatim %}
+          <div class="row">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">หน้าแรก <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a ng-click="toHome()" >รายวิชา</a></li>
+                  <li><a ng-click="toHomegraph()" >แผนผังการเรียน</a></li>
+                </ul>
+              </li>
+              <!-- <li class="active"><a href="home.html">หน้าแรก</a></li> -->
+              <li><a ng-click="toShowprofile()" >ประวัติการศึกษา</a></li>
+              <li class="active"><a ng-click="toPredict()">ทำนายผลการศึกษา</a></li>
+            </ul>
+          </div>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+<!-- About Section -->
+<section id="about">
+        <div class="container">
+          {{id}}
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">ผลการทำนาย</h2>
+                    <h3 class="section-subheading text-muted">**แผนภาพตามวิชาใน Label X (จำนวน111วิชา)**</h3>
+                </div>
+            </div>
+        </div>
+</section>
+{% endverbatim %}
+<!-- Plugin JavaScript -->
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+  <!-- Custom Theme JavaScript -->
+  <script type="text/javascript" src="{% static "agency.js" %}"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script>
 var w = 1300,
     h = 950;
@@ -350,15 +410,32 @@ app.controller('myCtrl', function($scope, $http, $window) {
         $window.location.href= '../homegraph';
       })
     }
+
     
+    // $scope.toPredict = function(){
+    //   $http.get("{% url 'predict' %}")
+    //   .then(function(response){
+    //     $window.location.href= '../predict';
+    //   })
+    // }
+
     $scope.toPredict = function(){
-      $http.get("{% url 'predict' %}")
+      $http.get("{% url 'jsonEnrollment' %}")
       .then(function(response){
-        $window.location.href= '../predict';
+        $scope.enrollments = response[1].data;
+          if(Object.keys($scope.enrollments).length == 0){
+            alert("กรุณากรอกข้อมูลก่อน")
+          }else{
+            $http.get("{% url 'predict' %}")
+            .then(function(response){
+              $window.location.href= '../predict';
+            })
+          }
       })
     }
 });
 </script>
+<<<<<<< HEAD
 </head>
 
 {% verbatim %}
@@ -413,5 +490,7 @@ app.controller('myCtrl', function($scope, $http, $window) {
             </div>
         </div>
 </section>
+=======
+>>>>>>> 185e7ac1df548d0aa3f0f68d026f5d8e21b1f98c
 </body>
 </html>

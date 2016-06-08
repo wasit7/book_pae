@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Graph Predict - Edit Profile</title>
+
+  {% load staticfiles %} 
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}" > 
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css' %}" >
+  <!-- Custom CSS --> 
+    <link rel="stylesheet" type="text/css" href="{% static 'agency.css' %}" > 
+
+</head>
+
+<body>
+{% verbatim %}
+<div id="page-top" class="index" ng-app="addprofile" ng-controller="myCtrl">
+<!-- Navigation -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" ng-click="toHome()">Graph Predict</a>
+        </div>
+
+<!-- Menu and User,Logout -->   
+        <div class="navbar-collapse collapse navbar-right">
+      
+      <!-- ####banner#### -->
+      <div class="pull-right">
+        <span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
+        <span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
+      </div>
+{% verbatim %}
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">หน้าแรก <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li ><a ng-click="toHome()" >รายวิชา</a></li>
+            <li><a ng-click="toHomegraph()" >แผนผังการเรียน</a></li>
+          </ul>
+        </li>
+        <li class="active"><a ng-click="toShowprofile()" >ประวัติการศึกษา</a></li>
+        <li><a ng-click="toPredict()">ทำนายผลการศึกษา</a></li>
+      </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>        
+
+
+<section id="about">
+    
+    <!--style="overflow-y: scroll; height:500px;"-->
+    <div  class="container col-xs-6 pre-scrollable" >
+        <h3 >Select subject:</h3>
+        <div  ng-repeat="(key,value) in subjects" >
+
+            <input type="checkbox" ng-model="value.selected" ng-change="checkedSub()"><label>{{key}} {{value.sub_name}}<label/>
+        </div>
+    </div>
+    
+    <div class="container col-xs-6  pre-scrollable" >
+        <h3>Enrolled:</h3>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Year</th>
+                <th>Term</th>
+                <th>Subject</th>
+                <th>Grade</th>
+            </tr>
+            </thead>
+            <tr ng-repeat="(key,value) in enrollments" >   
+                <td>
+                    <select ng-model="enrollments[key].year" ng-init="enrollments[key].year">
+                        <option value=2552>2552</option>
+                        <option value=2553>2553</option>
+                        <option value=2554>2554</option>
+                        <option value=2555>2555</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="selTerm" ng-model="enrollments[key].term" ng-init="enrollments[key].term">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                    </select>
+                </td>
+                <td> {{key}} </td>
+                <td>
+                    <select ng-model="enrollments[key].grade" ng-init="enrollments[key].grade">
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="F">F</option>
+                        <option value="W">W</option>
+                        <option value="S">S</option>
+                        <option value="S#">S#</option>
+                        <option value="U">U</option>
+                        <option value="U#">U#</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div  class="col-lg-12 text-center">
+        <button class="btn" ng-click="submit()">บันทึก</button>
+    </div>
+</section>
+{% endverbatim %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<script> 
+var app = angular.module('addprofile', []);
+app.config(function($httpProvider){
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken'
+});
+
+app.controller('myCtrl', function($scope, $http, $q, $window) {
+    var AllSubject = $http.get("{% url 'jsonSubject' %}"),
+        AllEnrollment = $http.get("{% url 'jsonEnrollment' %}");
+        //console.log(AllSubject)
+    $q.all([AllSubject, AllEnrollment]).then(function(response){
+        $scope.subjects = response[0].data;
+
+        $scope.enrollments = response[1].data;
+
+        for(i in $scope.subjects){
+            $scope.subjects[i].selected = false
+
+        }
+
+        for(j in $scope.enrollments){
+            for(i in $scope.subjects){
+                if(i == j){
+                    $scope.subjects[i].selected = true
+                }
+            }
+        }
+    })
+
+    $scope.checkedSub = function(){
+        angular.forEach($scope.subjects, function(value, key){
+            if(!(key in $scope.enrollments) && value.selected == true){
+                $scope.enrollments[key] = {}
+            }else if((key in $scope.enrollments) && value.selected == false){
+                delete $scope.enrollments[key]
+            }
+        })
+    }
+
+    $scope.submit = function(){
+        $http.post("{% url 'addprofile' %}", $scope.enrollments)
+        .then(function(response){
+            $window.alert("แก้ไขสำเร็จ");
+            $window.location.href = '../showprofile';
+        });
+    }
+
+    $scope.logout = function(){
+      $http.get("{% url 'logout' %}")
+      .then(function(response){
+        alert('logout') 
+        $window.location.href= '../../authen/login';
+      });
+    }
+
+    $scope.profile = function(){
+      $http.get("{% url 'userprofile' %}")
+      .then(function(response){
+        $window.location.href= '../userprofile';
+      })
+    }
+
+    $scope.toShowprofile = function(){
+      $http.get("{% url 'showprofile' %}")
+      .then(function(response){
+        $window.location.href= '../showprofile';
+      })
+    }
+
+    $scope.toHome = function(){
+      $http.get("{% url 'home' %}")
+      .then(function(response){
+        $window.location.href= '../home';
+      })
+    }
+
+    $scope.toHomegraph = function(){
+      $http.get("{% url 'homegraph' %}")
+      .then(function(response){
+        $window.location.href= '../homegraph';
+      })
+    }
+    
+    $scope.toPredict = function(){
+      $http.get("{% url 'predict' %}")
+      .then(function(response){
+        $window.location.href= '../predict';
+      })
+    }
+    
+});
+
+</script>
+</body>
+</html>

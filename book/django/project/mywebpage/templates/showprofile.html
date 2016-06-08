@@ -12,30 +12,114 @@
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}" > 
   <!-- Custom CSS --> 
     <link rel="stylesheet" type="text/css" href="{% static 'agency.css' %}" > 
-    <!-- Custom Fonts -->
-  
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
+
+</head>
+<body>
+{% verbatim %}
+<div id="page-top" class="index" ng-app="showprofile" ng-controller="myCtrl">
+
+<!-- Navigation -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" ng-click="toHome()">Graph Predict</a>
+        </div>
+
+<!-- Menu and User,Logout -->   
+        <div class="navbar-collapse collapse navbar-right">
+          <!-- ####banner#### -->
+          <div id="banner-top">
+            <div class="row">
+              <div class="pull-right">
+                <span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
+                <span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
+              </div>
+            </div>
+          </div>
+
+{% verbatim %}
+          <div class="row">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">หน้าแรก <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a ng-click="toHome()" >รายวิชา</a></li>
+                  <li><a ng-click="toHomegraph()" >แผนผังการเรียน</a></li>
+                </ul>
+              </li>
+              <li class="active"><a ng-click="toShowprofile()" >ประวัติการศึกษา</a></li>
+              <li><a ng-click="toPredict()">ทำนายผลการศึกษา</a></li>
+            </ul>
+          </div>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>        
+
+
+<section id="about" >
+	<div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h2 class="section-heading">รายวิชา</h2>
+            <h3 class="section-subheading text-muted">หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาวิทยาการคอมพิวเตอร์ (หลักสูตรปรับปรุง พ.ศ.2552)</h3>
+        </div>
+    </div>
+		<table class="table table-bordered">
+      <thead>
+  		<tr>
+  			<th>ปีการศึกษา / เทอม</th>
+  			<th>วิชาที่ลงทะเบียนเรียน</th>
+  			<th>ผลการศึกษา</th>
+  		</tr>
+      </thead>
+  		<tr ng-repeat="(key, value) in enrollments">
+  			<td>{{value.year}} / {{value.term}}</td>
+  			<td>{{key}}</td>
+  			<td>{{value.grade}}</td>
+  		</tr>
+
+    </table>
+    <div class="col-lg-12 text-center">
+      <button class="btn" ng-click="toAddprofile()" type="submit">แก้ไขข้อมูล</button>
+    </div>
+  </div>
+</section>
+
+{% endverbatim %}
+
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script> 
 var app = angular.module('showprofile', []);
 app.controller('myCtrl', function($scope, $http, $window) {
-	$http.get("{% url 'jsonEnrollment' %}")
-	.then(function(response) {
-		$scope.enrollments = response.data;
-    });
+  $http.get("{% url 'jsonEnrollment' %}")
+  .then(function(response) {
+    $scope.enrollments = response.data;
+    console.log($scope.enrollments);
+
+    if(Object.keys($scope.enrollments).length == 0){
+      $scope.enrollments = {"ไม่มีข้อมูล":{'term':"ไม่มีข้อมูล",'year':"ไม่มีข้อมูล",'grade':"ไม่มีข้อมูล"}}
+    }
+
+  });
 
     $scope.toAddprofile = function(){
-    	$http.get("{% url 'addprofile' %}")
-	      .then(function(response){
-	        $window.location.href = '../addprofile';
-	      })
+      $http.get("{% url 'addprofile' %}")
+        .then(function(response){
+          $window.location.href = '../addprofile';
+        })
     }
 
     $scope.profile = function(){
@@ -75,89 +159,22 @@ app.controller('myCtrl', function($scope, $http, $window) {
     }
     
     $scope.toPredict = function(){
-      $http.get("{% url 'predict' %}")
+      $http.get("{% url 'jsonEnrollment' %}")
       .then(function(response){
-        $window.location.href= '../predict';
+        $scope.enrollments = response.data;
+          if(Object.keys($scope.enrollments).length == 0){
+            alert("กรุณากรอกข้อมูลก่อนทำนาย")
+            $window.location.href= '../showprofile';
+          }else{
+            $http.get("{% url 'predict' %}")
+            .then(function(response){
+              $window.location.href= '../predict';
+            })
+          }
       })
     }
 });
-	
+  
 </script>
-</head>
-<body>
-{% verbatim %}
-<div id="page-top" class="index" ng-app="showprofile" ng-controller="myCtrl">
-
-<!-- Navigation -->
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" ng-click="toHome()">Graph Predict</a>
-        </div>
-
-<!-- Menu and User,Logout -->   
-        <div class="navbar-collapse collapse navbar-right">
-      
-      <!-- ####banner#### -->
-      <div id="banner-top">
-        <span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
-        <span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
-      </div>
-{% verbatim %}
-      <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">หน้าแรก <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a ng-click="toHome()" >รายวิชา</a></li>
-            <li><a ng-click="toHomegraph()" >แผนผังการเรียน</a></li>
-          </ul>
-        </li>
-        <li class="active"><a ng-click="toShowprofile()" >ประวัติการศึกษา</a></li>
-        <li><a ng-click="toPredict()">ทำนายผลการศึกษา</a></li>
-      </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>        
-
-
-<section id="about" >
-	<div class="container">
-    <div class="row">
-        <div class="col-lg-12 text-center">
-            <h2 class="section-heading">รายวิชา</h2>
-            <h3 class="section-subheading text-muted">หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาวิทยาการคอมพิวเตอร์ (หลักสูตรปรับปรุง พ.ศ.2552)</h3>
-        </div>
-    </div>
-		<table class="table table-bordered">
-      <thead>
-  		<tr>
-  			<th>Year / Term</th>
-  			<th>Subject</th>
-  			<th>Grade</th>
-  		</tr>
-      </thead>
-  		<tr ng-repeat="(key, value) in enrollments">
-  			<td>{{value.year}} / {{value.term}}</td>
-  			<td>{{key}}</td>
-  			<td>{{value.grade}}</td>
-  		</tr>
-
-    </table>
-    <div class="col-lg-12 text-center">
-      <button class="btn" ng-click="toAddprofile()" type="submit">แก้ไขข้อมูล</button>
-    </div>
-  </div>
-</section>
-
-{% endverbatim %}
-
-
-</div>
 </body>
 </html>

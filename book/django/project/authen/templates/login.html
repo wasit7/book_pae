@@ -13,11 +13,6 @@
 	<!-- Custom CSS --> 
 		<link rel="stylesheet" type="text/css" href="{% static 'agency.css' %}" /> 
 	<!-- Custom Fonts --> 
-
-	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" /> 
-	<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet" type="text/css" /> 
-	<link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" /> 
-	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" /> 
 </head>
  
 <body id="page-top" class="index" >
@@ -58,11 +53,11 @@
 					<form id="formlogin" method="post">{% csrf_token %} 
 						{{state}}<br /><br /> 
 						<div class="form-group"> 
-							<input type="text" name="username" class="form-control" placeholder="USERNAME"/> 
+							<input type="text" name="username" class="form-control" placeholder="ชื่อผู้ใช้"/> 
 							<p class="help-block text-danger"></p> 
 						</div>
 						<div class="form-group"> 
-							<input type="password" name="password" class="form-control" placeholder="PASSWORD"/> 
+							<input type="password" name="password" class="form-control" placeholder="รหัสผ่าน"/> 
 							<p class="help-block text-danger"></p> 
 						</div> 
 						<!--<div class="form-group"> 

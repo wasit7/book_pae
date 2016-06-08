@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Graph Predict-userprofile</title>
+
+    <!-- Bootstrap Core CSS -->
+    {% load staticfiles %} 
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css' %}" > 
+  <!-- Custom CSS --> 
+    <link rel="stylesheet" type="text/css" href="{% static 'agency.css' %}" > 
+    <!-- Custom Fonts -->
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script>
+var app = angular.module('userprofile', []);
+app.config(function($httpProvider){
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken'
+});
+
+app.controller('myCtrl', function($scope, $q, $http, $window) {
+    /*var Provience = $http.get("{% url 'jsonProvience' %}"),
+        Uprofile = $http.get("{% url 'jsonStudent' %}");
+    $q.all([Provience, Uprofile]).then(function(response){
+        $scope.provience = response[0].data;
+        $scope.uprofile = response[1].data;
+        console.log($scope.provience)
+    })*/
+    $http.get("{% url 'jsonStudent' %}")
+    .then(function(response){
+        $scope.uprofile = response.data;
+        //console.log($scope.uprofile)
+    });
+
+    
+    $scope.btnSave = function(){
+      $http.post("{% url 'userprofile' %}", $scope.uprofile)
+      .then(function(response){
+        console.log($scope.uprofile)
+          $window.alert("บันทึกสำเร็จ");
+          $scope.msg = response.data.msg;
+          $window.location.href= '../home';
+      });
+    }
+
+    $scope.btnCancel = function(){
+      $window.location.href = '../home';
+    }
+
+    $scope.logout = function(){
+      $http.get("{% url 'logout' %}")
+      .then(function(response){
+        alert('logout') 
+        $window.location.href= '../../authen/login';
+      });
+    }
+});
+</script>
+</head>
+<body>
+
+{% verbatim %}
+<div id="page-top" class="index" ng-app="userprofile" ng-controller="myCtrl">
+
+<!-- Navigation -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" ng-click="toHome()">Graph Predict</a>
+        </div>
+
+<!-- Menu and User,Logout -->   
+        <div class="navbar-collapse collapse navbar-right">
+      <!-- ####banner#### -->
+          <div id="banner-top">
+            <span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
+            <span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
+          </div>
+         
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+{% verbatim %}
+<section id="about">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2 class="section-heading">ข้อมูลผู้ใช้</h2>
+        <h3 class="section-subheading text-muted">**เพื่อใช้ในการทำนายผลการเรียน**</h3>
+      </div>
+    </div>
+
+    <div class="row"> 
+      <!--<div class="clearfix"></div> 
+      <div class="col-sm-3"></div>-->
+
+      <!-- left column -->
+      <div  ng-app="userprofile" ng-controller="myCtrl">
+        <form name="myform" novalidate>
+          <div class="col-xs-6">
+            <div class="form-group"> 
+              <label>ชื่อจริง</label>
+              <input type="text" name="firstname" ng-model="uprofile['user'].firstname" class="form-control" placeholder="ชื่อจริง*"  ng-pattern="/([a-zA-Z]+)|([ก-ฮ]+)/" required/> 
+              <!--<p class="help-block text-danger"></p> -->
+              <p class="text-danger" ng-show="myform.firstname.$error.required">You firstname is required.</p>
+              <p class="text-danger" ng-show="myform.firstname.$error.pattern">You firstname is not pattern.</p>
+            </div> 
+            <div class="form-group"> 
+              <label>รหัสนักศึกษา</label>
+              <input type="text"  name="std_id" ng-model="uprofile['user'].std_id" class="form-control" placeholder="กรอกเฉพาะตัวเลข 10 หลัก" ng-minlength="10" ng-pattern="/^[0-9]{10}$/" required/> 
+              <p class="text-danger" ng-show="myform.std_id.$error.required">กรอกรหัสนักศึกษา</p>
+              <p class="text-danger" ng-show="myform.std_id.$error.pattern">รหัสนักศึกษาไม่เตรงตามรูปแบบ</p>  
+            </div>
+            <div class="form-group">
+              <label>เกรดเฉลี่ยที่โรงเรียน</label> 
+              <input type="text" name="sch_gpa" ng-model="uprofile['user'].sch_gpa" class="form-control" placeholder="กรอกทศนิยม 2 ตำแหน่ง เช่น 4.00" ng-pattern="/^[0-9]\.[0-9]{2}$/" required/>
+              <p class="text-danger" ng-show="myform.sch_gpa.$error.required">กรอกเกรดเฉลี่ยนที่โรงเรียน</p> 
+              <p class="text-danger" ng-show="myform.sch_gpa.$error.pattern">เกรดเฉลี่ยไม่ตรงตามรูปแบบ</p> 
+            </div>
+            <div class="form-group">
+              <label>จังหวัด</label> 
+              <input type="text" name="province_id" ng-model="uprofile['user'].province_id" class="form-control" placeholder="จังหวัด*" required/> 
+              <p class="text-danger" ng-show="myform.province_id.$error.required">your province is required.</p> 
+            </div>
+          </div> 
+      
+      <!-- right column -->
+          <div class="col-xs-6" text-center> 
+            
+            <div class="form-group"> 
+              <label>นามสกุล</label>
+              <input type="text" name="lastname" ng-model="uprofile['user'].lastname" class="form-control" placeholder="นามสกุล*" required/> 
+              <p class="text-danger" ng-show="myform.lastname.$error.required">your lastname is required.</p> 
+            </div> 
+            
+            <div class="form-group">
+              <label>อีเมลล์</label> 
+              <input type="text" name="email" ng-model="uprofile['user'].email" class="form-control" placeholder="อีเมลล์" required/> 
+              <p class="text-danger" ng-show="myform.email.$error.required">your email is required.</p> 
+            </div>
+            
+            <div class="form-group">
+              <label>ปีการศึกษาที่เข้าเรียน</label>  
+              <input type="text" name="admit_year" ng-model="uprofile['user'].admit_year" class="form-control" placeholder="กรอก พ.ศ.ที่เข้าศึกษา เช่น 2550" required/> 
+              <p class="text-danger" ng-show="myform.admit_year.$error.required">your admit_year is required.</p> 
+            </div>
+          </div> 
+          <div class="clearfix"></div> 
+          <div class="col-lg-12 text-center">
+            <button ng-disabled="myform.firstname.$error.required" ng-click="btnSave()" class="btn">ยืนยัน</button>
+            <button ng-click="btnCancel()" class="btn">ยกเลิก</button> 
+          </div>
+        </form>
+        user : {{uprofile}} <br/>
+      </div>
+  </div>
+  </div>
+</section>
+{% endverbatim %}
+
+</div>
+</body>
+</html>
