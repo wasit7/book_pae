@@ -32,3 +32,11 @@ class Enrollment(models.Model):
 	year = models.IntegerField()
 	def __unicode__(self):
 		return str(self.std_id)
+
+class Factor(models.Model):
+	sub_id = models.CharField(max_length=5, primary_key=True, unique=True)
+	subfac_1 = models.CharField(max_length=50)
+	subfac_2 = models.CharField(max_length=50)
+	subfac_3 = models.CharField(max_length=50)
+	def __unicode__(self):
+		return str(self.sub_id)

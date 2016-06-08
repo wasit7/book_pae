@@ -34,24 +34,30 @@
 
 <!-- Menu and User,Logout -->   
         <div class="navbar-collapse collapse navbar-right">
-      
-      <!-- ####banner#### -->
-      <div class="pull-right">
-        <span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
-        <span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
-      </div>
+          <!-- ####banner#### -->
+          <div id="banner-top">
+            <div class="row">
+              <div class="pull-right">
+                <span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
+                <span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
+              </div>
+            </div>
+          </div>
+
 {% verbatim %}
-      <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">หน้าแรก <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li ><a ng-click="toHome()" >รายวิชา</a></li>
-            <li><a ng-click="toHomegraph()" >แผนผังการเรียน</a></li>
+        <div class="row">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">หน้าแรก <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li ><a ng-click="toHome()" >รายวิชา</a></li>
+                <li><a ng-click="toHomegraph()" >แผนผังการเรียน</a></li>
+              </ul>
+            </li>
+            <li class="active"><a ng-click="toShowprofile()" >ประวัติการศึกษา</a></li>
+            <li><a ng-click="toPredict()">ทำนายผลการศึกษา</a></li>
           </ul>
-        </li>
-        <li class="active"><a ng-click="toShowprofile()" >ประวัติการศึกษา</a></li>
-        <li><a ng-click="toPredict()">ทำนายผลการศึกษา</a></li>
-      </ul>
+        </div>
         </div><!--/.nav-collapse -->
       </div>
     </div>        
@@ -73,10 +79,10 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>Year</th>
-                <th>Term</th>
-                <th>Subject</th>
-                <th>Grade</th>
+                <th>ปีการศึกษา</th>
+                <th>เทอม</th>
+                <th>วิชาที่ลงทะเบียนเรียน</th>
+                <th>ผลการเรียน</th>
             </tr>
             </thead>
             <tr ng-repeat="(key,value) in enrollments" >   
@@ -135,23 +141,27 @@ app.config(function($httpProvider){
 app.controller('myCtrl', function($scope, $http, $q, $window) {
     var AllSubject = $http.get("{% url 'jsonSubject' %}"),
         AllEnrollment = $http.get("{% url 'jsonEnrollment' %}");
-        //console.log(AllSubject)
+        //console.log(AllEnrollment)
     $q.all([AllSubject, AllEnrollment]).then(function(response){
         $scope.subjects = response[0].data;
-
         $scope.enrollments = response[1].data;
-
+        //console.log(typeof($scope.enrollments));
+        //console.log($scope.enrollments);
         for(i in $scope.subjects){
             $scope.subjects[i].selected = false
 
         }
 
-        for(j in $scope.enrollments){
+        if(Object.keys($scope.enrollments).length == 0){
+          //alert("Please fill grade")
+        }else{
+          for(j in $scope.enrollments){
             for(i in $scope.subjects){
                 if(i == j){
                     $scope.subjects[i].selected = true
                 }
             }
+          }
         }
     })
 
@@ -166,12 +176,17 @@ app.controller('myCtrl', function($scope, $http, $q, $window) {
     }
 
     $scope.submit = function(){
-        $http.post("{% url 'addprofile' %}", $scope.enrollments)
-        .then(function(response){
-            $window.alert("แก้ไขสำเร็จ");
-            $window.location.href = '../showprofile';
-        });
+      if(Object.keys($scope.enrollments).length == 0){
+          alert("กรุณากรอกข้อมูล");
+      }else{
+          $http.post("{% url 'addprofile' %}", $scope.enrollments)
+          .then(function(response){
+              $window.alert("แก้ไขสำเร็จ");
+              $window.location.href = '../showprofile';
+          });
+      }
     }
+    
 
     $scope.logout = function(){
       $http.get("{% url 'logout' %}")
@@ -191,7 +206,7 @@ app.controller('myCtrl', function($scope, $http, $q, $window) {
     $scope.toShowprofile = function(){
       $http.get("{% url 'showprofile' %}")
       .then(function(response){
-        $window.location.href= '../showprofile';
+        $window.location.href= '../addprofile';
       })
     }
 
@@ -210,9 +225,17 @@ app.controller('myCtrl', function($scope, $http, $q, $window) {
     }
     
     $scope.toPredict = function(){
-      $http.get("{% url 'predict' %}")
+      $http.get("{% url 'jsonEnrollment' %}")
       .then(function(response){
-        $window.location.href= '../predict';
+        $scope.enrollments = response.data;
+          if(Object.keys($scope.enrollments).length == 0){
+            alert("กรุณากรอกข้อมูลก่อนทำนาย")
+          }else{
+            $http.get("{% url 'predict' %}")
+            .then(function(response){
+              $window.location.href= '../predict';
+            })
+          }
       })
     }
     

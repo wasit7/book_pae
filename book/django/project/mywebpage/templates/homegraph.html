@@ -14,7 +14,7 @@
 		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}" > 
 	<!-- Custom CSS --> 
 		<link rel="stylesheet" type="text/css" href="{% static 'agency.css' %}" >  
-    <!-- Custom Fonts -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 	
 <style>
 .link {
@@ -51,7 +51,7 @@ text {
 
 </head>
 
-
+{% verbatim %}
 <body id="page-top" class="index" ng-app="home" ng-controller="myCtrl">
 
 <!-- Navigation -->
@@ -67,26 +67,33 @@ text {
 			<a class="navbar-brand" ng-click="toHome()">Graph Predict</a>
         </div>
 		
-<!-- Menu and User,Logout -->		
+<!-- Menu and User,Logout -->   
         <div class="navbar-collapse collapse navbar-right">
-			{% verbatim %}
-			<!-- ####banner#### -->
-			<div id="banner-top">
-				<span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
-				<span id="user"><a ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
-			</div>
-			<ul class="nav navbar-nav">
-				<li class="dropdown active">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">หน้าแรก <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a ng-click="toHome()" >รายวิชา</a></li>
-						<li class="active"><a ng-click="toHomegraph()" >แผนผังการเรียน</a></li>
-					</ul>
-				</li>
-				<!-- <li class="active"><a href="home.html">หน้าแรก</a></li> -->
-				<li><a ng-click="toShowprofile()" >ประวัติการศึกษา</a></li>
-				<li><a ng-click="toPredict()">ทำนายผลการศึกษา</a></li>
-			</ul>
+          <!-- ####banner#### -->
+          <div id="banner-top">
+            <div class="row">
+              <div class="pull-right">
+                <span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
+                <span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
+              </div>
+            </div>
+          </div>
+
+{% verbatim %}
+        <div class="row">  
+    			<ul class="nav navbar-nav">
+    				<li class="dropdown active">
+    					<a href="#" class="dropdown-toggle" data-toggle="dropdown">หน้าแรก <b class="caret"></b></a>
+    					<ul class="dropdown-menu">
+    						<li><a ng-click="toHome()" >รายวิชา</a></li>
+    						<li class="active"><a ng-click="toHomegraph()" >แผนผังการเรียน</a></li>
+    					</ul>
+    				</li>
+    				<!-- <li class="active"><a href="home.html">หน้าแรก</a></li> -->
+    				<li><a ng-click="toShowprofile()" >ประวัติการศึกษา</a></li>
+    				<li><a ng-click="toPredict()">ทำนายผลการศึกษา</a></li>
+    			</ul>
+        </div>
         </div><!--/.nav-collapse -->
       </div>
     </div>
@@ -102,11 +109,11 @@ text {
             </div>
         </div>
     </section>
-
+{% endverbatim %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  
 
 <script>
 var w = 1300,
@@ -129,7 +136,7 @@ var max_stroke = 4.5;
 
 //import json to d3
 d3.json("../coordinate_home", function(error, jsonfile) {
-  console.log(jsonfile.myfile1.node);
+  //console.log(jsonfile.myfile1.node);
 var js = jsonfile.myfile1;
 
 var nodes = js.node
@@ -137,11 +144,12 @@ var links = js.link
 var graph = {nodes,links};
 
 var linkedByIndex = {};
-    graph.links.forEach(function(d) {
+graph.links.forEach(function(d) {
   linkedByIndex[d.source + "," + d.target] = true;
-    });
-
-  function isConnected(a, b) {
+});
+  console.log(linkedByIndex);
+  
+function isConnected(a, b) {
         return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
     }
 
@@ -194,36 +202,45 @@ var node = g.selectAll("graph.nodes")
 
   ;
   
-var tocolor = "fill";
-var towhite = "stroke";
-  if (outline) {
-    tocolor = "stroke"
-    towhite = "fill"
-  }
+
 
 var text = g.selectAll(".text")
      .data(graph.nodes)
      .enter().append("text")
      .attr("dy", ".35em")
      .style("font-size", 10 + "px")
-     .text(function(d) { return '\u2002'+d.name; });
+     .text(function(d) { return d.id; });
+
+   
 
 //interact with mouseover -> set highlight node with stoke black
-  node.on("mouseover", function(d) {
-      set_highlight(d);
-      })
+node
+  .on("mouseover", function(d) {
+    set_highlight(d)
+    })
 
-      .on("mousedown", function(d) { 
+    .on("mousedown", function(d) { 
         d3.event.stopPropagation();
         focus_node = d;
         set_focus(d)
-          if (highlight_node === null) 
-            set_highlight(d)
-        })
-      .on("mouseout", function(d) {
+          if (highlight_node === null){
+      set_highlight(d)
+      
+      } 
+            
+      set_name(d)
+      
+    })
+  
+    .on("mouseout", function(d) {
         exit_highlight();
-        });
+    })
+    
+  .on("mouseup", function(d) {
+    exit_name();
+    });
 
+  
     d3.select(window).on("mouseup",  
     function() {
     if (focus_node!==null)
@@ -240,6 +257,7 @@ var text = g.selectAll(".text")
     if (highlight_node === null) exit_highlight();
     });
 
+  
 function set_focus(d)
 { 
 if (highlight_trans<1)  {
@@ -247,14 +265,27 @@ if (highlight_trans<1)  {
                 return isConnected(d, o) ? 1 : highlight_trans;
             });
 
-      text.style("opacity", function(o) {
+    text.style("opacity", function(o) {
                 return isConnected(d, o) ? 1 : highlight_trans;
             });
       
-            link.style("opacity", function(o) {
+    link.style("opacity", function(o) {
                 return o.source.index == d.index || o.target.index == d.index ? 1 : highlight_trans;
             });   
   }
+}
+
+function set_name(d)
+{
+  console.log("down");
+    text.text(function(d) { return [d.id,d.name]; });
+  
+}
+
+function exit_name()
+{
+  console.log("up");
+  text.text(function(d) { return d.id; });
 }
 
 function set_highlight(d)
@@ -265,7 +296,7 @@ function set_highlight(d)
 
   if (highlight_color!="white")
   {
-      node.style(towhite, function(o) {
+      node.style("stroke", function(o) {
                 return isConnected(d, o) ? highlight_color : "white";});
       text.style("font-weight", function(o) {
                 return isConnected(d, o) ? "bold" : "normal";});
@@ -282,7 +313,7 @@ function exit_highlight()
     svg.style("cursor","move");
     if (highlight_color!="white")
     {
-      node.style(towhite, "white");
+      node.style("stroke", "white");
       text.style("font-weight", "normal");
     }
   }
@@ -300,9 +331,6 @@ function exit_highlight()
       .attr("y2", function(d) { return d.target.y; });
     
   }
-  
-  
-  
 });
 
 </script> 
@@ -347,9 +375,17 @@ app.controller('myCtrl', function($scope, $http, $window) {
     }
     
     $scope.toPredict = function(){
-      $http.get("{% url 'predict' %}")
+      $http.get("{% url 'jsonEnrollment' %}")
       .then(function(response){
-        $window.location.href= '../predict';
+        $scope.enrollments = response.data;
+          if(Object.keys($scope.enrollments).length == 0){
+            alert("กรุณากรอกข้อมูลก่อนทำนาย")
+          }else{
+            $http.get("{% url 'predict' %}")
+            .then(function(response){
+              $window.location.href= '../predict';
+            })
+          }
       })
     }
 });

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Student, Subject, Enrollment
+from .models import Student, Subject, Enrollment, Factor
 
 # Register your models here
 class StudentAdmin(admin.ModelAdmin):
@@ -16,9 +16,13 @@ class EnrollmentAdmin(admin.ModelAdmin):
 
 	#def std_id(self,obj):
 		#return obj.std_id
+
+class FactorAdmin(admin.ModelAdmin):
+	list_display = ('sub_id','subfac_1','subfac_2','subfac_3')
 		
 
 admin.site.register(Student,StudentAdmin)
 admin.site.register(Subject, SubjectAdmin)
 admin.site.register(Enrollment, EnrollmentAdmin)
+admin.site.register(Factor,FactorAdmin)
 

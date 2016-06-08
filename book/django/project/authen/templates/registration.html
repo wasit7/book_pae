@@ -15,45 +15,9 @@
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css' %}" >
   <!-- Custom CSS --> 
     <link rel="stylesheet" type="text/css" href="{% static 'agency.css' %}" > 
-    <!-- Custom Fonts -->
-  
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
- <script>
-var app = angular.module('regis', []);
-app.config(function($httpProvider){
-    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken'
-});
-
-app.controller('myCtrl', function($scope, $http, $window) {
-
-	$scope.user = {}
-	$scope.btnOk = function(){
-		$http.post("{% url 'registration' %}", $scope.user)
-		.then(function(response){
-			if(response.data == 'OK'){
-				$window.alert(response.data)
-				$window.location.href = '../login';
-			}
-			else{
-				$window.alert(response.data)
-			}
-		})
-	}
-
-	$scope.btnCancel = function(){
-		$window.location.href = '../login';
-	}
-})
-</script>
+ 
 </head>
 <body>
 {% verbatim %}
@@ -90,17 +54,17 @@ app.controller('myCtrl', function($scope, $http, $window) {
 		      		<!-- ng-class="{ 'has-error' : myform.uname.$invalid }"  -->
 		      		<div class="form-group"> 
 			              <input type="text" ng-model="user.uname" name="uname" class="form-control" placeholder="ชื่อผู้ใช้*" ng-minlength="3" required/> 
-			              <p ng-show="myform.uname.$error.required">You name is required.</p>
+			              <p class="text-danger" ng-show="myform.uname.$error.required">กรอกชื่อผู้ใช้</p>
 			              <!--<p ng-show="myform.uname.$error.pattern">Username doesn't respect the pattern</p>-->
-			              <p ng-show="myform.uname.$error.minlength">Username is too short.</p> 
+			              <p class="text-danger" ng-show="myform.uname.$error.minlength">ชื่อผู้ใช้สั้นเกินไป</p> 
             		</div> 
 		            <div class="form-group"> 
-			              <input type="text" ng-model="user.password" name="password" class="form-control" placeholder="ชื่อผู้ใช้*" ng-minlength="3" required/> 
-			              <p ng-show="myform.password.$error.required">You password is required.</p>
-			              <p ng-show="myform.password.$error.minlength">Password is too short.</p> 
+			              <input type="password" ng-model="user.password" name="password" class="form-control" placeholder="รหัสผ่าน*" ng-minlength="3" required/> 
+			              <p class="text-danger" ng-show="myform.password.$error.required">กรอกรหัสผ่าน</p>
+			              <p class="text-danger" ng-show="myform.password.$error.minlength">รหัสผ่านสั้นเกินไป</p> 
 		            </div> 
 		            <div class="form-group"> 
-			              <input type="text" ng-model="user.cfpassword" name="cfpassword" class="form-control" placeholder="ยืนยันรหัสผ่าน*" required/> 
+			              <input type="password" ng-model="user.cfpassword" name="cfpassword" class="form-control" placeholder="ยืนยันรหัสผ่าน*" required/> 
 		            </div>
             
 		            <div class="col-lg-12 text-center"> 
@@ -117,7 +81,36 @@ app.controller('myCtrl', function($scope, $http, $window) {
 </section>
 </div>	
 {% endverbatim %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script>
+var app = angular.module('regis', []);
+app.config(function($httpProvider){
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken'
+});
 
+app.controller('myCtrl', function($scope, $http, $window) {
+
+	$scope.user = {}
+	$scope.btnOk = function(){
+		$http.post("{% url 'registration' %}", $scope.user)
+		.then(function(response){
+			if(response.data == 'OK'){
+				$window.alert(response.data)
+				$window.location.href = '../login';
+			}
+			else{
+				$window.alert(response.data)
+			}
+		})
+	}
+
+	$scope.btnCancel = function(){
+		$window.location.href = '../login';
+	}
+})
+</script>
 </body>
 </html> 
 
