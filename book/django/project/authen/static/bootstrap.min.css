@@ -3189,15 +3189,15 @@ tbody.collapse.in { display:table-row-group; }
 .dropdown-menu>li>a:hover {
   color:#262626;
   text-decoration:none;
-  background-color:#f5f5f5;
+  background-color:#transparent;
 }
 
 .dropdown-menu>.active>a,
 .dropdown-menu>.active>a:focus,
 .dropdown-menu>.active>a:hover {
-  color:#fff;
+  color:#333;
   text-decoration:none;
-  background-color:#337ab7;
+  background-color:#FED136;
   outline:0;
 }
 
@@ -4199,11 +4199,11 @@ textarea.input-group-sm>.input-group-btn>.btn { height:auto; }
 }
 
 @media (max-width:767px) {
-  .navbar-default .navbar-nav .open .dropdown-menu>li>a { color:#777; }
+  .navbar-default .navbar-nav .open .dropdown-menu>li>a { color:#fff; }
 
   .navbar-default .navbar-nav .open .dropdown-menu>li>a:focus,
 .navbar-default .navbar-nav .open .dropdown-menu>li>a:hover {
-    color:#333;
+    color:#fed136;
     background-color:transparent;
   }
 
@@ -6371,5 +6371,3 @@ th.visible-print { display:table-cell !important; }
 @media print {
   .hidden-print { display:none !important; }
 }
-Select AllCopy To Clipboard
-© 2014 Josh KristofContact | Change Log | Privacy Policy

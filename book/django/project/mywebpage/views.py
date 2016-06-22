@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
 from django.core.urlresolvers import reverse
 from .models import Subject, Enrollment, Student
@@ -9,8 +9,10 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 import sys
 import json
 import pickle
+import numpy as np
 # Create your views here.
 #y = []
+
 def home(request):
     if request.method == 'GET':
         if 'username' not in request.session:
@@ -19,7 +21,8 @@ def home(request):
             username = User.objects.get(username=request.session['username'])
             student = Student.objects.filter(username__username=username)
             if not student:
-                return render(request,'userprofile.html')
+                #url = reverse('userprofile' ,kwargs={'': ''})
+                return HttpResponseRedirect("../userprofile")
             else:
                 return render(request,'home.html')
 
@@ -83,7 +86,6 @@ def addprofile(request):
 
         return HttpResponse("OK")
 
-#[0,0,2,3,8,5,0,8,....]
 def sortLabel(request):
     subject = Subject.objects.values('sub_id').order_by('sub_id')  #sort by subid
     sList = [ i for i in subject ]
@@ -103,8 +105,7 @@ def sortLabel(request):
     for i in range(len(enList)):
         v = enList[i]
         obj = v['sub_id']
-        enrollList.append(obj)
-    #print >> sys.stderr,enrollList      #type(enList)   
+        enrollList.append(obj)  
 
     label = []
     for i,n in enumerate(subjectList):
@@ -168,6 +169,8 @@ def classify(X):
         subjectList.append(obj)
 
     y = []
+    probability =[]
+    subenrolled = []
     for i in range(0,110):
             if X[i] == 0:
                 subject = subjectList[i]
@@ -177,25 +180,31 @@ def classify(X):
                 clf2.predict(X)
                 Grade=['A', 'B', 'C' , 'D' , 'F' , 'W' , 'S' , 'U' ,'na']
                 grade_predicted = Grade[::-1][clf2.predict(X)]
+                prob = "%.02f"%np.max(clf2.predict_proba(X))
                 #print "prediction of %s: "%subject,grade_predicted
-
+                probability.append(prob)
                 y.append(grade_predicted)
             elif X[i] != 0: 
                 subject = subjectList[i]
+                subenrolled.append(subject)
                 Grade=['A', 'B', 'C' , 'D' , 'F' , 'W' , 'S' , 'U' ,'na']
                 grade_truth=Grade[::-1][X[i]]
+                prob = "-"
                 #print "grade %s has already is "%subject,grade_truth
+                probability.append(prob)
                 y.append(grade_truth)
         #print "list of all grade predicted is %s"%y 
-    print y
+    #print subenrolled
 
     with open('coordinate_predict.json') as f:
         myfile = json.load(f)
-        #jj type is dict
         all_subject = myfile['node']
         for i,k in enumerate(all_subject):
             subject = all_subject[i]
             subject['grade'] = y[i]
+            subject['prob'] = probability[i]
+            if subject['name'] in subenrolled:
+                subject['type'] = "enrolled"
         #print myfile
 
     with open('j.json','w+') as f:
@@ -221,13 +230,10 @@ def userprofile(request):
             #update
             if Student.objects.filter(username__username=username).exists() :
                 record = Student.objects.get(username__username=username)
-                #print "record"
                 record.firstname = value['firstname']
                 record.lastname = value['lastname']
                 record.std_id = record.std_id
-                #record.std_id = value['std_id']
                 record.email = value['email']
-                #float .00
                 record.sch_gpa = value['sch_gpa']
                 record.admit_year = value['admit_year']
                 record.province_id = value['province_id']
@@ -266,21 +272,18 @@ def jsonStudent(request):
 
 def coordinate_home(request):
     with open('coordinate_home.json') as f:
-        myfile1 = json.load(f)
+        myfile = json.load(f)
         #print myfile1
 
-    return JsonResponse({'myfile1':myfile1})
+    return JsonResponse({'myfile':myfile})
 
 def coordinate_predict(request):
     with open('j.json') as f:
         myfile = json.load(f)
     #print myfile
     return JsonResponse({'myfile':myfile})
-    # return HttpResponse("OKKKK")
-
 
 def test(request):
-
     return render(request, 'test.html')
 
 def testcoor(request):

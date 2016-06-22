@@ -12,7 +12,7 @@
 
     <!-- Bootstrap Core CSS -->
     {% load staticfiles %} 
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.minn.css' %}" >
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css' %}" > 
   <!-- Custom CSS --> 
     <link rel="stylesheet" type="text/css" href="{% static 'agency.css' %}" > 
@@ -46,8 +46,8 @@
         <div class="navbar-collapse collapse navbar-right">
       <!-- ####banner#### -->
           <div id="banner-top">
-            <span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
             <span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
+            <span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
           </div>
          
         </div><!--/.nav-collapse -->
@@ -163,12 +163,11 @@ app.controller('myCtrl', function($scope, $q, $http, $window) {
     $scope.btnSave = function(){
 
       if(Object.keys($scope.uprofile['user']).length != 7){
-        alert("กรอกกกกกกกกกกกกก")
+        alert("กรุณากรอกข้อมูลให้ครบถ้วน")
       }else{
         $http.post("{% url 'userprofile' %}", $scope.uprofile)
         .then(function(response){
-          alert(Object.keys($scope.uprofile['user']).length)
-          console.log($scope.uprofile)
+          //console.log($scope.uprofile)
           $window.alert("บันทึกสำเร็จ");
           $scope.msg = response.data.msg;
           $window.location.href= '../home';
@@ -183,7 +182,7 @@ app.controller('myCtrl', function($scope, $q, $http, $window) {
     $scope.logout = function(){
       $http.get("{% url 'logout' %}")
       .then(function(response){
-        alert('logout') 
+        alert("ออกจากระบบสำเร็จ") 
         $window.location.href= '../../authen/login';
       });
     }
