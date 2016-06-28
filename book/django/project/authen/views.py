@@ -50,11 +50,11 @@ def registration(request):
 			if not User.objects.filter(username=uname).exists():
 				createUser = User.objects.create_user(username= uname, password= password)
 				createUser.save()
-				return HttpResponse("OK")
+				return HttpResponse("Create Account Successfully")
 			elif User.objects.filter(username=uname).exists():
-				return HttpResponse("user is exist")
+				return HttpResponse("User is exist")
 		else:
-			return HttpResponse("password is not valid")
+			return HttpResponse("Password is not valid")
 
 
 def pleaselogin(request):

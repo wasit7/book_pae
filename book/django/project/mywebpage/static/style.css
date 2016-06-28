@@ -61,6 +61,7 @@ ul#regist {
 
 /* banner */
 #banner-top{
+	background-image: url("banner/new-banner-top.jpg");
 	height: 50px;
 	text-align: center;
 }
@@ -195,4 +196,5 @@ tr#head-table{
 #btnEdit{
 	text-align: center;
 }
+
 

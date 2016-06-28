@@ -1,3 +1,0 @@
-order grade by subid
-
-[ 0,  0,  0, ...,  0,  7,  0]

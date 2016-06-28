@@ -2,14 +2,10 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <title>Graph Predict - Edit Profile</title>
 
   {% load staticfiles %} 
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}" > 
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.minn.css' %}" > 
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css' %}" >
   <!-- Custom CSS --> 
     <link rel="stylesheet" type="text/css" href="{% static 'agency.css' %}" > 
@@ -38,8 +34,8 @@
           <div id="banner-top">
             <div class="row">
               <div class="pull-right">
-                <span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
                 <span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
+                <span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
               </div>
             </div>
           </div>
@@ -66,15 +62,15 @@
 <section id="about">
     
     <!--style="overflow-y: scroll; height:500px;"-->
-    <div  class="container col-xs-6 pre-scrollable" >
+    <div  id="conSub" style="height:700px" class="container col-xs-6 pre-scrollable" >
         <h3 >Select subject:</h3>
-        <div  ng-repeat="(key,value) in subjects" >
+        <div  ng-repeat="(key,value) in subjects">
 
             <input type="checkbox" ng-model="value.selected" ng-change="checkedSub()"><label>{{key}} {{value.sub_name}}<label/>
         </div>
     </div>
     
-    <div class="container col-xs-6  pre-scrollable" >
+    <div id="conEnroll" style="height:700px" class="container col-xs-6  pre-scrollable" >
         <h3>Enrolled:</h3>
         <table class="table table-bordered">
             <thead>
@@ -88,16 +84,17 @@
             <tr ng-repeat="(key,value) in enrollments" >   
                 <td>
                     <select ng-model="enrollments[key].year" ng-init="enrollments[key].year">
-                        <option value=2552>2552</option>
-                        <option value=2553>2553</option>
-                        <option value=2554>2554</option>
                         <option value=2555>2555</option>
+                        <option value=2556>2556</option>
+                        <option value=2557>2557</option>
+                        <option value=2558>2558</option>
                     </select>
                 </td>
                 <td>
                     <select id="selTerm" ng-model="enrollments[key].term" ng-init="enrollments[key].term">
                         <option value=1>1</option>
                         <option value=2>2</option>
+                        <option value=3>3(ภาคฤดูร้อน)</option>
                     </select>
                 </td>
                 <td> {{key}} </td>
@@ -145,8 +142,6 @@ app.controller('myCtrl', function($scope, $http, $q, $window) {
     $q.all([AllSubject, AllEnrollment]).then(function(response){
         $scope.subjects = response[0].data;
         $scope.enrollments = response[1].data;
-        //console.log(typeof($scope.enrollments));
-        //console.log($scope.enrollments);
         for(i in $scope.subjects){
             $scope.subjects[i].selected = false
 
@@ -179,11 +174,12 @@ app.controller('myCtrl', function($scope, $http, $q, $window) {
       if(Object.keys($scope.enrollments).length == 0){
           alert("กรุณากรอกข้อมูล");
       }else{
-          $http.post("{% url 'addprofile' %}", $scope.enrollments)
-          .then(function(response){
-              $window.alert("แก้ไขสำเร็จ");
-              $window.location.href = '../showprofile';
-          });
+          //alert(Object.keys($scope.enrollments).length);
+            $http.post("{% url 'addprofile' %}", $scope.enrollments)
+            .then(function(response){
+                $window.alert("แก้ไขสำเร็จ");
+                $window.location.href = '../showprofile';
+            });
       }
     }
     
@@ -191,7 +187,7 @@ app.controller('myCtrl', function($scope, $http, $q, $window) {
     $scope.logout = function(){
       $http.get("{% url 'logout' %}")
       .then(function(response){
-        alert('logout') 
+        alert("ออกจากระบบสำเร็จ") 
         $window.location.href= '../../authen/login';
       });
     }

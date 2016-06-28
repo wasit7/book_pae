@@ -10,7 +10,7 @@
      <title>Graph Predict - Home</title>
     <!-- Bootstrap Core CSS -->
     {% load staticfiles %} 
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}" > 
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.minn.css' %}" > 
   <!-- Custom CSS --> 
     <link rel="stylesheet" type="text/css" href="{% static 'agency.css' %}" >
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
@@ -39,8 +39,8 @@
           <div id="banner-top">
             <div class="row">
               <div class="pull-right">
-                <span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
                 <span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
+                <span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
               </div>
             </div>
           </div>
@@ -84,7 +84,8 @@
                                     <h4 class="subheading"></h4>
                                 </div>
                                 <div class="timeline-body">
-                                    <p class="text-muted">TU 110 Integrated Humanities<br>
+                                    <p class="text-muted">
+                  TU 110 Integrated Humanities<br>
                   TU 120 Integrated Social Sciences<br>
                   TU 130 Integrated Sciences and Technology<br>
                   TU 154 Foundation of Mathematics<br>
@@ -167,7 +168,7 @@
                                     <h4 class="subheading">แต่ละวิชาสอบไล่ไม่ต่ำกว่า C(2.00)</h4>
                                 </div>
                                 <div class="timeline-body">
-                                    <p class="text-muted">
+                                    <div class="text-muted">
                   CS 101 Discrete Structures<br>
                   CS 102 Computer Programming Fundamentals<br>
                   CS 111 Object-Oriented Programming<br>
@@ -179,7 +180,7 @@
                   CS 281 Object-Oriented Analysis and Design<br>
                   CS 341 Operating Systems I<br>
                   CS 342 Net-Centric Computing I<br>
-                  </p>
+                  </div>
                                 </div>
                 <div class="timeline-heading">
                                     <h4 class="subheading"><br>กลุ่มวิชาสอบไล่เฉลี่ยไม่ต่ำกว่าC(2.00)</h4>
@@ -209,10 +210,7 @@
 {% endverbatim %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  
 
-  <!-- Custom Theme JavaScript -->
-  <script type="text/javascript" src="{% static "agency.js" %}"></script>
 
   <script>
 var app = angular.module('home', []);
@@ -232,7 +230,7 @@ app.controller('myCtrl', function($scope, $http, $q, $window) {
     $scope.logout = function(){
       $http.get("{% url 'logout' %}")
       .then(function(response){
-        alert('logout') 
+        alert("ออกจากระบบสำเร็จ") 
         $window.location.href= '../../authen/login';
       });
     }

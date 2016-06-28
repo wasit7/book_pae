@@ -96,7 +96,7 @@ app.controller('myCtrl', function($scope, $http, $window) {
 	$scope.btnOk = function(){
 		$http.post("{% url 'registration' %}", $scope.user)
 		.then(function(response){
-			if(response.data == 'OK'){
+			if(response.data == 'Create Account Successfully'){
 				$window.alert(response.data)
 				$window.location.href = '../login';
 			}
