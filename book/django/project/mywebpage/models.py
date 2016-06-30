@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Student(models.Model):
 	firstname = models.CharField(max_length=30)
 	lastname = models.CharField(max_length=20)
-	std_id = models.CharField(max_length=10,primary_key=True, unique=True)
+	std_id = models.IntegerField(primary_key=True, unique=True)
 	username = models.ForeignKey(User)
 	email = models.EmailField(max_length=255)
 	#birthdate = models.DateField()

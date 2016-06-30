@@ -21,6 +21,7 @@ def home(request):
             username = User.objects.get(username=request.session['username'])
             student = Student.objects.filter(username__username=username)
             if not student:
+                #url = reverse('userprofile' ,kwargs={'': ''})
                 return HttpResponseRedirect("../userprofile")
             else:
                 return render(request,'home.html')

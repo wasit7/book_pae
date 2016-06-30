@@ -149,7 +149,11 @@ var text_center = false;
 var outline = false;
 var highlight_color = "black";
 var highlight_trans = "0.1";
+ 
+var max_text_size = 24;
 var nominal_stroke = 1.5;
+var max_stroke = 4.5;
+//d3.json("{% static 'j.json' %}", function(error, jsonfile) {
 d3.json("../coordinate_predict", function(error, jsonfile) {
   console.log(jsonfile);
 var js = jsonfile.myfile;
@@ -186,7 +190,7 @@ var svg = d3.select("body").append("svg")
   
 // Per-type markers, as they don't inherit styles.
 svg.append("defs").selectAll("marker")
-    .data(["licensing"])
+    .data(["suit", "licensing", "resolved"])
     .enter().append("marker")
     .attr("id", function(d) { return d; })
     .attr("viewBox", "0 -5 10 10")
@@ -216,11 +220,10 @@ var node = g.selectAll("graph.nodes")
   
 var tocolor = "fill";
 var towhite = "stroke";
-  // if (outline) {
-  //   console.log("twtc")
-  //   tocolor = "stroke"
-  //   towhite = "fill"
-  // }
+  if (outline) {
+    tocolor = "stroke"
+    towhite = "fill"
+  }
 var text = g.selectAll(".text")
      .data(graph.nodes)
      .enter().append("text")
@@ -234,7 +237,7 @@ var click = 0;
       set_highlight(d);
       })
       .on("mousedown", function(d) { 
-        //console.log("downnnn");
+    console.log("downnnn");
         d3.event.stopPropagation();
         focus_node = d;
         set_focus(d)
@@ -242,7 +245,6 @@ var click = 0;
             set_highlight(d)
         })
       .on("mouseout", function(d) {
-        console.log("outtttt");
         exit_highlight();
         })
     
@@ -298,6 +300,7 @@ var click = 0;
                 .duration(500)    
                 .style("opacity", 0);
     click = 0;
+    //console.log(click);
   }
     })
   
@@ -305,6 +308,8 @@ var click = 0;
   function(){
     var re_w = $(window).width(); 
     var re_h = $(window).height(); 
+    console.log([re_w,re_h]);
+    
   });
   
 function set_focus(d)
@@ -351,8 +356,9 @@ function exit_highlight()
   }
 }
   
+  
   function tick() {
-    console.log("tickkk")
+    
     node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
     text.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
   
@@ -360,7 +366,10 @@ function exit_highlight()
       .attr("y1", function(d) { return d.source.y; })
       .attr("x2", function(d) { return d.target.x; })
       .attr("y2", function(d) { return d.target.y; });
+    
   }
+  
+  
 });
 </script>
 <script>

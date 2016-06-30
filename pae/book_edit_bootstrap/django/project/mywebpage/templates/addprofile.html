@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ประวัติผลการเรียน</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
+</head>
+<body>
+<div id="framework">
+    <!-- ####banner#### -->
+    <div id="banner-top">
+        <span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
+        <span id="user">{{request.session.username}}</span>
+    </div>
+
+    <div id="banner-home">
+        <img src="{% static "banner/new-banner-middle.jpg" %}"> 
+    </div>
+
+    <!-- ---------menu------------ -->
+    <div id="menu-bar" style="clear: both;">
+        <ul id="menu">
+          <li ><a href="../home/" id="home">หน้าแรก</a></li>
+          <li><a href="../addprofile/" id="history-click">ประวัติผลการเรียน</a></li>
+          <li><a href="../predict/" id="predict">ทำนายผลการเรียน</a></li>
+        </ul>
+    </div>
+    <div id="topic-home" style="text-align: center;">
+        <img src="{% static "banner/topic-history.jpg" %}">
+    </div>
+
+{% verbatim %}
+<div ng-app="addprofile" ng-controller="myCtrl">
+    <!--<h3>list of subjects: subject table</h3><p>{{subjects}}</p> 
+    <h3>list of enrollment: subject table</h3><p>{{enrollments}}</p>
+    <h2>----------------------------------------------------</h2>-->
+    <div id="containerAllSubjects" style="margin-left: 250px; width:50%; float: left; clear:left;" >
+        <h3 >Select subject:</h3>
+        <div  ng-repeat="(key,value) in subjects | orderBy: 'sub_name'">
+
+            <input type="checkbox" ng-model="value.selected" ng-change="checkedSub()"><label>{{key}} {{value.sub_name}}<label/>
+        </div>
+    </div>
+    
+    <div id="containerAllEnrollmented" style="width:45%; float: right; clear:right;">
+        <h3>Enrolled:</h3>
+        <table>
+            <tr>
+                <th>Year</th>
+                <th>Term</th>
+                <th>Subject</th>
+                <th>Grade</th>
+            </tr>
+            <tr ng-repeat="(key,value) in enrollments" >   
+                <td>
+                    <select ng-model="enrollments[key].year" ng-init="enrollments[key].year">
+                        <option value=2552>2552</option>
+                        <option value=2553>2553</option>
+                        <option value=2554>2554</option>
+                        <option value=2555>2555</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="selTerm" ng-model="enrollments[key].term" ng-init="enrollments[key].term">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                    </select>
+                </td>
+                <td> {{key}} </td>
+                <td>
+                    <select ng-model="enrollments[key].grade" ng-init="enrollments[key].grade">
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="F">F</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <button ng-click="submit()" style="text-align: center; margin-top: 250px;">บันทึก</button>
+    
+
+</div>
+{% endverbatim %}
+
+<script> 
+var app = angular.module('addprofile', []);
+app.config(function($httpProvider){
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken'
+});
+
+app.controller('myCtrl', function($scope, $http, $q, $window) {
+    var AllSubject = $http.get("{% url 'jsonSubject' %}"),
+        AllEnrollment = $http.get("{% url 'jsonEnrollment' %}");
+    $q.all([AllSubject, AllEnrollment]).then(function(response){
+        $scope.subjects = response[0].data;
+        $scope.enrollments = response[1].data;
+        //console.log($scope.enrollment);
+        for(i in $scope.subjects){
+            $scope.subjects[i].selected = false
+        }
+
+        for(j in $scope.enrollments){
+            for(i in $scope.subjects){
+                if(i == j){
+                    $scope.subjects[i].selected = true
+                }
+            }
+        }
+    })
+
+    $scope.checkedSub = function(){
+        angular.forEach($scope.subjects, function(value, key){
+            if(!(key in $scope.enrollments) && value.selected == true){
+                $scope.enrollments[key] = {}
+            }else if((key in $scope.enrollments) && value.selected == false){
+                delete $scope.enrollments[key]
+            }
+        })
+    }
+
+    $scope.submit = function(){
+        $http.post("{% url 'addprofile' %}", $scope.enrollments)
+        .then(function(response){
+            $window.alert("แก้ไขสำเร็จ");
+            $window.location.href = '../showprofile';
+        });
+    }
+    
+})
+
+
+</script>
+</body>
+</html>

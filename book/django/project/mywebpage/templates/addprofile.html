@@ -2,6 +2,10 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <title>Graph Predict - Edit Profile</title>
 
   {% load staticfiles %} 
@@ -142,6 +146,9 @@ app.controller('myCtrl', function($scope, $http, $q, $window) {
     $q.all([AllSubject, AllEnrollment]).then(function(response){
         $scope.subjects = response[0].data;
         $scope.enrollments = response[1].data;
+        //console.log(typeof($scope.enrollments));
+        //console.log(response[0].data);
+        //console.log(response[1].data);
         for(i in $scope.subjects){
             $scope.subjects[i].selected = false
 
@@ -173,13 +180,36 @@ app.controller('myCtrl', function($scope, $http, $q, $window) {
     $scope.submit = function(){
       if(Object.keys($scope.enrollments).length == 0){
           alert("กรุณากรอกข้อมูล");
+          // var myObj = {
+          //               'b': 'asdsadfd',
+          //               'c': 'masdasaf',
+          //               'a': 'dsfdsfsdf'
+          //             },
+          // var keys = Object.keys($scope.enrollments),
+          // i, len = keys.length;
+
+          // console.log(keys)
+
+          // keys.sort();
+
+          // for (i = 0; i < len; i++) {
+          //   k = keys[i];
+          //   alert(k + ':' + $scope.enrollments[k]);
+          // }
       }else{
-          //alert(Object.keys($scope.enrollments).length);
-            $http.post("{% url 'addprofile' %}", $scope.enrollments)
-            .then(function(response){
-                $window.alert("แก้ไขสำเร็จ");
-                $window.location.href = '../showprofile';
-            });
+          // var keys = Object.keys($scope.enrollments),
+          // i, len = keys.length;
+          //console.log(keys.sort());
+          // for (i = 0; i < len; i++) {
+          //   k = keys[i];
+          //   alert(k + ':' + $scope.enrollments[k]);
+          // }
+
+          $http.post("{% url 'addprofile' %}", $scope.enrollments)
+          .then(function(response){
+              $window.alert("แก้ไขสำเร็จ");
+              $window.location.href = '../showprofile';
+          });
       }
     }
     

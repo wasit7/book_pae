@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+     <title>Graph Predict-home</title>
+
+    <!-- Bootstrap Core CSS -->
+    {% load staticfiles %} 
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.minn.css' %}" > 
+	<!-- Custom CSS --> 
+		<link rel="stylesheet" type="text/css" href="{% static 'agency.css' %}" > 
+    <!-- Custom Fonts -->
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+	<title>หน้าแรก</title>
+	<script src="https://code.jquery.com/jquery-1.12.0.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
+
+</head>
+
+
+<body id="page-top" class="index">
+
+  
+<!-- Navigation -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" ng-click="login()" href="../../authen/login">Graph Predict</a>
+        </div>
+		
+<!-- Menu and User,Logout -->		
+        <div class="navbar-collapse collapse navbar-right">
+			{% verbatim %}
+			<!-- ####banner#### -->
+			<!-- <div id="banner-top"> -->
+			<div class="row">
+			<div class="pull-right">
+				<span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
+				<span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
+			</div>
+			</div>
+			<div class="row">
+			<ul class="nav navbar-nav">
+				<li class="dropdown active">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">หน้าแรก <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li class="active"><a href="../home/" >รายวิชา</a></li>
+						<li><a ng-click="login()" href="../homeD3/" >แผนผังการเรียน</a></li>
+					</ul>
+				</li>
+				<!-- <li class="active"><a href="home.html">หน้าแรก</a></li> -->
+				<li><a href="../showprofile/" >ประวัติการเรียน</a></li>
+				<li><a href="../predict/">ทำนายผลการศึกษา</a></li>
+			</ul>
+			</div>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+<!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">รายวิชา</h2>
+                    <h3 class="section-subheading text-muted">หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาวิทยาการคอมพิวเตอร์ (หลักสูตรปรับปรุง พ.ศ.2552)</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="timeline">
+                        <li>
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="img/about/1.jpg" alt="">
+								<h4>30 หน่วยกิต</h4>
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>1. วิชาศึกษาทั่วไป</h4>
+                                    <h4 class="subheading"></h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">TU 110 Integrated Humanities<br>
+									TU 120 Integrated Social Sciences<br>
+									TU 130 Integrated Sciences and Technology<br>
+									TU 154 Foundation of Mathematics<br>
+									TH 161 Thai Usage<br>
+									EL 070 English Course 1 (สำหรับผู้ที่มีพื้นฐานความรู้ ยังไม่ถึง EL171)<br>
+									EL 171 English Course 2<br>
+									EL 172 English Course 3<br>
+									EL 295 Academic English I<br>
+									PY 228 Psychology Of Interpersonal Relations<br>
+									เลือก 1 วิชา 3 หน่วยกิตจากรายวิชาต่อไปนี้<br>
+									EC 210 Introductory Economics<br>
+									BA 291 Introduction Of Business<br>
+									HO 201 Principles Of Management<br>
+									TU 122 Law in Every day Life<br></p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="img/about/2.jpg" alt="">
+								<h4>100 หน่วยกิต</h4>
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>2. วิชาเฉพาะ</h4>
+                                    <h4 class="subheading"></h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">
+									EL 395 Academic English II<br>
+									MA 211 Calculus 1<br>
+									MA 212 Calculus 2<br>
+									MA 332 Linear Algebra<br>
+									ST 216 Statistics For Social Science Students 1<br>
+									SC 135 General Physics,SC 185 General Physics Laboratory หรือ SC 123 Fundamental Chemistry,SC 173 Fundamental Chemistry Laboratory<br>
+									CS 101 Discrete Structures<br>
+									CS 102 Computer Programming Fundamentals<br>
+									CS 111 Object-Oriented Programming<br>
+									CS 213 Data Structures<br>
+									CS 214 Social and Professional Ethics<br>
+									CS 222 Programming Languages and Paradigms<br>
+									CS 223 Computer Organization and Architecture<br>
+									CS 251 Database Systems I<br>
+									CS 261 Human Information Processing<br>
+									CS 281 Object-Oriented Analysis and Design<br>
+									CS 284 Introduction to Software Engineering<br>
+									CS 301 Fundamental of Research Methodology<br>
+									CS 302 Computer Security<br>
+									CS 311 Design and Analysis of Algorithms<br>
+									CS 314 Theory of Computation<br>
+									CS 341 Operating Systems I<br>
+									CS 342 Net-Centric Computing I<br>
+									CS 374 Human – Computer Interaction<br>
+									CS 401 Special Projects 1<br>
+									CS 402 Special Projects 2<br>
+									...และวิชาเลือกในรหัส CS อื่นๆ จำนวน24 หน่วยกิต<p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="img/about/3.jpg" alt="">
+								<h4>6 หน่วยกิต</h4>
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>3. วิชาเลือกเสรี</h4>
+                                    <h4 class="subheading"></h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">นักศึกษาสามารถเลือกศึกษาวิชาใดก็ได้ที่เปิดสอนในมหาวิทยาลัยธรรมศาสตร์เป็นวิชาเลือก เสรีจานวนไม่น้อยกว่า 6 หน่วยกิต</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="img/about/4.jpg" alt="">
+								<h4>ข้อกำหนด</h4>
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>**การวัดผลการศึกษา**</h4>
+                                    <h4 class="subheading">แต่ละวิชาสอบไล่ไม่ต่ำกว่า C(2.00)</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">
+									CS 101 Discrete Structures<br>
+									CS 102 Computer Programming Fundamentals<br>
+									CS 111 Object-Oriented Programming<br>
+									CS 213 Data Structures<br>
+									CS 214 Social and Professional Ethics<br>
+									CS 222 Programming Languages and Paradigms<br>
+									CS 223 Computer Organization and Architecture<br>
+									CS 251 Database Systems I<br>
+									CS 281 Object-Oriented Analysis and Design<br>
+									CS 341 Operating Systems I<br>
+									CS 342 Net-Centric Computing I<br>
+									</p>
+                                </div>
+								<div class="timeline-heading">
+                                    <h4 class="subheading"><br>กลุ่มวิชาสอบไล่เฉลี่ยไม่ต่ำกว่าC(2.00)</h4>
+                                </div>
+								<div class="timeline-body">
+                                    <p class="text-muted">
+									CS 101 Discrete Structures<br>
+									CS 102 Computer Programming Fundamentals<br>
+									CS 111 Object-Oriented Programming<br>
+									CS 213 Data Structures<br>
+									CS 214 Social and Professional Ethics<br>
+									CS 223 Computer Organization and Architecture<br>
+									</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <h4>ไม่น้อยกว่า 136 หน่วยกิต</h4>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+	
+
+<!-- <script type="text/javascript" src="{% static "jquery.js" %}"></script> -->
+
+
+<!-- Bootstrap Core JavaScript -->
+<!-- <script type="text/javascript" src="{% static "bootstrap.min.js" %}"></script> -->
+
+<!-- Plugin JavaScript -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script type="text/javascript" src="{% static "classie.js" %}"></script>
+<script type="text/javascript" src="{% static "cbpAnimatedHeader.js" %}"></script>
+
+
+<!-- Contact Form JavaScript -->
+<script type="text/javascript" src="{% static "jqBootstrapValidation.js" %}"></script>
+<script type="text/javascript" src="{% static "contact_me.js" %}"></script>
+	
+
+<!-- Custom Theme JavaScript -->
+<script type="text/javascript" src="{% static "agency.js" %}"></script>
+
+
+</body>
+</html>

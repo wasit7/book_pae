@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Graph Predict-userprofile</title>
+
+    <!-- Bootstrap Core CSS -->
+    {% load staticfiles %} 
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.minn.css' %}" > 
+	<!-- Custom CSS --> 
+		<link rel="stylesheet" type="text/css" href="{% static 'agency.css' %}" > 
+    <!-- Custom Fonts -->
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+	<script src="https://code.jquery.com/jquery-1.12.0.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.min.js" charset="utf-8"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" >
+
+</head>
+
+
+
+
+
+
+
+
+<body id="page-top" class="index">
+
+<!-- Navigation -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" ng-click="login()" href="../../authen/login">Graph Predict</a>
+        </div>
+		
+<!-- Menu and User,Logout -->		
+        <div class="navbar-collapse collapse navbar-right">
+			{% verbatim %}
+			<!-- ####banner#### -->
+			<div id="banner-top">
+				<span id="logout" ng-click="logout()"><button>ออกจากระบบ</button></span>
+				<span id="user"><a href ng-click="profile()">{% endverbatim %}{{request.session.username}}</a></span>
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="dropdown active">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">หน้าแรก <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li class="active"><a href="../home/" >รายวิชา</a></li>
+						<li><a ng-click="login()" href="../homeD3/" >แผนผังการเรียน</a></li>
+					</ul>
+				</li>
+				<!-- <li class="active"><a href="home.html">หน้าแรก</a></li> -->
+				<li><a href="../showprofile/" >ประวัติการเรียน</a></li>
+				<li><a href="../predict/">ทำนายผลการศึกษา</a></li>
+			</ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+<section id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">ข้อมูลผู้ใช้</h2>
+                    <h3 class="section-subheading text-muted">**เพื่อใช้ในการทำนายผลการเรียน**</h3>
+                </div>
+            </div>
+		<div class="row"> 
+			<div class="clearfix"></div> 
+			<div class="col-sm-3">
+			</div> 
+			
+			{% verbatim %} 
+			<!-- left column -->
+			<div  ng-app="userprofile" ng-controller="myCtrl">
+				<form name="myform" novalidate>
+					<div class="col-sm-3">
+						<div class="form-group"> 
+							<input type="text" name="firstname" ng-model="uprofile['user'].firstname" class="form-control" placeholder="ชื่อจริง*" id="name" required="" data-validation-required-message="Please enter your name." /> 
+							<p class="help-block text-danger"></p> 
+						</div> 
+						<div class="form-group"> 
+							<input type="text" name="std_id" ng-model="uprofile['user'].std_id" class="form-control" placeholder="รหัสนักศึกษา*" id="email" required="" data-validation-required-message="Please enter your email address." /> 
+							<p class="help-block text-danger"></p> 
+						</div>
+						<div class="form-group"> 
+							<input type="text" name="sch_gpa" ng-model="uprofile['user'].sch_gpa" class="form-control" placeholder=" เกรดเฉลี่ยที่โรงเรียน*" id="email" required="" data-validation-required-message="Please enter your email address." /> 
+							<p class="help-block text-danger"></p> 
+						</div>
+						<div class="form-group"> 
+							<input type="text" name="province_id" ng-model="uprofile['user'].province_id" class="form-control" placeholder=" จังหวัด*" id="email" required="" data-validation-required-message="Please enter your email address." /> 
+							<p class="help-block text-danger"></p> 
+						</div>
+					</div> 
+			
+			<!-- right column -->
+					<div class="col-sm-3" text-center"=""> 
+						
+						<div class="form-group"> 
+							<input type="text" name="lastname" ng-model="uprofile['user'].lastname" class="form-control" placeholder="นามสกุล*" id="email" required="" data-validation-required-message="Please enter your email address." /> 
+							<p class="help-block text-danger"></p> 
+						</div> 
+						
+						<div class="form-group"> 
+							<input type="text" name="email" ng-model="uprofile['user'].email" class="form-control" placeholder="อีเมลล์" id="email" required="" data-validation-required-message="Please enter your email address." /> 
+							<p class="help-block text-danger"></p> 
+						</div>
+						
+						<div class="form-group"> 
+							<input type="text" name="admit_year" ng-model="uprofile['user'].admit_year" class="form-control" placeholder="  ปีการศึกษาที่เข้าเรียน*" id="email" required="" data-validation-required-message="Please enter your email address." /> 
+							<p class="help-block text-danger"></p> 
+						</div>
+								
+					</div> 
+					
+					<div class="clearfix"></div> 
+					<div class="col-lg-12 text-center">
+						<button ng-click="btnOk()" class="btn btn-xl">ยืนยัน</button>
+						<button ng-click="btnCancel()"><a>ยกเลิก</a></button> 
+					</div>
+				</form>
+				user : {{uprofile}} <br/>
+			</div>
+			{% endverbatim %}
+			
+		
+		</div> 
+	</div> 
+</div> 	
+	
+
+
+<script>
+var app = angular.module('userprofile', []);
+app.config(function($httpProvider){
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken'
+});
+
+app.controller('myCtrl', function($scope, $q, $http, $window) {
+    /*var Provience = $http.get("{% url 'jsonProvience' %}"),
+        Uprofile = $http.get("{% url 'jsonStudent' %}");
+    $q.all([Provience, Uprofile]).then(function(response){
+        $scope.provience = response[0].data;
+        $scope.uprofile = response[1].data;
+        console.log($scope.provience)
+    })*/
+    $http.get("{% url 'jsonStudent' %}")
+    .then(function(response){
+        $scope.uprofile = response.data;
+        //console.log($scope.uprofile)
+    });
+
+    
+    $scope.btnSave = function(){
+      $http.post("{% url 'userprofile' %}", $scope.uprofile)
+      .then(function(response){
+        console.log($scope.uprofile)
+          $window.alert("บันทึกสำเร็จ");
+          $scope.msg = response.data.msg;
+          console.log($scope.msg)
+      });
+    }
+
+    $scope.btnCancel = function(){
+      $window.location.href = '../home';
+    }
+});
+</script>
+</body>
+</html>

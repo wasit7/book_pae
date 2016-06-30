@@ -1,3 +1,0 @@
-Django==1.9
-scikit-learn
-python-scipy
